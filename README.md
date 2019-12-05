@@ -3,7 +3,7 @@ IUT Paris Descartes - 2019 - Enseignant : POITRENAUD Denis.
 
 ## Algorithme et Programmation en C.
 
-Dans le cadre du cours de Bases de la programmation orientée objeten C, Denis Poitrenaud a proposé de développer un jeu : Le Tic-Tac-Toe, aussi appelé Morpion et OxO en Belgique.
+Dans le cadre du cours de Bases de la programmation orientée objet en JAVA, Denis Poitrenaud a proposé de développer un jeu : Le Tic-Tac-Toe, aussi appelé Morpion et OxO en Belgique.
 
 ## Auteurs
 
