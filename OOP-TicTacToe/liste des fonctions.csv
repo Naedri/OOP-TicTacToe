@@ -1,42 +1,56 @@
-Application;Package;Classes;Champs_nom;Méthode_nom;Etat;Commentaire; Modificateur;Champs_ValeurType;Methode_ValeurRetournée; argument1_type; argument1_nom; argument1_type; argument1_nom; argument1_type; argument1_nom
-;;;;;;;;;;;;;;;
-1ere;morpion;Jeton;jeton;;à coder;;private;char;;;;;;;
-;;;casse;;à coder;;private;boolean;;;;;;;
-;;;;changerCasse;à coder;;no modifier;;void;Jeton;jeton;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;no modifier;boolean;;;;;;;
-;;;;;;;;;;;;;;;
-;;Grille;cellule;;;;;;;;;;;;
-;;;colonne;;à coder;;private;int;;;;;;;
-;;;ligne;;à coder;;private;int;;;;;;;
-;;;tabJeu[ligne][colonne];;à coder;;private;String;;;;;;;
-;;;;afficherTab;à coder;;public;;void;tabJeu[][];;;;;
-;;;;estPleineCase;à coder;;public;;boolean;int;c;int;l;;
-;;;;estPleineGrille;à coder;;public;;boolean;tabJeu[][];;;;;
-;;;;getColonne;à coder;;public;;int;tabJeu[][];;;;;
-;;;;getLigne;à coder;;public;;int;tabJeu[][];;;;;
-;;;;tabJeu;à coder;constructeur;public;;tabJeu[ligne][colonne];int;colonne;int;ligne;;
-;;;;setCellule;à coder;;private;;void;tabJeu[][];tab;int;colonne;int;ligne
-;;;;getCellule;à coder;;public;;char;tabJeu[][];tab;int;colonne;int;ligne
-;;;;placerJeton;à coder;;public;;void;tabJeu[][];tab;int;colonne;int;ligne
-;;;;;;;;;;;;;;;
-;;Partie;victoire;;à coder;;private;boolean;;;;;;;
-;;;tour;;à coder;on commence à 1;private;int;;;;;;;
-;;;;matchNul;à coder;;public;;boolean;;;;;;
-;;;;matchVictoire;à coder;;public;;boolean;;;;;;
-;;;;getTour;à coder;pair ou impair;public;;int;;;;;;
-;;;;;;;;;;;;;;;
-;;Interface;saisie;;à coder;;private;String;;;;;;;
-;;;messageSaisie;;à coder;cellule choisie par l utilisateur;private;String;;;;;;;
-;;;messageResultat;;à coder;victoire ou non ;private;String;;;;;;;
-;;;messageTour;;à coder;quel est le tour et qui doit jouer;private;String;;;;;;;
-;;;;getSaisie;à coder;;public;;String;();;;;;
-;;;;setSaisie;à coder;;public;;void;();;;;;
-;;;;getMessageSaisie;à coder;;public;;String;();;;;;
-;;;;setMessageSaisie;à coder;;private;;void;String;getSaisie();;;;
-;;;;getMessageResultat;à coder;;public;;String;();;;;;
-;;;;setMessageResultat;à coder;;private;;void;boolean;matchNul();boolean;matchVictoire;;
-;;;;getMessageTour;à coder;;public;;String;();;;;;
-;;;;setMessageTour;à coder;;private;;void;int;getTour;;;;
-;;;;;;;;;;;;;;;
-2eme;;;;;;;;;;;;;;;
+Application,Package,Classes,Champs_nom,Mï¿½thode_nom,Etat,Commentaire, Modificateur,Champs_ValeurType,Methode_ValeurRetournï¿½e, argument1_type, argument1_nom, argument2_type, argument2_nom, argument3_type, argument3_nom
+,,,,,,,,,,,,,,,
+1ere,morpion,Jeton,jeton,,ï¿½ coder,symbole (char),private,char,,,,,,,
+,,,,,,,,,,,,,,,
+,,Grille,cellule,,,"vide (boolean) , jeton",,,,,,,,,
+,,,tabColonne,,ï¿½ coder,taille1 (int),private,int,,,,,,,
+,,,tabLigne,,ï¿½ coder,taille 2(int),private,int,,,,,,,
+,,,tabJeu[ligne][colonne],,ï¿½ coder,,private,String,,,,,,,
+,,,,afficherTab,ï¿½ coder,transforme les valeurs de cellule en [ ] ou [symbole],public,,void,tabJeu[][],,,,,
+,,,,estPleineCase,ï¿½ coder,,public,,boolean,int,c,int,l,,
+,,,,estPleineGrille,ï¿½ coder,,public,,boolean,tabJeu[][],,,,,
+,,,,getColonne,ï¿½ coder,,public,,int,tabJeu[][],,,,,
+,,,,getLigne,ï¿½ coder,,public,,int,tabJeu[][],,,,,
+,,,,tabJeu,ï¿½ coder,constructeur,public,,tabJeu[ligne][colonne],int,colonne,int,ligne,,
+,,,,setCellule,ï¿½ coder,,private,,void,tabJeu[][],tab,int,colonne,int,ligne
+,,,,getCellule,ï¿½ coder,,public,,char,tabJeu[][],tab,int,colonne,int,ligne
+,,,,placerJeton,ï¿½ coder,pas un synonyme de getCellule car verifie si en dehors de la grille,public,,void,tabJeu[][],tab,int,colonne,int,ligne
+,,,,estAligner,ï¿½ coder,les 3point donnÃ©s sont ils alignÃ©sÂ ?,public,,boolean,tabJeu[i][j],cellule1,tabJeu[i][j],cellule2,tabJeu[i][j],cellule3
+,,,,alignementCellule,ï¿½ coder,le jeton ajoutÃ© dans cellule est incluse dans combien d alignement,public,,int,tabJeu[i][j],cellule1,,,,
+,,,,,,,,,,,,,,,
+,,Partie,victoire,,ï¿½ coder,,private,boolean,,,,,,,
+,,,tour,,ï¿½ coder,on commence ï¿½ 1,private,int,,,,,,,
+,,,,matchNul,ï¿½ coder,,public,,boolean,,,,,,
+,,,,matchVictoire,ï¿½ coder,,public,,boolean,,,,,,
+,,,,getTour,ï¿½ coder,pair ou impair,public,,int,,,,,,
+,,,,,,,,,,,,,,,
+,,Interface,saisieCellule,,ï¿½ coder,renvoie l input de l utilisateur sous format brute (table Ã  1 colonne 2 lignes),private,String,,,,,,,
+,,,messageCellule,,ï¿½ coder,"message sous forme en reponse de la saisieCellule, avec la formeÂ : Lâ€™utilisateur X (resp O) a saisie la cellule Â«[i],[j]Â»",private,String,,,,,,,
+,,,messageResultat,,ï¿½ coder,victoire ou non ,private,String,,,,,,,
+,,,messageTour,,ï¿½ coder,quel est le tour et qui doit jouer,private,String,,,,,,,
+,,,,getSaisieCellule,ï¿½ coder,,public,,String,(),,,,,
+,,,,setSaisieCellule,ï¿½ coder,securise le choix de la cellule par l utilisateur l entrÃ©e de l utilisateur,public,,void,(),,,,,
+,,,,getMessageCellule,ï¿½ coder,,public,,String,(),,,,,
+,,,,setMessageCellule,ï¿½ coder,,private,,,,getSaisie(),,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,getMessageResultat,ï¿½ coder,,public,,String,(),,,,,
+,,,,setMessageResultat,ï¿½ coder,,private,,void,boolean,matchNul(),boolean,matchVictoire,,
+,,,,getMessageTour,ï¿½ coder,,public,,String,(),,,,,
+,,,,setMessageTour,ï¿½ coder,,private,,void,int,getTour,,,,
+,,,,,,,,,,,,,,,
+2eme,tictactoe,Jeton,jeton,,ï¿½ coder,"symbole (char), ouvert (boolean)",private,char,,,,,,,
+,,,,minMaj,ï¿½ coder,transforme les symboles de minuscle en majuscule,no modifier,,void,Jeton,jeton,,,,
+,,,,estMin,ï¿½ coder,permet d identifier le souvert et pas ouvert symboles,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,Menu,choix utilisateur,,ï¿½ coder,,private,int,,,,,,,
+,,,,getChoixUtilisateur,ï¿½ coder,,public,,void,(),,,,,
+,,,,setChoixUtilisateur,ï¿½ coder,,public,,String,(),,,,,
+,,,,affichageMenu,ï¿½ coder,,public,,void,(),,,,,
+,,,,,,,,,,,,,,,
+,,Grille,cellule,,,"vide (boolean) , symbole (char), ouvert (boolean)",,,,,,,,,
+,,,,,,,,,,,,,,,
+,,Partie,joueur,,ï¿½ coder,dÃ©nombre les points,,,,,,,,,
+,,,,setPointJoueur,ï¿½ coder,,,,,,,,,,
+,,,,getPointJoueur,ï¿½ coder,,,,,,,,,,
+,,,,marquerPoint,,augmentation de setPointJoueur avec estAligner,,,,,,,,,
