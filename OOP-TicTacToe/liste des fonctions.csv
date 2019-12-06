@@ -1,2 +1,7 @@
-Application;Package;Classes;FonctionNom; Modificateur;Valeur retournée; argument1_type; argument1_nom; argument1_type; argument1_nom; argument1_type; argument1_nom
-1  ere;;;;;;;;;;;
+Application;Package;Classes;Champs_nom;Méthode_nom; Modificateur;Valeur retournée; argument1_type; argument1_nom; argument1_type; argument1_nom; argument1_type; argument1_nom
+1  ere;morpion;Jeton;;uppetToLower();no modifier;void;Jeton;jeton;;;;
+;;;;;;;;;;;;
+;;Grille;colonne;;private;;;;;;;
+;;;ligne;;private;;;;;;;
+;;;tabJeu[ligne][colonne];;private;String;;;;;;
+;;;;affichTab;;;;;;;;
