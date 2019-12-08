@@ -118,10 +118,16 @@ la sauvegarde de victoire et de pattern de forme de victoire
 3. Jouer
 	1. Retour
 	2. MORPION
+		+ Determiner taille grille
+			+ largeur 
+			+ longueur
+		+ Determiner nombre de jeton à aligner
+
 	3. TIC TAC TOE 
 		+ Determiner taille grille
 			+ largeur 
 			+ longueur
+		+ Determiner nombre de jeton à aligner
 		+ Joueur nom saisie
 	4. Bazar
 		+ Determiner taille grille
