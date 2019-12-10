@@ -2,7 +2,7 @@ Application,Package,Classes,Champs_nom,M�thode_nom,Etat,Commentaire, Modificat
 ,,,,,,,,,,,,,,,
 1ere,Morpion,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
-,,Grille,cellule,,,symbole (char) – Adrien peut etre à enlever,,,,,,,,,
+,,Grille,cellule,,,symbole (char) – Adrien peut etre à enlever Oui il faut la remplacer par jeton,,,,,,,,,
 ,,,tabColonne,,� coder,taille1 (int),private,int,,,,,,,
 ,,,tabLigne,,� coder,taille 2(int),private,int,,,,,,,
 ,,,tabJeu[ligne][colonne],,� coder,de cellule (symbole char vie ou X ou O),private,String,,,,,,,
@@ -15,8 +15,14 @@ Application,Package,Classes,Champs_nom,M�thode_nom,Etat,Commentaire, Modificat
 ,,,,setCellule,� coder,,private,,void,tabJeu[][],tab,int,colonne,int,ligne
 ,,,,getCellule,� coder,,public,,char,tabJeu[][],tab,int,colonne,int,ligne
 ,,,,placerJeton,� coder,pas un synonyme de getCellule car verifie si en dehors de la grille,public,,void,int,colonne,int,ligne,,
-,,,,estAligner,� coder,les 3point donnés sont ils alignés ? Peut etre mieux d utiliser estAlignerX,public,,boolean,tabJeu[i][j],cellule1,tabJeu[i][j],cellule2,tabJeu[i][j],cellule3
-,,,,alignementCellule,� coder,le jeton ajouté dans cellule est incluse dans combien d alignement,public,,int,tabJeu[i][j],cellule1,,,,
+,,,,alignementCellule,� coder,le point evalué est impliqué dans combien alignement de "profondeur" point (verification de la direction donnée),public,,int,char tabJeu[i][j],int profondeur,Direction d,,,
+,,,,alignementCellule,� coder,le point evalué est impliqué dans combien alignement de "profondeur" point (verification de tous les directions),public,,int,char tabJeu[i][j],int profondeur,,,,
+,,,,,,,,,,,,,,,
+,,Jeton,jeton,,,symbole (char) de type enum : X O et vide '',,,,,,,,,
+,,,,,,,,,,,,,,,
+,,Direction,direction,,,direction (x,y) de type enum : EST NORD_EST NORD etc,,,,,,,,,
+,,,,getDx,� coder,,public,,int,(),,,,
+,,,,getDy,� coder,,public,,int,(),,,,,
 ,,,,,,,,,,,,,,,
 ,,Partie,victoire,,� coder,,private,boolean,,,,,,,
 ,,,tour,,� coder,on commence � 1,private,int,,,,,,,
