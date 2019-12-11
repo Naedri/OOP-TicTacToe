@@ -9,12 +9,16 @@ public enum Jeton {
 	private char jeton ;
 	private boolean ouvert ;
 	
+	//Jeton enum
 	private Jeton(char jeton, boolean ouvert) {
 		this.jeton = jeton;
 		this.ouvert = ouvert ;
 	}
+	public boolean estEgal(Jeton jetonCible) {
+		return ( this.jeton==jetonCible.jeton && this.ouvert==jetonCible.ouvert);
+	}
 	
-	
+	//jeton charactere
 	public char getJeton() {
 		return this.jeton;
 	}
@@ -23,6 +27,7 @@ public enum Jeton {
 		return this.equals(JETON_VIDE);
 	}
 	
+	//ouvert boolean
 	public boolean estOuvert() {
 		return this.ouvert ;
 	}
