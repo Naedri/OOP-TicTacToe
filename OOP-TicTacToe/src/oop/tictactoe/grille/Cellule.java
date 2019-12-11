@@ -1,42 +1,42 @@
 package oop.tictactoe.grille;
 
-public enum Jeton {
+public enum Cellule {
 
 	JETON_VIDE(' ', false), JETON_X ('X',true), JETON_O ('O',true), JETON_X_MIN ('x',false), JETON_O_MIN ('o',false);
 
 	private char jeton ;
 	private boolean ouvert ;
 	
-	private Jeton(char jeton, boolean ouvert) {
+	private Cellule(char jeton, boolean ouvert) {
 		this.jeton = jeton;
 		this.ouvert = ouvert ;
 	}
 	
 	
-	public char getJeton() {
+	public char getCellule() {
 		return this.jeton;
+	}
+	
+	public boolean estVide() {
+		return this.equals(JETON_VIDE);
 	}
 	
 	public boolean estOuvert() {
 		return this.ouvert ;
 	}
 	
-	private Jeton ouvertInversion() {
-		return Jeton.values()[(this.ordinal() +2) %4];
+	private Cellule ouvertInversion() {
+		return Cellule.values()[(this.ordinal() +2) %5];
 	}
 	
-	public Jeton ouvertToFerme() {
+	public Cellule ouvertToFerme() {
 		assert(this.ouvert == true) ;
 		return this.ouvertInversion() ;
 	}
 	
 	//toString
-	public String jetonToCellule() {
+	public String toString() {
 		return "" + '[' + this.jeton + ']' ;  // "" shortcut to cast from char to string
-	}
-	public String toString(){
-		String sJeton = "Le jeton est" + this.jeton + '.' ;
-		return sJeton ;
 	}
 	
 }
