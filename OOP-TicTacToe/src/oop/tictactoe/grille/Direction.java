@@ -1,5 +1,5 @@
 package oop.tictactoe.grille;
 
-public class Direction {
+public enum Direction {
 
 }
