@@ -1,5 +1,9 @@
 package oop.tictactoe.grille;
+
 import java.util.EnumSet;
+
+import oop.tictactoe.grille.Direction;
+import oop.tictactoe.grille.Jeton;
 
 public class Grille {
 
@@ -93,8 +97,66 @@ public class Grille {
 		this.grille[ligne][colonne] = jeton;
 	}
 	
+	//remplissageGrille
+	/**
+	 * remplissage aléatoire avec caractère ouvert, 
+	 * au bout d un nombre d insertion definie, à chaque insertion de nouveau jeton 
+	 * controler si une forme de victoire vient d etre generee, 
+	 * si c est le cas on change le symbole insérer, 
+	 * si cela forme une victoire, on laisse le jeton 
+	 * mais on va  modifier le jeton n-1 constituant le forme dans la linkedList, 
+	 * on verifie si ce changement génère une victoire pour le joueur opposé, 
+	 * si c est le cas on laisse le jeton dans sa forme initiale (avant verif) 
+	 * et on passe au jeton n+1
+	 */
+	public void remplissageGrille() {
+		
+	}
 	
-	//celluleMiroir
+	private void enleverJeton() {
+		
+	}
+	
+	/**
+	 * enleverJeton puis placerJeton dans la cellule qui vient d etre enlever à partir de la cellule destination puis enleverJeton dans la cellule source puis placerJeton dans la cellule source
+	 */
+	public void permutationJeton() {
+		//enleverJeton
+		//placerJeton
+	}
+	
+	//jetonAdjacent
+	public boolean existeAdjacent(int ligne, int colonne) {
+		assert (ligne <= this.lignes && colonne <= this.colonnes); //la cellule doit être dans la grille
+		assert (!estVideCellule(ligne, colonne)); // la cellule doit etre vide
+	    
+		for (Direction direction : Direction.values()) {
+	    	int cibleColonne = direction.getDcolonne() + colonne ;
+			int cibleLigne =  direction.getDligne() + ligne ;
+			if (cibleLigne <= this.lignes && cibleColonne <= this.colonnes) {
+				Jeton cibleJeton = this.grille[cibleLigne][cibleColonne] ;
+				if (!cibleJeton.estVide())
+					return true ;
+			}
+	    }	    	
+		return false ;
+	}
+	/**
+	 * placer un jeton acolle aux autres existant
+	 * @param jeton
+	 * @param ligne
+	 * @param colonne
+	 */
+	public void placerJetonAdjacent(Jeton jeton, int ligne, int colonne) {
+		//assert (this.tour >=2 );
+		assert (existeAdjacent(ligne,colonne));
+		assert (estVideCellule(ligne, colonne)); // la cellule doit etre vide
+		this.placerJeton(jeton, ligne, colonne);
+	}
+	
+	
+	/*
+	 */
 	public boolean existeCelluleMiroir(int ligneOrigine, int colonneOrigine, int ligneProjete, int colonneProjete ) {
 		assert (ligneOrigine <= this.lignes && colonneOrigine <= this.colonnes);
 		assert (ligneProjete <= this.lignes && colonneProjete <= this.colonnes);
@@ -105,6 +167,14 @@ public class Grille {
 		return (ligneMiroir <= this.lignes && colonneMiroir <= this.colonnes);
 	}
 	
+	/**
+	 * 
+	 * @param ligneOrigine
+	 * @param colonneOrigine
+	 * @param ligneProjete
+	 * @param colonneProjete
+	 * @return
+	 */
 	public Jeton getCelluleMiroir(int ligneOrigine, int colonneOrigine, int ligneProjete, int colonneProjete ) {
 		assert (ligneOrigine <= this.lignes && colonneOrigine <= this.colonnes);
 		assert (ligneProjete <= this.lignes && colonneProjete <= this.colonnes);
@@ -116,7 +186,7 @@ public class Grille {
 		return this.grille[ligneMiroir][colonneMiroir];
 	}
 
-	// alignementCellule-Adrien	
+	// alignementCellule
 	/**
 	 * 
 	 * @param ligne de la cellule observée
@@ -132,6 +202,7 @@ public class Grille {
 		
 		//evalueJeton dont on evalue l implication dans un alignement avec d'autres jetons : jetonCible
 		Jeton evalueJeton = this.getCellule(ligne,colonne);
+		
 		///evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de evalueJeton
 		String evalueAligne =  "";
 		for(int i = 1; i <= profondeur ; ++i) {	

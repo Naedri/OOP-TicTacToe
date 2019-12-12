@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <enumeration id="1" language="java" name="oop.tictactoe.grille.Direction" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/grille/Direction.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="298" y="333"/>    
+    <position height="-1" width="-1" x="843" y="600"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </enumeration>  
   <class id="2" language="java" name="oop.tictactoe.grille.Grille" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/grille/Grille.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="396" width="342" x="537" y="141"/>    
+    <position height="-1" width="-1" x="1188" y="334"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="oop.tictactoe.grille.GrilleTest" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/grille/GrilleTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="116" width="125" x="919" y="141"/>    
+    <position height="-1" width="-1" x="1078" y="-70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,79 +30,79 @@
   </class>  
   <enumeration id="4" language="java" name="oop.tictactoe.grille.Jeton" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/grille/Jeton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="701" y="848"/>    
+    <position height="-1" width="-1" x="1726" y="410"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="5" language="java" name="oop.tictactoe.appli.PartieFormeParticuliere" project="OOP-TicTacToe" 
-    file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartieFormeParticuliere.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="235" y="-2"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="oop.tictactoe.appli.PartieXAlignements" project="OOP-TicTacToe" 
+  <class id="5" language="java" name="oop.tictactoe.appli.PartieXAlignements" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartieXAlignements.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="490" y="-2"/>    
+    <position height="-1" width="-1" x="449" y="413"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="oop.tictactoe.appli.PartieTicTacToe" project="OOP-TicTacToe" 
+  <class id="6" language="java" name="oop.tictactoe.appli.PartieTicTacToe" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartieTicTacToe.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="710" y="-2"/>    
+    <position height="-1" width="-1" x="460" y="237"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="oop.tictactoe.appli.Interface" project="OOP-TicTacToe" 
+  <class id="7" language="java" name="oop.tictactoe.appli.Interface" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/Interface.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="718" y="-149"/>    
+    <position height="-1" width="-1" x="851" y="202"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="oop.tictactoe.appli.PartiePermutation" project="OOP-TicTacToe" 
+  <class id="8" language="java" name="oop.tictactoe.appli.PartiePermutation" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartiePermutation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1088" y="-2"/>    
+    <position height="-1" width="-1" x="479" y="943"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="oop.tictactoe.appli.PartieMorpion" project="OOP-TicTacToe" 
+  <class id="9" language="java" name="oop.tictactoe.appli.PartieMorpion" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartieMorpion.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="893" y="-4"/>    
+    <position height="-1" width="-1" x="424" y="55"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="oop.tictactoe.appli.Menu" project="OOP-TicTacToe" 
+  <class id="10" language="java" name="oop.tictactoe.appli.Menu" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/appli/Menu.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="720" y="-268"/>    
+    <position height="-1" width="-1" x="107" y="155"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="oop.tictactoe.appli.AppliTest" project="OOP-TicTacToe" 
-    file="/OOP-TicTacToe/src/oop/tictactoe/appli/AppliTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1479" y="-238"/>    
+  <class id="11" language="java" name="oop.tictactoe.appli.PartieForme" project="OOP-TicTacToe" 
+    file="/OOP-TicTacToe/src/oop/tictactoe/appli/PartieForme.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="456" y="658"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="oop.tictactoe.appli.Joueur" project="OOP-TicTacToe" 
+    file="/OOP-TicTacToe/src/oop/tictactoe/appli/Joueur.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="851" y="949"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -110,9 +110,37 @@
     </display>  
   </class>  
   <association id="13">    
-    <end type="SOURCE" refId="2" navigable="false">      
+    <end type="SOURCE" refId="11" navigable="false">      
       <attribute id="14" name="grille"/>      
       <multiplicity id="15" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="17" name="grilleForme"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="20" name="grille">        
+        <position height="0" width="0" x="1025" y="-438"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="1025" y="-438"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="23" name="jeton"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
