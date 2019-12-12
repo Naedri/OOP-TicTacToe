@@ -12,12 +12,14 @@ public class Grille {
 		this.colonnes = largeur;
 		this.lignes = hauteur;
 		this.grille = new Jeton[lignes][colonnes];
+		this.viderGrille();
 	}
 
 	public Grille() {
 		this.colonnes = 3;
 		this.lignes = 3;
 		this.grille = new Jeton[3][3];
+		this.viderGrille();
 	}
 
 	// getters
@@ -32,6 +34,16 @@ public class Grille {
 	public Jeton getCellule(int ligne, int colonne) {
 		assert (ligne <= this.lignes && colonne <= this.colonnes);
 		return this.grille[ligne][colonne];
+	}
+	
+	//viderGrille
+	private void viderGrille() {
+		for (Jeton[] ligneJeton : this.grille) {
+			for (Jeton cellule : ligneJeton) {
+				cellule.viderJeton();
+				// cellule = Jeton.JETON_VIDE; //ne fonctionne pas
+			}
+		}
 	}
 
 	// toString
@@ -99,6 +111,7 @@ public class Grille {
 				
 		int ligneMiroir = (ligneOrigine - ligneProjete) + ligneOrigine ;
 		int colonneMiroir =  (colonneOrigine - colonneProjete) + colonneOrigine;
+		
 		assert (ligneMiroir <= this.lignes && colonneMiroir <= this.colonnes); //on verifie que l on reste dans la grille
 		return this.grille[ligneMiroir][colonneMiroir];
 	}
@@ -109,7 +122,7 @@ public class Grille {
 	 * @param ligne de la cellule observée
 	 * @param colonne de la cellule observée
 	 * @param profondeur est le nombre de cellule observées au max qui sont alignées dans grille
-	 * @param direction direction et direction opposée vers laquelle observer
+	 * @param direction et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
 	public boolean alignementCellule(int ligne, int colonne, int profondeur, Direction direction) {
@@ -117,7 +130,53 @@ public class Grille {
 		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert(profondeur >= 2);
 		
-		return true;
+		//evalueJeton dont on evalue l implication dans un alignement avec d'autres jetons : jetonCible
+		Jeton evalueJeton = this.getCellule(ligne,colonne);
+		///evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de evalueJeton
+		String evalueAligne =  "";
+		for(int i = 1; i <= profondeur ; ++i) {	
+			//evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de evalueJeton
+			evalueAligne += evalueJeton.getJeton();
+		}
+		
+		// cibleAligne ligne de jeton observé dans la direction donnée
+		String cibleAligne =  "";
+		int cibleColonne = 0;
+		int cibleLigne = 0;
+		
+		//direction donnee
+		int coeffProfondeur = 0;
+		do {
+			//cibleJeton jeton que l on ajoute à cibleLigne
+			cibleColonne = coeffProfondeur*direction.getDcolonne() + colonne ;
+			cibleLigne = coeffProfondeur*direction.getDligne() + ligne ;
+			if (cibleLigne <= this.lignes && cibleColonne <= this.colonnes) {
+				Jeton cibleJeton = this.grille[cibleLigne][cibleColonne] ;
+				cibleAligne += cibleJeton.getJeton() ;
+			}
+			++coeffProfondeur;			
+		} while (coeffProfondeur <= profondeur && cibleLigne <= this.lignes && cibleColonne <= this.colonnes);
+		
+		//direction oppposee
+		direction = direction.inverser();
+		coeffProfondeur = 1; //on ne souhaite pas rajouter le jeton central
+		do {
+			//cibleJeton jeton que l on ajoute à cibleLigne
+			cibleColonne = coeffProfondeur*direction.getDcolonne() + colonne ;
+			cibleLigne = coeffProfondeur*direction.getDligne() + ligne ;
+			if (cibleLigne <= this.lignes && cibleColonne <= this.colonnes) {
+				Jeton cibleJeton = this.grille[cibleLigne][cibleColonne] ;
+				cibleAligne = cibleJeton.getJeton() + cibleAligne;
+			}
+			++coeffProfondeur;			
+		} while (coeffProfondeur <= profondeur && cibleLigne <= this.lignes && cibleColonne <= this.colonnes);
+		
+		//comparaison des chaines
+		if (cibleAligne.contains(evalueAligne))
+			return true;
+		else
+			return false;
+
 	}
 	
 	/**

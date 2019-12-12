@@ -46,5 +46,10 @@ public enum Jeton {
 		return "" + '[' + this.jeton + ']' ;  // "" shortcut to cast from char to string
 	}
 	
+	//viderJeton
+	protected void viderJeton() {
+		 this.jeton = Jeton.JETON_O.getJeton() ;
+		 this.ouvert = Jeton.JETON_O.estOuvert() ;
+	}
 }
 
