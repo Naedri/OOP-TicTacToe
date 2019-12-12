@@ -2,6 +2,6 @@ package oop.tictactoe.appli;
 
 import oop.tictactoe.grille.*;
 
-public class PartieFormeParticulière {
+public class PartieFormeParticuliere {
 
 }
