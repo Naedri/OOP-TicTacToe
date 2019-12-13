@@ -116,75 +116,6 @@ public class Grille {
 	private void enleverJeton() {
 		
 	}
-	
-	/**
-	 * enleverJeton puis placerJeton dans la cellule qui vient d etre enlever à partir de la cellule destination puis enleverJeton dans la cellule source puis placerJeton dans la cellule source
-	 */
-	public void permutationJeton() {
-		//enleverJeton
-		//placerJeton
-	}
-	
-	//jetonAdjacent
-	public boolean existeAdjacent(int ligne, int colonne) {
-		assert (ligne <= this.lignes && colonne <= this.colonnes); //la cellule doit être dans la grille
-		assert (!estVideCellule(ligne, colonne)); // la cellule doit etre vide
-	    
-		for (Direction direction : Direction.values()) {
-	    	int cibleColonne = direction.getDcolonne() + colonne ;
-			int cibleLigne =  direction.getDligne() + ligne ;
-			if (cibleLigne <= this.lignes && cibleColonne <= this.colonnes) {
-				Jeton cibleJeton = this.grille[cibleLigne][cibleColonne] ;
-				if (!cibleJeton.estVide())
-					return true ;
-			}
-	    }	    	
-		return false ;
-	}
-	/**
-	 * placer un jeton acolle aux autres existant
-	 * @param jeton
-	 * @param ligne
-	 * @param colonne
-	 */
-	public void placerJetonAdjacent(Jeton jeton, int ligne, int colonne) {
-		//assert (this.tour >=2 );
-		assert (existeAdjacent(ligne,colonne));
-		assert (estVideCellule(ligne, colonne)); // la cellule doit etre vide
-		this.placerJeton(jeton, ligne, colonne);
-	}
-	
-	
-	/*
-	 */
-	public boolean existeCelluleMiroir(int ligneOrigine, int colonneOrigine, int ligneProjete, int colonneProjete ) {
-		assert (ligneOrigine <= this.lignes && colonneOrigine <= this.colonnes);
-		assert (ligneProjete <= this.lignes && colonneProjete <= this.colonnes);
-				
-		int ligneMiroir = (ligneOrigine - ligneProjete) + ligneOrigine ;
-		int colonneMiroir =  (colonneOrigine - colonneProjete) + colonneOrigine;
-		
-		return (ligneMiroir <= this.lignes && colonneMiroir <= this.colonnes);
-	}
-	
-	/**
-	 * 
-	 * @param ligneOrigine
-	 * @param colonneOrigine
-	 * @param ligneProjete
-	 * @param colonneProjete
-	 * @return
-	 */
-	public Jeton getCelluleMiroir(int ligneOrigine, int colonneOrigine, int ligneProjete, int colonneProjete ) {
-		assert (ligneOrigine <= this.lignes && colonneOrigine <= this.colonnes);
-		assert (ligneProjete <= this.lignes && colonneProjete <= this.colonnes);
-				
-		int ligneMiroir = (ligneOrigine - ligneProjete) + ligneOrigine ;
-		int colonneMiroir =  (colonneOrigine - colonneProjete) + colonneOrigine;
-		
-		assert (ligneMiroir <= this.lignes && colonneMiroir <= this.colonnes); //on verifie que l on reste dans la grille
-		return this.grille[ligneMiroir][colonneMiroir];
-	}
 
 	// alignementCellule
 	/**
@@ -247,7 +178,6 @@ public class Grille {
 			return true;
 		else
 			return false;
-
 	}
 	
 	/**
@@ -265,5 +195,8 @@ public class Grille {
 	    		++alignement ;
 	    return alignement ;
 	}
+	
+	
+	
 	
 }
