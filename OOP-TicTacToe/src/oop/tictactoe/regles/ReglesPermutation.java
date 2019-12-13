@@ -1,8 +1,10 @@
-package oop.tictactoe.appli;
+package oop.tictactoe.regles;
 
 import oop.tictactoe.grille.*;
 
-public class PartiePermutation {
+public class ReglesPermutation {
+	
+	private Grille grille ;
 	
 	/**
 	 * saisiePermutation renvoie l input de l utilisateur sous format brute (table à 1 colonne 2 lignes)
@@ -34,14 +36,14 @@ public class PartiePermutation {
 	
 	//jetonAdjacent
 	public boolean existeAdjacent(int ligne, int colonne) {
-		assert (ligne <= this.lignes && colonne <= this.colonnes); //la cellule doit être dans la grille
-		assert (!estVideCellule(ligne, colonne)); // la cellule doit etre vide
+		assert (ligne <= grille.getLignes() && colonne <= grille.getColonnes()); //la cellule doit etre dans la grille
+		assert (!grille.estVideCellule(ligne, colonne)); // la cellule doit etre vide
 	    
 		for (Direction direction : Direction.values()) {
 	    	int cibleColonne = direction.getDcolonne() + colonne ;
 			int cibleLigne =  direction.getDligne() + ligne ;
-			if (cibleLigne <= this.lignes && cibleColonne <= this.colonnes) {
-				Jeton cibleJeton = this.grille[cibleLigne][cibleColonne] ;
+			if (cibleLigne <= grille.getLignes() && cibleColonne <= grille.getColonnes()) {
+				Jeton cibleJeton = grille.getCellule(cibleLigne, cibleColonne) ;
 				if (!cibleJeton.estVide())
 					return true ;
 			}
@@ -57,8 +59,8 @@ public class PartiePermutation {
 	public void placerJetonAdjacent(Jeton jeton, int ligne, int colonne) {
 		//assert (this.tour >=2 );
 		assert (existeAdjacent(ligne,colonne));
-		assert (estVideCellule(ligne, colonne)); // la cellule doit etre vide
-		this.placerJeton(jeton, ligne, colonne);
+		assert (grille.estVideCellule(ligne, colonne)); // la cellule doit etre vide
+		grille.placerJeton(jeton, ligne, colonne);
 	}
 	
 }

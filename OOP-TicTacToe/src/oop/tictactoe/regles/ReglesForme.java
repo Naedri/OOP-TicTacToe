@@ -1,22 +1,17 @@
-package oop.tictactoe.appli;
+package oop.tictactoe.regles;
 
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.grille.Grille;
 
-public class PartieForme {
+public class ReglesForme {
 	
 	private int lignes;
 	private int colonnes;
-	private Jeton[][] grille ;
-	private Jeton[][] grilleForme ;
+	private Grille grille;
+	private Grille grilleForme;
 	private String listeForme ; //Devrait être de type enumList
 	
-	/**
-	 * constructeur
-	 */
-	public listForme() {
-		
-	}
+	
 	
 	/**
 	 * renvoie une liste de couple d entiers (ligne,colonne) 
@@ -48,7 +43,7 @@ public class PartieForme {
 	 * permet d aller d un point à un autre avec les déplacements de la listeForme 
 	 * @return le couple d entiers necessaire pour translater un point vers un autre
 	 */
-	private int[][] pointToForme(int lignePrecedent, int colonnePrecedent ){
+	private int[][] pointToForme(int lignePrecedent, int colonnePrecedent){
 		
 	}
 	

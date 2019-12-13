@@ -1,4 +1,4 @@
-package oop.tictactoe.appli;
+package oop.tictactoe.jouer;
 
 public class Interface {
 	
@@ -14,7 +14,7 @@ public class Interface {
 	private String messageTour ;
 
 	public String getSaisieCellule() {
-		return this.messageCellule
+		return this.messageCellule ;
 	}
 	
 	/*

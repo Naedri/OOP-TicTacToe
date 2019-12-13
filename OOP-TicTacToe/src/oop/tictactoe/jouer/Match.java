@@ -1,8 +1,6 @@
-package oop.tictactoe.appli;
+package oop.tictactoe.jouer;
 
-import oop.tictactoe.grille.*;
-
-public class PartieTicTacToe {
+public class Match {
 	
 	private boolean victoire = false ;
 	private int tour = 0 ;
@@ -23,5 +21,4 @@ public class PartieTicTacToe {
 	public boolean estMatchVictoire() {
 		return true;
 	}
-
 }

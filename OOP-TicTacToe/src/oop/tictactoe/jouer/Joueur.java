@@ -1,4 +1,4 @@
-package oop.tictactoe.appli;
+package oop.tictactoe.jouer;
 
 import java.util.EnumSet;
 import oop.tictactoe.grille.Jeton;
