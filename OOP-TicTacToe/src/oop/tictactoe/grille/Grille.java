@@ -35,7 +35,8 @@ public class Grille {
 	 * @return un JETON (contenant un symbole X ou O ou x ou o et un boolean pour indiquer l ouverture
 	 */
 	public Jeton getCellule(int ligne, int colonne) {
-		assert (ligne < this.grille.length && colonne < this.grille[0].length); //la cellule doit être dans la grille
+		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
 		return this.grille[ligne][colonne];
 	}
 
@@ -81,7 +82,8 @@ public class Grille {
 	 * @return la cellule est elle vide ?
 	 */
 	public boolean estVideCellule(int ligne, int colonne) {
-		assert (ligne < this.grille.length && colonne < this.grille[0].length); //la cellule doit être dans la grille
+		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
 		return getCellule(ligne, colonne).estVideJeton();
 	}
 	
@@ -125,7 +127,8 @@ public class Grille {
 	 * @param colonne de la cellule de la grille  le 0 compte
 	 */
 	public void placerJeton(Jeton jeton, int ligne, int colonne) {
-		assert (ligne < this.grille.length && colonne < this.grille[0].length); //la cellule doit être dans la grille
+		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
 		assert (estVideCellule(ligne, colonne)); // la cellule doit etre vide
 		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
 		this.grille[ligne][colonne] = jeton;

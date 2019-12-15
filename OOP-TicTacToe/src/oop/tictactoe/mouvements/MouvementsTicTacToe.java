@@ -19,60 +19,65 @@ public class MouvementsTicTacToe {
 	 * @return si un alignement a été trouvé
 	 */
 	public static boolean alignementCellule(Grille grille, int ligne, int colonne, int profondeur, Direction direction) {
-		assert (ligne < grille.getLignes() && colonne < grille.getColonnes()); // la cellule doit être dans la grille
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur > 2);
-		--profondeur; //il faut -1 pour avoir profondeur = que la quantité de cellule alignée car on ne copte pas la cellule iniitale
+//		--profondeur; //il faut -1 pour avoir profondeur = que la quantité de cellule alignée car on ne copte pas la cellule iniitale
 
 		// evalueJeton dont on evalue l implication dans un alignement avec d'autres
 		// jetons : cibleJeton
 		Jeton evalueJeton = grille.getCellule(ligne, colonne);
-
+		
 		/// evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de
 		/// evalueJeton
-		String evalueAligne = "";
+		String aligneEvalue = "";
 		for (int i = 1; i <= profondeur; ++i) {
 			// evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de
 			// evalueJeton
-			evalueAligne += evalueJeton.getSymbole();
+			aligneEvalue += evalueJeton.getSymbole();
 		}
 
 		// cibleAligne ligne de jeton observé dans la direction donnée
-		String cibleAligne = "";
-		int cibleColonne = 0;
-		int cibleLigne = 0;
+		String aligneCible = "";
+		int colonneCible = 0;
+		int ligneCible = 0;
 
 		// direction donnee
 		int coeffProfondeur = 0;
 		do {
 			// cibleJeton jeton que l on ajoute à cibleLigne
-			cibleColonne = coeffProfondeur * direction.getDcolonne() + colonne;
-			cibleLigne = coeffProfondeur * direction.getDligne() + ligne;
-			if (cibleLigne < grille.getLignes() && cibleColonne < grille.getColonnes()) {
-				Jeton cibleJeton = grille.getCellule(cibleLigne, cibleColonne);
-				cibleAligne += cibleJeton.getSymbole();
+			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
+			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
+			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
+					&& ligneCible >= 0 && colonneCible >= 0) {
+				Jeton cibleJeton = grille.getCellule(ligneCible, colonneCible);
+				aligneCible += cibleJeton.getSymbole();
 			}
 			++coeffProfondeur;
-		} while (coeffProfondeur <= profondeur && cibleLigne < grille.getLignes()
-				&& cibleColonne < grille.getColonnes());
+		} while (coeffProfondeur < profondeur 
+				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
+				&& ligneCible >= 0 && colonneCible >= 0);
 
 		// direction oppposee
 		direction = direction.inverser();
 		coeffProfondeur = 1; // on ne souhaite pas rajouter le jeton central
 		do {
 			// cibleJeton jeton que l on ajoute à cibleLigne
-			cibleColonne = coeffProfondeur * direction.getDcolonne() + colonne;
-			cibleLigne = coeffProfondeur * direction.getDligne() + ligne;
-			if (cibleLigne < grille.getLignes() && cibleColonne < grille.getColonnes()) {
-				Jeton cibleJeton = grille.getCellule(cibleLigne, cibleColonne);
-				cibleAligne = cibleJeton.getSymbole() + cibleAligne;
+			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
+			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
+			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
+					&& ligneCible >= 0 && colonneCible >= 0) {
+				Jeton cibleJeton = grille.getCellule(ligneCible, colonneCible);
+				aligneCible = cibleJeton.getSymbole() + aligneCible;
 			}
 			++coeffProfondeur;
-		} while (coeffProfondeur <= profondeur && cibleLigne < grille.getLignes()
-				&& cibleColonne < grille.getColonnes());
+		} while (coeffProfondeur < profondeur 
+				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
+				&& ligneCible >= 0 && colonneCible >= 0);
 
 		// comparaison des chaines
-		if (cibleAligne.contains(evalueAligne))
+		if (aligneCible.contains(aligneEvalue))
 			return true;
 		else
 			return false;
@@ -88,17 +93,19 @@ public class MouvementsTicTacToe {
 	 *         dans toutes les directions
 	 */
 	public static int alignementCellule(Grille grille, int ligne, int colonne, int profondeur) {
-		assert (ligne < grille.getLignes() && colonne < grille.getColonnes()); // la cellule doit être dans la grille
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur > 2);
 		
 		int alignement = 0;
 
-		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST))
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_OUEST))
 			// pas besoin de (Direction dd : Direction.values()) car
 			// alignementCellule parcours également les directions inverses
-			if (alignementCellule(grille, ligne, colonne, profondeur, oneDirection))
+			if (alignementCellule(grille, ligne, colonne, profondeur, oneDirection)) {
 				++alignement;
+			}
 		return alignement;
 	}
 
