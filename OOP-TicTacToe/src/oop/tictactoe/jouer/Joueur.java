@@ -6,21 +6,29 @@ import oop.tictactoe.grille.Jeton;
 public class Joueur {
 
 	private Jeton jeton;
-	private int point;
-	private static int compteur = 0;
+	private int score;
+	private static int compteur = 0; //permet de générer altenativement un joueur au JETON_X puis au JETON_O
 	
-	public Joueur(char symbole) {
+	/**
+	 * constructeur de joueur
+	 * permet d'associer à un joueur un jeton enuméré
+	 */
+	public Joueur() {
 		this.jeton = Jeton.values()[compteur %2 +1]; //x doit commencer et JETON_X est le [1]
-		this.point = 0;
+		this.score = 0;
 		++compteur;
 	}
-
-	public int getPoint() {
-		return point;
+	
+	public Jeton getJeton() {
+		return jeton;
 	}
 
-	private void marquerPoint() {
-		++this.point;
+	public int getScore() {
+		return score;
+	}
+	
+	public void marquerPoint() {
+		++this.score;
 	}
 	
 }

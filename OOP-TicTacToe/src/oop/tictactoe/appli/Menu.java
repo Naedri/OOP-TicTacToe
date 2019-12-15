@@ -5,11 +5,11 @@ public class Menu {
 	private int choixAccueil ;
 	private int choixJouer ;
 	
-	private AppliTicTacToe appliTicTacToe ;
-	private AppliMorpion appliMorpion ;
-	private AppliXAlignements appliXAlignement ;
-	private AppliForme appliForme ;
-	private AppliPermutation appliPermutation ;
+	private PartieTicTacToe appliTicTacToe ;
+	private PartieMorpion appliMorpion ;
+	private PartieXAlignements appliXAlignement ;
+	private PartieForme appliForme ;
+	private PartiePermutation appliPermutation ;
 	
 	public int getChoixAccueil() {
 		return choixAccueil;
@@ -22,10 +22,17 @@ public class Menu {
 	/*
 	 * Securise la selection du choix dans le Menu
 	 */
+	/**
+	 * Securise la selection du choix dans le Menu
+	 * @param choixAccueil
+	 */
 	private void setChoixAccueil(int choixAccueil) {
 		this.choixAccueil = choixAccueil;
 	}
-
+	/**
+	 * Securise la selection du choix de la partie
+	 * @param choixJouer
+	 */
 	private void setChoixJouer(int choixJouer) {
 		this.choixJouer = choixJouer;
 	}
@@ -72,15 +79,15 @@ public class Menu {
 			if (choixJouer == 1)
 				//affichageMenu ;
 			if (choixJouer == 2)
-				appliTicTacToe.lancerParti() ;
+				appliTicTacToe.lancerPartie() ;
 			if (choixJouer == 3)
-				appliMorpion.lancerParti() ; 
+				appliMorpion.lancerPartie() ; 
 			if (choixJouer == 4)
-				appliXAlignement.lancerParti() ; 
+				appliXAlignement.lancerPartie() ; 
 			if (choixJouer == 5)
-				appliForme.lancerParti() ; 
+				appliForme.lancerPartie() ; 
 			if (choixJouer == 6)
-				appliPermutation.lancerParti() ; 
+				appliPermutation.lancerPartie() ; 
 	}
 
 	

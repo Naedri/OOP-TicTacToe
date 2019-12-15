@@ -6,24 +6,24 @@ public enum Jeton {
 	JETON_X ('X',true), JETON_O ('O',true), 
 	JETON_X_MIN ('x',false), JETON_O_MIN ('o',false);
 
-	private char jeton ;
+	private char symbole ;
 	private boolean ouvert ;
 	
 	//Jeton enum
 	private Jeton(char jeton, boolean ouvert) {
-		this.jeton = jeton;
+		this.symbole = jeton;
 		this.ouvert = ouvert ;
 	}
 	public boolean estEgal(Jeton jetonCible) {
-		return ( this.jeton==jetonCible.jeton && this.ouvert==jetonCible.ouvert);
+		return ( this.symbole==jetonCible.symbole && this.ouvert==jetonCible.ouvert);
 	}
 	
 	//jeton charactere
-	public char getJeton() {
-		return this.jeton;
+	public char getSymbole() {
+		return this.symbole;
 	}
 	
-	public boolean estVide() {
+	public boolean estVideJeton() {
 		return this.equals(JETON_VIDE);
 	}
 	
@@ -32,24 +32,25 @@ public enum Jeton {
 		return this.ouvert ;
 	}
 	
-	private Jeton ouvertInversion() {
-		return Jeton.values()[(this.ordinal() +2) %5];
-	}
-	
+	/**
+	 * Ferme un jeton ouvert
+	 * @return
+	 */
 	public Jeton ouvertToFerme() {
 		assert(this.ouvert == true) ;
-		return this.ouvertInversion() ;
+		return Jeton.values()[(this.ordinal() +2) %5];
 	}
 	
 	//toString
 	public String toString() {
-		return "" + '[' + this.jeton + ']' ;  // "" shortcut to cast from char to string
+		return "" + '[' + this.symbole + ']' ;  // "" shortcut to cast from char to string
 	}
 	
-	//viderJeton
-	protected void viderJeton() {
-		 this.jeton = Jeton.JETON_O.getJeton() ;
-		 this.ouvert = Jeton.JETON_O.estOuvert() ;
-	}
+	//NE MARCHE PAS
+//	//viderJeton
+//	protected void viderJeton() {
+//		 this.symbole = Jeton.JETON_VIDE.getSymbole() ;
+//		 this.ouvert = Jeton.JETON_VIDE.estOuvert() ;
+//	}
 }
 
