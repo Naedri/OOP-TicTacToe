@@ -65,7 +65,7 @@ public class Match {
 	 * @return le match est il termine
 	 */
 	public boolean estTermine() {
-		return (tour < tourMax) ;
+		return !(tour <= tourMax) ;
 	}
 	
 	//methode spe

@@ -23,11 +23,10 @@ public class PartieTicTacToe {
 	}
 	//ATTENTION PEUT ETRE PASSER DE STRING A VOID POUR GET MESSAGE POUR EVITER REPEPTITOIN DE SYSO
 	public void lancerPartie() {
-		match.tourDebut();
 		grille.afficherGrille();
 		while(!(match.estTermine() || match.estVictoire())) {
 			match.tourDebut();
-			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur1 : joueur2 ;
+			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 			interf.afficherMessageTour(joueurActuel);
 			interf.setSaisieCellule(grille);
 			interf.afficherMessageCellule(joueurActuel);

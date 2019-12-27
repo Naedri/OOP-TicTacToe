@@ -23,7 +23,7 @@ public class Interface {
 	public Interface() {
 		messageCellule = "";
 		messageResultat = "";
-		messageTour = "";
+		messageTour = "" ;
 		saisieCellule = new int[2];
 	}
 	
@@ -44,37 +44,68 @@ public class Interface {
 		// re* 	Matches 0 or more occurrences of the preceding expression (e)
 		// re+  Matches 1 or more of the previous thing (e).
 
-		while ( ! (saisieCorrecte 
-				&& saisieCellule[0]>=0 && saisieCellule[0]<grille.getLignes() 
-				&& saisieCellule[1]>=0 && saisieCellule[1]<grille.getColonnes())
-				) {
+		while ( !saisieCorrecte) {
 			
 			System.out.println("Veuillez choisir une case,\nex: pour la case de la ligne 1 à la colonne 2, tapez : 1-2),\npuis appuyez sur \'Entree\'.\n");
-			Scanner scanner = new Scanner(System.in);
-			String saisie = scanner.nextLine() ;
-			scanner.close();
-			Matcher match = motif.matcher(saisie);
+			Scanner scanner = new Scanner(System.in);			
+			String[] saisie = scanner.nextLine().trim().split("-");
 			
-			if (match.find()){
-				Scanner sc = new Scanner(saisie);
-				sc.useDelimiter("\\s*-\\s*");
-				
-				saisieCellule[0] = sc.nextInt()-1;
-				saisieCellule[1] = sc.nextInt()-1;
-
-				if (saisieCellule[0]>=0 && saisieCellule[0]<grille.getLignes() 
-						&& saisieCellule[1]>=0 && saisieCellule[1]<grille.getColonnes()) {
-					// ferme le scanner
-					sc.close();
-					// sortie de la boucle while
-					saisieCorrecte = true ;
-				}
-				else
-					System.out.println("Il faut choisir une ligne et une colonne de la grille.\n");
+			try{
+				if(saisie.length==2) {
+					saisieCellule[0] = Integer.parseInt(saisie[0].trim())-1;
+					saisieCellule[1] = Integer.parseInt(saisie[1].trim())-1;
+					if (saisieCellule[0]>=0 && saisieCellule[0]<grille.getLignes()
+							&& saisieCellule[1]>=0 && saisieCellule[1]<grille.getColonnes()) {
+						if (grille.estVideCellule(saisieCellule[0], saisieCellule[1]))
+							saisieCorrecte = true ;
+						else
+							System.out.println("La case selectionnee est pleine");
+						}
+					else
+						System.out.println("Il faut choisir une ligne et une colonne de la grille.\n");
+					}
+				if(saisie.length!=2)
+					System.out.println("Saisie incorrecte, veuillez recommencer.\n");
 			}
-			else
-				System.out.println("Il faut realiser une saisie incorrecte.\n");
+			catch(java.lang.NumberFormatException e1) {
+				System.out.println("Format invalide veuillez recommencer.\n");
+			}
 		}
+	}
+//            
+//			
+//			try {
+//				Matcher match = motif.matcher(saisie);
+//				
+//				if (match.find()){
+//					Scanner sc = new Scanner(saisie);
+//					sc.useDelimiter("\\s*-\\s*");
+//					
+//					saisieCellule[0] = sc.nextInt()-1;
+//					saisieCellule[1] = sc.nextInt()-1;
+//
+//					if (saisieCellule[0]>=0 && saisieCellule[0]<grille.getLignes() 
+//							&& saisieCellule[1]>=0 && saisieCellule[1]<grille.getColonnes()) {
+//						// sortie de la boucle while
+//						saisieCorrecte = true ;
+//					}
+//					else {
+//						System.out.println("Il faut choisir une ligne et une colonne de la grille.\n");
+//					}
+//					// fermeture du scanner
+//					sc.close();
+//				}
+//				else {
+//					System.out.println("Il faut realiser une saisie correcte.\n");
+//				}
+//			}
+//			
+//			catch(java.lang.NumberFormatException e1) { System.out.print("Format invalide. ");} 
+//			catch(java.lang.ArrayIndexOutOfBoundsException e2 ) {System.out.print("Format invalide. ");}
+//			scanner.close();
+//
+//		}
+//	}
 			
 			
 //			String[] saisie = sc.nextLine().trim().split("-");
@@ -99,6 +130,18 @@ public class Interface {
 //				System.out.println("Format invalide veuillez recommencer.\n"); //format ou valeur depassant la grille ?
 //			}
 //
+		
+	public static void analyseSaisie(String s) {
+		if (s.matches("\\d+\\s*-\\s*\\d+")) {
+			Scanner sc = new Scanner(s);
+			sc.useDelimiter("\\s*-\\s*");
+			int ligne = sc.nextInt();
+			int colonne = sc.nextInt();
+			System.out.println("ligne = " + ligne + ", colonne = " + colonne);
+			sc.close();
+		}
+		else
+			System.out.println("Coup invalide");				
 	}
 
 	public int[] getSaisieCellule() {
@@ -124,7 +167,9 @@ public class Interface {
 	public String getMessageCellule(Joueur j) {
 		assert(j != null);
 		assert(saisieCellule != null) ; //on s assure que setSaisieCellule a ete appelee
-		messageCellule = "L’utilisateur" + j.getJeton().getSymbole()+ "a saisie la cellule ligne ["+ saisieCellule[0]+1 +"], colonne ["+ saisieCellule[1]+1  +"]." ;
+		int saisieLigne = getSaisieLigne()+1;
+		int saisieColonne = getSaisieColonne() +1;		
+		messageCellule = "L’utilisateur " + j.getJeton().getSymbole()+ " a saisie la cellule ligne ["+ saisieLigne +"], colonne ["+ saisieColonne  +"]." ;
 		return  messageCellule;
 	}
 	public void afficherMessageCellule(Joueur j) {
@@ -143,14 +188,15 @@ public class Interface {
 	 */
 	public String getMessageResultat(Match m, Joueur j) {
 		assert(j != null && m != null);
-		if (!m.estTermine()) {
-			messageResultat = "C est au joueur suivant.";
+		if (m.estVictoire()) {
+			messageResultat = "C est un match victorieux pour le joueur "+j.getJeton().getSymbole()+".";
 		}
-		else
+		else {
 			if (m.estMatchNul())
 				messageResultat = "C est un match nul." ;
 			else
-				messageResultat = "C est un match victorieux pour le joueur "+j.getJeton().getSymbole()+".";
+				messageResultat = "Le joueur "+j.getJeton().getSymbole() + " a termine son tour.";
+		}
 		return messageResultat;
 	}
 	public void afficherMessageResultat(Match m, Joueur j) {
