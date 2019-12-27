@@ -21,23 +21,23 @@ public class PartieTicTacToe {
 		match = new Match();
 		interf = new Interface();
 	}
-	
+	//ATTENTION PEUT ETRE PASSER DE STRING A VOID POUR GET MESSAGE POUR EVITER REPEPTITOIN DE SYSO
 	public void lancerPartie() {
 		match.tourDebut();
 		grille.afficherGrille();
-		while(match.estTermine() || match.estVictoire()) {
+		while(!(match.estTermine() || match.estVictoire())) {
 			match.tourDebut();
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur1 : joueur2 ;
-			interf.getMessageTour(joueurActuel);
+			interf.afficherMessageTour(joueurActuel);
 			interf.setSaisieCellule(grille);
-			interf.getMessageCellule(joueurActuel);
-			grille.placerJeton(joueurActuel.getJeton(), interf.getSaisieLigne(), interf.getSaisieLigne());
+			interf.afficherMessageCellule(joueurActuel);
+			grille.placerJeton(joueurActuel.getJeton(), interf.getSaisieLigne(), interf.getSaisieColonne());
 			grille.afficherGrille();
-			if (MouvementsTicTacToe.alignementCellule(grille, interf.getSaisieLigne(), interf.getSaisieLigne(), 3) >=1 ) {
+			if (MouvementsTicTacToe.alignementCellule(grille, interf.getSaisieLigne(), interf.getSaisieColonne(), 3) >=1 ) {
 				joueurActuel.marquerPoint();
 				match.setVictoire(joueur1, joueur2);
 			}
-			interf.getMessageResultat(match, joueurActuel);
+			interf.afficherMessageResultat(match, joueurActuel);
 		}
 	}
 
