@@ -7,7 +7,7 @@ import oop.tictactoe.jouer.*;
 public class PartieMorpion extends PartieTicTacToe {
 	
 	private MouvementsMorpion mouvements ;
-	private Interface interf ;	
+	private Messages interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
 	private Match match ;

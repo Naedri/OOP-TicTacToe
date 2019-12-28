@@ -8,7 +8,7 @@ import oop.tictactoe.grille.*;
 
 public class PartieTicTacToe {
 	
-	private Interface interf ;	
+	private Messages interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
 	private Match match ;
@@ -19,7 +19,7 @@ public class PartieTicTacToe {
 		joueur2 = new Joueur();
 		grille = new Grille();
 		match = new Match();
-		interf = new Interface();
+		interf = new Messages();
 	}
 	//ATTENTION PEUT ETRE PASSER DE STRING A VOID POUR GET MESSAGE POUR EVITER REPEPTITOIN DE SYSO
 	public void lancerPartie() {

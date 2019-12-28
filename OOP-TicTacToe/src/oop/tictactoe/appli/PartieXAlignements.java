@@ -7,7 +7,7 @@ import oop.tictactoe.jouer.*;
 public class PartieXAlignements extends PartieTicTacToe {
 	
 	private MouvementsXAlignements mouvements;
-	private Interface interf ;	
+	private Messages interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
 	private Match match ;
