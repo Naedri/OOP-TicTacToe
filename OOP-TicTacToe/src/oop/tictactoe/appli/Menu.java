@@ -77,7 +77,7 @@ public class Menu {
 		
 		if (choixAccueil == 3)
 			if (choixJouer == 1)
-				//affichageMenu ;
+				affichageMenu() ;
 			if (choixJouer == 2)
 				appliTicTacToe.lancerPartie() ;
 			if (choixJouer == 3)

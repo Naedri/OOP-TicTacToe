@@ -165,5 +165,11 @@ public class Grille {
 	public void permutationJeton(int ligneJ1, int colonneJ1, int colonneJ2, int ligneJ2) {
 		
 	}
+
+
+	public boolean existeAdjacent(int i, int j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Messages {
 	
 	/**
-	 * saisieCellule input de l utilisateur sous format de table à 1 colonne 2 lignes
+	 * saisieCellule input du joueur sous format de table à 1 colonne 2 lignes
 	 * messageResultat victoire ou non (càd "Continuez la partie!" ou "Le Joueur X a gagné la partie")
 	 * messageTour indique qui doit jouer
 	 * messagePermutation quel cellule de la grille ont été permutées
@@ -33,8 +33,8 @@ public class Messages {
 	 * saisieCellule sous forme de int[]
 	 * saisieCellule[0] : ligne
 	 * saisieCellule[1] : colonne
-	 * definie la cellule saisie par l'utilisateur
-	 * securise le choix de la cellule par l utilisateur l entrée de l utilisateur
+	 * definie la cellule saisie par le joueur
+	 * securise le choix de la cellule par le joueur (l entrée )
 	 * ne verifie pas que la cellule est pleine ou non
 	 */
 	public static int[] saisirCellule(Grille grille) {
@@ -101,14 +101,14 @@ public class Messages {
 	/**
 	 * messageCellule sous forme string indiquant ce que le joueur a selectionne comme cellule
 	 * doit etre appele à la suite de saisirCellule()
-	 * @return L’utilisateur X (resp O) a saisie la cellule ligne [i], colonne[j].
+	 * @return Le joueur X (resp O) a saisie la cellule ligne [i], colonne[j].
 	 */
 	public static String afficherMessageCellule(Joueur j, int[] celluleCoord) {
 		assert(j != null);
 		assert(celluleCoord != null) ; //on s assure que setSaisieCellule a ete appelee
 		int saisieLigne = celluleCoord[0]+1;
 		int saisieColonne = celluleCoord[1]+1;		
-		return "L’utilisateur " + j.getJeton().getSymbole()+ " a choisi la cellule ligne ["+ saisieLigne +"], colonne ["+ saisieColonne  +"].\n" ;
+		return "Le joueur " + j.getJeton().getSymbole()+ " a choisi la cellule ligne ["+ saisieLigne +"], colonne ["+ saisieColonne  +"].\n" ;
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class Messages {
 	 */
 	public static String afficherMessageTour(Joueur j) {
 		assert(j != null);
-		return "C'est a l'utilisateur " + j.getJeton().getSymbole() + " de jouer.\n";
+		return "C'est au joueur " + j.getJeton().getSymbole() + " de jouer.\n";
 	}
 	
 	/**
@@ -159,6 +159,6 @@ public class Messages {
 		int saisieColonne1 = celluleCoord1[1]+1;
 		int saisieLigne2 = celluleCoord2[0]+1;
 		int saisieColonne2 = celluleCoord2[1]+1;	
-		return "L’utilisateur " + j.getJeton().getSymbole()+ " a choisi de permuter la cellule ligne ["+ saisieLigne1 +"] colonne ["+ saisieColonne1  +"], avec la cellule ligne ["+ saisieLigne2 +"] colonne ["+ saisieColonne2  +"].\n" ;
+		return "Le joueur " + j.getJeton().getSymbole()+ " a choisi de permuter la cellule ligne ["+ saisieLigne1 +"] colonne ["+ saisieColonne1  +"], avec la cellule ligne ["+ saisieLigne2 +"] colonne ["+ saisieColonne2  +"].\n" ;
 	}
 }

@@ -6,10 +6,19 @@ import org.junit.jupiter.api.Test;
 
 class AppliTest {
 
+	// statut ok
+//	@Test
+//	void test() {
+//		PartieTicTacToe partieTicTacToe = new PartieTicTacToe() ;
+//		partieTicTacToe.lancerPartie() ;
+//	}
+	
+	// statut pas ok
 	@Test
 	void test() {
-		PartieTicTacToe appliTicTacToe = new PartieTicTacToe() ;
-		appliTicTacToe.lancerPartie() ;
+		int ligneGrille = 5, colonneGrille = 6;
+		PartieMorpion partieMorpion = new PartieMorpion(ligneGrille, colonneGrille) ;
+		partieMorpion.lancerPartie() ;
 	}
 
 }

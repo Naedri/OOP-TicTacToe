@@ -18,6 +18,7 @@ public class PartieTicTacToe {
 		grille = new Grille();
 		match = new Match();
 	}
+	
 	public void lancerPartie() {
 		grille.afficherGrille();
 		while(!(match.estTermine() || match.estVictoire())) {
@@ -25,14 +26,14 @@ public class PartieTicTacToe {
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 			System.out.println(Messages.afficherMessageTour(joueurActuel));
 			
-			boolean celluleVide = false;
+			boolean saisieCorrecte = false;
 			int[] saisieCellule  = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 
-			while (!celluleVide) {
+			while (!saisieCorrecte) {
 				saisieCellule = Messages.saisirCellule(grille);
 				System.out.println(Messages.afficherMessageCellule(joueurActuel, saisieCellule));
 				if (grille.estVideCellule(saisieCellule[0], saisieCellule[1]))
-					celluleVide = true ;
+					saisieCorrecte = true ;
 				else
 					System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
 				}
@@ -46,5 +47,4 @@ public class PartieTicTacToe {
 			System.out.println(Messages.afficherMessageResultat(match, joueurActuel));
 		}
 	}
-
 }
