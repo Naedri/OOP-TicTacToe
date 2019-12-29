@@ -20,21 +20,21 @@ class SaisieTest {
 		String s6F = "-1-2";
 
 		
-		assertTrue(Messages.estValideSaisie(s1));
-		assertTrue(Messages.estValideSaisie(s10));
-		assertTrue(Messages.estValideSaisie(s1S));		
+		assertTrue(In_Interaction.estValideSaisie(s1));
+		assertTrue(In_Interaction.estValideSaisie(s10));
+		assertTrue(In_Interaction.estValideSaisie(s1S));		
 		
-		assertFalse(Messages.estValideSaisie(s1F));
-		assertFalse(Messages.estValideSaisie(s2F));
-		assertFalse(Messages.estValideSaisie(s3F));	
-		assertFalse(Messages.estValideSaisie(s4F));	
-		assertFalse(Messages.estValideSaisie(s5F));	
-		assertFalse(Messages.estValideSaisie(s6F));	
+		assertFalse(In_Interaction.estValideSaisie(s1F));
+		assertFalse(In_Interaction.estValideSaisie(s2F));
+		assertFalse(In_Interaction.estValideSaisie(s3F));	
+		assertFalse(In_Interaction.estValideSaisie(s4F));	
+		assertFalse(In_Interaction.estValideSaisie(s5F));	
+		assertFalse(In_Interaction.estValideSaisie(s6F));	
 		
 		int s1T[] = {1,2};
-		int s1TR[] = Messages.extraitCelluleSaisie(s1);
-		assertEquals(s1T[0], Messages.extraitCelluleSaisie(s1)[0]);
-		assertEquals(s1T[1], Messages.extraitCelluleSaisie(s1)[1]);
+		int s1TR[] = In_Interaction.extraitCelluleSaisie(s1);
+		assertEquals(s1T[0], In_Interaction.extraitCelluleSaisie(s1)[0]);
+		assertEquals(s1T[1], In_Interaction.extraitCelluleSaisie(s1)[1]);
 		assertEquals(s1T[0], s1TR[0]);
 		assertEquals(s1T[1], s1TR[1]);
 	}

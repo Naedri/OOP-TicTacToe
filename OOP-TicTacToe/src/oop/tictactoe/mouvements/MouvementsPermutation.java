@@ -4,6 +4,13 @@ import oop.tictactoe.grille.*;
 
 public class MouvementsPermutation extends MouvementsMorpion {
 		
+	public MouvementsPermutation(Grille grille) {
+		super(grille);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
 	 * saisiePermutation renvoie l input de l utilisateur sous format brute (table à 1 colonne 2 lignes)
 	 * messagePermutation message sous forme en reponse de l appel deux fois à saisie cellule saisieCellule, avec la forme : L’utilisateur X (resp O) a permute la cellule «[i],[j]» avec la cellule  «[i],[j]»

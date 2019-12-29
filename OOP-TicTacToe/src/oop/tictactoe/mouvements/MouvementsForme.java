@@ -22,6 +22,11 @@ public class MouvementsForme extends MouvementsMorpion  {
 //	}
 //	private ComposantForme composant ;
 	
+	public MouvementsForme(Grille grille) {
+		super(grille);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int listeFormeCarre[][] ;
     private int listeFormeCroix[][] ; 
     private int listeFormeTriangle[][] ; 

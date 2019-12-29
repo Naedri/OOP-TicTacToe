@@ -7,7 +7,7 @@ import oop.tictactoe.jouer.*;
 public class PartiePermutation extends PartieTicTacToe{
 	
 	private MouvementsPermutation mouvements;
-	private Messages interf ;	
+	private In_MessagesPermutation interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
 	private Match match ;

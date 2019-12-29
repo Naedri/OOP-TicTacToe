@@ -40,7 +40,6 @@ class GrilleTest {
 		assertEquals(3, grille.getLignes());
 		assertEquals(3, grille.getColonnes());
 		
-
 		
 		Jeton jo =  Jeton.JETON_O ;
 		Jeton jx = Jeton.JETON_X;

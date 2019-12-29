@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="oop.tictactoe.mouvements.MouvementsTicTacToe" project="OOP-TicTacToe" 
-    file="/OOP-TicTacToe/src/oop/tictactoe/mouvements/MouvementsTicTacToe.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="oop.tictactoe.mouvements.TourTicTacToe" project="OOP-TicTacToe" 
+    file="/OOP-TicTacToe/src/oop/tictactoe/mouvements/TourTicTacToe.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2191" y="716"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,15 +55,15 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="oop.tictactoe.jouer.Messages" project="OOP-TicTacToe" 
-    file="/OOP-TicTacToe/src/oop/tictactoe/jouer/Messages.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="7" language="java" name="oop.tictactoe.jouer.In_MessagesPermutation" project="OOP-TicTacToe" 
+    file="/OOP-TicTacToe/src/oop/tictactoe/jouer/In_MessagesPermutation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1337" y="1908"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
+  </interface>  
   <class id="8" language="java" name="oop.tictactoe.jouer.Match" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/oop/tictactoe/jouer/Match.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1662" y="1887"/>    
@@ -109,106 +109,94 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="13">    
+  <association id="13">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="14" name="joueur1">        
+        <position height="0" width="0" x="-28" y="-20"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-28" y="-20"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="16">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="14">    
+  <association id="17">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="15" name="grille">        
+      <attribute id="18" name="grille">        
         <position height="0" width="0" x="22" y="30"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="1">        
+      <multiplicity id="19" minimum="0" maximum="1">        
         <position height="0" width="0" x="22" y="30"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="18" name="interf">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <association id="20">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="21" name="jeton">        
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="21" name="match">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="22" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="23">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="24" name="joueur1">        
-        <position height="0" width="0" x="-28" y="-20"/>      
-      </attribute>      
-      <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-28" y="-20"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="27" name="match">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="28" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="29">    
+  <generalization id="23">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="24">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="25" name="grille">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="26" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="28" name="jeton">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="29" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="31">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="30" name="joueur2">        
+      <attribute id="32" name="joueur2">        
         <position height="0" width="0" x="-28" y="-20"/>      
       </attribute>      
-      <multiplicity id="31" minimum="0" maximum="1">        
+      <multiplicity id="33" minimum="0" maximum="1">        
         <position height="0" width="0" x="-28" y="-20"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="32">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="33">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
   <generalization id="34">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <association id="35">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="36" name="grille">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="37" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

@@ -1,7 +1,11 @@
 package oop.tictactoe.grille;
 
 public enum Direction {
-	EST(0, 1), NORD_EST(-1, 1), NORD(-1, 0), NORD_OUEST(-1, -1), OUEST (0, -1), SUD_OUEST(1, -1), SUD(1, 0), SUD_EST(1, 1);
+	EST(0, 1), NORD_EST(-1, 1), 
+	NORD(-1, 0), NORD_OUEST(-1, -1), 
+	OUEST (0, -1), SUD_OUEST(1, -1), 
+	SUD(1, 0), SUD_EST(1, 1), 
+	NONE(0,0);
 	//DEPLACEMENT(ligne,colonne)
 	
 	// déplacement relatif de la direction
@@ -33,4 +37,5 @@ public enum Direction {
 	public Direction inverser() {
 	  return Direction.values()[(this.ordinal() + 4) % 8];
 	}
+	
 }

@@ -1,13 +1,26 @@
 package oop.tictactoe.mouvements;
 
+
+
 import java.util.EnumSet;
 
 import oop.tictactoe.grille.*;
+import oop.tictactoe.jouer.*;
 
-public class MouvementsTicTacToe {
+public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
+	//on pourrait aussi appeller le MouvementsTicTacToe Coup.
 	
-	// alignementCellule
-	// renommer eveluerJeton en jetonEvalue pur marque que c est une variable
+	private Grille grille;
+	private Joueur joueur;
+	int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+	
+	public TourTicTacToe(Grille grille, Joueur joueurActuel) {
+		this.grille = grille;
+		this.joueur = joueurActuel;
+		this.saisieCellule = new int[2];
+	}
+
+
 	/**
 	 * alignement pour une direction donnee
 	 * 
@@ -18,27 +31,26 @@ public class MouvementsTicTacToe {
 	 * @param direction  et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
-	public static boolean alignementCellule(Grille grille, int ligne, int colonne, int profondeur, Direction direction) {
+	public boolean completeForme(int ligne, int colonne, int profondeur, Direction direction) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-		assert (profondeur > 2);
-//		--profondeur; //il faut -1 pour avoir profondeur = que la quantité de cellule alignée car on ne copte pas la cellule iniitale
-
-		// evalueJeton dont on evalue l implication dans un alignement avec d'autres
-		// jetons : cibleJeton
-		Jeton evalueJeton = grille.getCellule(ligne, colonne);
+		assert (profondeur > 2);//ATTENTION PEUT ETRE >=2
 		
-		/// evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de
-		/// evalueJeton
+		// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
+		// jetons : jetonCible
+		Jeton jetonEvalue = grille.getCellule(ligne, colonne);
+		
+		/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
+		/// jetonEvalue
 		String aligneEvalue = "";
 		for (int i = 1; i <= profondeur; ++i) {
-			// evalueAligne ligne de jeton que le joueur souhaiterait avoir à partir de
-			// evalueJeton
-			aligneEvalue += evalueJeton.getSymbole();
+			// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
+			// jetonEvalue
+			aligneEvalue += jetonEvalue.getSymbole();
 		}
 
-		// cibleAligne ligne de jeton observé dans la direction donnée
+		// aligneCible ligne de jeton observé dans la direction donnée
 		String aligneCible = "";
 		int colonneCible = 0;
 		int ligneCible = 0;
@@ -46,13 +58,13 @@ public class MouvementsTicTacToe {
 		// direction donnee
 		int coeffProfondeur = 0;
 		do {
-			// cibleJeton jeton que l on ajoute à cibleLigne
+			// jetonCible jeton que l on ajoute à cibleLigne
 			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
 			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton cibleJeton = grille.getCellule(ligneCible, colonneCible);
-				aligneCible += cibleJeton.getSymbole();
+				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
+				aligneCible += jetonCible.getSymbole();
 			}
 			++coeffProfondeur;
 		} while (coeffProfondeur < profondeur 
@@ -63,13 +75,13 @@ public class MouvementsTicTacToe {
 		direction = direction.inverser();
 		coeffProfondeur = 1; // on ne souhaite pas rajouter le jeton central
 		do {
-			// cibleJeton jeton que l on ajoute à cibleLigne
+			// jetonCible jeton que l on ajoute à cibleLigne
 			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
 			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton cibleJeton = grille.getCellule(ligneCible, colonneCible);
-				aligneCible = cibleJeton.getSymbole() + aligneCible;
+				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
+				aligneCible = jetonCible.getSymbole() + aligneCible;
 			}
 			++coeffProfondeur;
 		} while (coeffProfondeur < profondeur 
@@ -92,7 +104,7 @@ public class MouvementsTicTacToe {
 	 * @return le nombre d'alignement qui ont été trouvés avec alignementCellule
 	 *         dans toutes les directions
 	 */
-	public static int alignementCellule(Grille grille, int ligne, int colonne, int profondeur) {
+	public int completeForme(int ligne, int colonne, int profondeur) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -103,10 +115,41 @@ public class MouvementsTicTacToe {
 		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_OUEST))
 			// pas besoin de (Direction dd : Direction.values()) car
 			// alignementCellule parcours également les directions inverses
-			if (alignementCellule(grille, ligne, colonne, profondeur, oneDirection)) {
+			if (completeForme(ligne, colonne, profondeur, oneDirection)) {
 				++alignement;
 			}
 		return alignement;
+	}
+	
+	public int completeForme(int ligne, int colonne, Forme forme) {
+		
+	}
+	
+
+	/**
+	 * 
+	 */
+	public void jouerCoup() {
+		boolean saisieCorrecte = false;
+
+		while (!saisieCorrecte) {
+			saisieCellule = In_Interaction.saisirCellule(grille);
+			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule));
+			if (grille.estVideCellule(saisieCellule[0], saisieCellule[1]))
+				saisieCorrecte = true ;
+			else
+				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+			}
+		grille.placerJeton(joueur.getJeton(), saisieCellule[0], saisieCellule[1]);
+		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueur, saisieCellule));
+	}
+
+
+	@Override
+	public void evaluerCoup() {
+		assert(saisieCellule != null);
+		if (completeForme(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+			joueur.marquerPoint();
 	}
 
 }

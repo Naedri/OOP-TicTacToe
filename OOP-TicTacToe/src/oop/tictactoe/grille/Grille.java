@@ -2,7 +2,7 @@ package oop.tictactoe.grille;
 
 import oop.tictactoe.grille.Jeton;
 
-public class Grille {
+public class Grille implements In_Grille {
 
 	private Jeton[][] grille;
 
@@ -119,21 +119,6 @@ public class Grille {
 		return estPleine ;
 	}
 	
-	/**
-	 * place un jeton dans la grille
-	 * verifie que la cellule ciblé est vide
-	 * @param jeton à placer (seuls JETON_X ou JETON_O sont autorisés)
-	 * @param ligne de la cellule de la grille  le 0 compte
-	 * @param colonne de la cellule de la grille  le 0 compte
-	 */
-	public void placerJeton(Jeton jeton, int ligne, int colonne) {
-		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
-		assert (estVideCellule(ligne, colonne)); // la cellule doit etre vide
-		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
-		this.grille[ligne][colonne] = jeton;
-	}
-	
 	//remplissageGrille
 	/**
 	 * remplissage aléatoire avec JEONT caractère ouvert,  
@@ -150,6 +135,21 @@ public class Grille {
 	 */
 	public void remplissageGrille() {
 		
+	}
+	
+	/**
+	 * place un jeton dans la grille
+	 * verifie que la cellule ciblé est vide
+	 * @param jeton à placer (seuls JETON_X ou JETON_O sont autorisés)
+	 * @param ligneCible de la cellule de la grille  le 0 compte
+	 * @param colonneCible de la cellule de la grille  le 0 compte
+	 */
+	public void placerJeton(Jeton jeton, int ligneCible, int colonneCible) {
+		assert (ligneCible < this.grille.length && ligneCible >= 0); //la cellule doit être dans la grille
+		assert (colonneCible < this.grille[0].length && colonneCible >= 0); //la cellule doit être dans la grille
+		assert (estVideCellule(ligneCible, colonneCible)); // la cellule doit etre vide
+		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
+		this.grille[ligneCible][colonneCible] = jeton;
 	}
 	
 	//permutationJeton

@@ -4,8 +4,12 @@ import java.util.EnumSet;
 
 import oop.tictactoe.grille.*;
 
-public class MouvementsMorpion extends MouvementsTicTacToe {
+public class MouvementsMorpion extends TourTicTacToe {
 		
+	public MouvementsMorpion(Grille grille) {
+		super(grille);
+		// TODO Auto-generated constructor stub
+	}
 	//jetonAdjacent
 	/**
 	 * 
