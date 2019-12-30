@@ -4,9 +4,9 @@ public enum Direction {
 	EST(0, 1), NORD_EST(-1, 1), 
 	NORD(-1, 0), NORD_OUEST(-1, -1), 
 	OUEST (0, -1), SUD_OUEST(1, -1), 
-	SUD(1, 0), SUD_EST(1, 1), 
-	NONE(0,0);
+	SUD(1, 0), SUD_EST(1, 1);
 	//DEPLACEMENT(ligne,colonne)
+	//enum index commence a 0
 	
 	// déplacement relatif de la direction
 	private final int dcolonne, dligne;

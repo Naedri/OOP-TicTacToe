@@ -6,11 +6,23 @@ public class Match {
 	private int tour ; // nombre de fois qu un joueur a debute son tour (a joue)
 	private int tourMax ; //nombre de tour max pour une partie avant d atteindre le match nul
 
+	private int pointMax ;
+	
 	//constructeur
 	public Match(int nombreTourMax ) {
 		victoire = false ;
 		tour = 0 ;
 		tourMax = nombreTourMax ;
+		pointMax = 0 ;
+	}
+	
+	public Match (int nombreTourMax, int nombrePointMax) {
+		victoire = false ;
+		tour = 0 ;
+		tourMax = nombreTourMax ;
+		
+		assert (nombrePointMax >0); // nombre de point max = 0 signifie que la victoire n est pas fonction du nombre de point
+		pointMax = nombrePointMax;
 	}
 	
 	//match pour le tictactoe avec un nombre de tour de 9 car 9 cellules dans la grille

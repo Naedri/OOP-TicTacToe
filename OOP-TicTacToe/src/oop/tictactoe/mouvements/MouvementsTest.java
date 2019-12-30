@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Grille;
 import oop.tictactoe.grille.Jeton;
+import oop.tictactoe.jouer.Joueur;
 
 class mouvementssTest {
 
@@ -14,7 +15,8 @@ class mouvementssTest {
 	void testTicTacToe() {
 		
 		Grille grille = new Grille();
-		TourTicTacToe mouvements = new TourTicTacToe(grille);
+		Joueur joueur = new Joueur();
+		TourTicTacToe mouvements = new TourTicTacToe(grille, joueur);
 		
 		grille.afficherGrille();
 
@@ -31,15 +33,15 @@ class mouvementssTest {
 		grille.afficherGrille();
 		
 		//jO sans autres jetons
-		assertTrue(mouvements.completeForme(2,2,3, Direction.NORD_OUEST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.NORD));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.NORD_EST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.EST));
-		assertTrue(mouvements.completeForme(2,2,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
-		assertFalse(mouvements.completeForme(2,2,3, Direction.SUD));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.SUD_OUEST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.OUEST));
-		assertTrue(mouvements.completeForme(2,2,3, Direction.NORD_OUEST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.NORD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.NORD));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.NORD_EST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.EST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.SUD));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.SUD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.OUEST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.NORD_OUEST));
 
 		//ajout autres jetons
 		Jeton jx =  Jeton.JETON_X ;
@@ -48,31 +50,31 @@ class mouvementssTest {
 		grille.afficherGrille();
 		
 		//jO avec autres jetons
-		assertTrue(mouvements.completeForme(2,2,3, Direction.NORD_OUEST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.NORD));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.NORD_EST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.EST));
-		assertTrue(mouvements.completeForme(2,2,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
-		assertFalse(mouvements.completeForme(2,2,3, Direction.SUD));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.SUD_OUEST));
-		assertFalse(mouvements.completeForme(2,2,3, Direction.OUEST));
-		assertTrue(mouvements.completeForme(2,2,3, Direction.NORD_OUEST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.NORD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.NORD));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.NORD_EST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.EST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.SUD));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.SUD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,2,3, Direction.OUEST));
+		assertTrue(mouvements.alignementCellule1D(2,2,3, Direction.NORD_OUEST));
 		
 		
 		//jx avec jo mais ne marque pas de points
-		assertFalse(mouvements.completeForme(2,1,3, Direction.NORD_OUEST));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.NORD));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.NORD_EST));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.EST));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
-		assertFalse(mouvements.completeForme(2,1,3, Direction.SUD));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.SUD_OUEST));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.OUEST));
-		assertFalse(mouvements.completeForme(2,1,3, Direction.NORD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.NORD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.NORD));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.NORD_EST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.EST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.SUD_EST)); //attention c est true parce que la foncion regarde dans les deux sens
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.SUD));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.SUD_OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.OUEST));
+		assertFalse(mouvements.alignementCellule1D(2,1,3, Direction.NORD_OUEST));
 
 		//multiple alignements
-		assertEquals(0, mouvements.completeForme(2,0,3));
-		assertEquals(1, mouvements.completeForme(2,2,3));
+		assertEquals(0, mouvements.alignementCelluleXD(2,0,3));
+		assertEquals(1, mouvements.alignementCelluleXD(2,2,3));
 	}
 
 }

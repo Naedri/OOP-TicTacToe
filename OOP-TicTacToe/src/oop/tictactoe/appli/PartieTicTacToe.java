@@ -18,7 +18,6 @@ public class PartieTicTacToe {
 		joueur2 = new Joueur();
 		grille = new Grille();
 		match = new Match();
-		mouvements = new TourTicTacToe(grille);
 	}
 	
 	public void lancerPartie() {
@@ -27,6 +26,7 @@ public class PartieTicTacToe {
 			match.tourDebut();
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 			System.out.println(In_Interaction.afficherMessageTour(joueurActuel));
+			mouvements = new TourTicTacToe(grille, joueurActuel);
 			
 			boolean saisieCorrecte = false;
 			int[] saisieCellule  = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
@@ -43,8 +43,8 @@ public class PartieTicTacToe {
 			System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
 			
 			grille.afficherGrille();
-			if (mouvements.completeForme(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
-				joueurActuel.marquerPoint();
+			mouvements.evaluerCoup();
+			if (joueur1.getScore()> 0 || joueur2.getScore()>0) {
 				match.setVictoire(joueur1, joueur2);
 			}
 			System.out.println(In_Interaction.afficherMessageResultat(match, joueurActuel));

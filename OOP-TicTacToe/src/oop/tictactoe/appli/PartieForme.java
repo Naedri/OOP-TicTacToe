@@ -1,12 +1,12 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.mouvements.MouvementsForme;
+import oop.tictactoe.mouvements.TourForme;
 import oop.tictactoe.jouer.*;
 
 
 public class PartieForme extends PartieTicTacToe  {
 	
-	private MouvementsForme mouvements ;
+	private TourForme mouvements ;
 	private In_MessagesPermutation interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;

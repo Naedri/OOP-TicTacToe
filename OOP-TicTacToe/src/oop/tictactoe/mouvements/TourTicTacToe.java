@@ -22,7 +22,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 
 
 	/**
-	 * alignement pour une direction donnee
+	 * alignement pour UNE Direction donnee
 	 * 
 	 * @param ligne      de la cellule observée
 	 * @param colonne    de la cellule observée
@@ -31,7 +31,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	 * @param direction  et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
-	public boolean completeForme(int ligne, int colonne, int profondeur, Direction direction) {
+	public boolean alignementCellule1D(int ligne, int colonne, int profondeur, Direction direction) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -96,7 +96,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 
 	/**
-	 * alignement pour toutes les directions
+	 * alignement pour TOUTES les Directions disponible
 	 * 
 	 * @param ligne
 	 * @param colonne
@@ -104,7 +104,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	 * @return le nombre d'alignement qui ont été trouvés avec alignementCellule
 	 *         dans toutes les directions
 	 */
-	public int completeForme(int ligne, int colonne, int profondeur) {
+	public int alignementCelluleXD(int ligne, int colonne, int profondeur) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -115,17 +115,12 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_OUEST))
 			// pas besoin de (Direction dd : Direction.values()) car
 			// alignementCellule parcours également les directions inverses
-			if (completeForme(ligne, colonne, profondeur, oneDirection)) {
+			if (alignementCellule1D(ligne, colonne, profondeur, oneDirection)) {
 				++alignement;
 			}
 		return alignement;
 	}
 	
-	public int completeForme(int ligne, int colonne, Forme forme) {
-		
-	}
-	
-
 	/**
 	 * 
 	 */
@@ -143,13 +138,15 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		grille.placerJeton(joueur.getJeton(), saisieCellule[0], saisieCellule[1]);
 		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueur, saisieCellule));
 	}
-
-
-	@Override
+	
+	/**
+	 * 
+	 */
 	public void evaluerCoup() {
 		assert(saisieCellule != null);
-		if (completeForme(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+		if (alignementCelluleXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 			joueur.marquerPoint();
+		}
 	}
 
 }

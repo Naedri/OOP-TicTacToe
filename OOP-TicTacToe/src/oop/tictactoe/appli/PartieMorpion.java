@@ -54,7 +54,7 @@ public class PartieMorpion extends PartieTicTacToe {
 			grille.placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
 			
 			grille.afficherGrille();
-			if (mouvements.completeForme(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+			if (mouvements.alignementCelluleXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 				joueurActuel.marquerPoint();
 				match.setVictoire(joueur1, joueur2);
 			}
