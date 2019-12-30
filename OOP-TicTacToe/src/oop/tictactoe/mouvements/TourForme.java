@@ -23,7 +23,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	}
 	
 	/**
-	 * Pour les elements donnes la cellule image est elle comprise dans la grille
+	 * Pour les elements donnes, existeNextCellule permet de savoir si la cellule image est comprise dans la grille
 	 * Pas d indication de la nature du jeton
 	 * cellule image cad :
 	 * càd le jeton contenu dans la cellule 
@@ -53,7 +53,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	}
 	
 	/**
-	 * permet de savoir quelles sont les coordonnes (ligne,colonne) du jeton image
+	 * coordNextJeton permet de savoir quelles sont les coordonnes (ligne,colonne) du jeton image
 	 * càd le jeton contenu dans la cellule 
 	 * projetee depuis la cellule de la grille a ligne,colonne
 	 * vers la direction donnee a la profondeur/distance donnee
@@ -79,7 +79,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	}
 	
 	/**
-	 * permet d obtenir le jeton image 
+	 * getNextJeton permet d obtenir le jeton image 
 	 * càd le jeton contenu dans la cellule 
 	 * projetee depuis la cellule de la grille a ligne,colonne
 	 * vers la direction donnee a la profondeur/distance donnee
@@ -99,120 +99,88 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		return grille.getCellule(coord[0], coord[1]);
 	}
 
-	public boolean existeCoordForme (int ligne, int colonne, Forme forme) {
-		boolean existe = false ;
-		
-		int ligneOrigine = ligne ;
-		int colonneOrigine = colonne ;
+	/**
+	 * existeCoordForme permet de savoir 
+	 * si les cellules de toute une forme 
+	 * à partir d un point donné 
+	 * sont inclus dans la grille
+	 * @param ligneOrigine
+	 * @param colonneOrigine
+	 * @param forme
+	 * @return
+	 */
+	public boolean existeForme (int ligne, int colonne, Forme forme) {
+		boolean existe = true ;
+		//le premier point de la forme est evalue en coordonne [ligne,colonne]
 				
 		for(int i = 0; i< forme.getNbrPoint(); ++i) {
-			
+			//on obtient les parametres de la projection (directionCible et profondeurCible) pour parvenir à la cellule suivante
 			Direction directionCible =  Direction.values()[ forme.getOrientation()[i] ];
 			int profondeurCible = forme.getDistance()[i] ;
-
-			//Direction.values()[d]
-			if (!existeNextCellule(ligneOrigine, colonneOrigine,profondeurCible, directionCible)) {
-				return false;
+			
+			//on verifie que la cellule cible existe
+			if (!existeNextCellule(ligne, colonne,profondeurCible, directionCible)) {
+				return false; // si il y a au moins un point de la forme qui n est pas dans la grille on renvoie false
 			}
 			else {
-				int[] coordCible = coordNextJeton(ligneOrigine, colonneOrigine,profondeurCible, directionCible );
-				ligneOrigine = coordCible[0] ;
-				colonneOrigine = coordCible[1] ;
-				
+				//si elle existe on extrait ses coordonnees pout les reutiliser dans la boucle
+				int[] coordCible = coordNextJeton(ligne, colonne,profondeurCible, directionCible );
+				ligne = coordCible[0] ;
+				colonne= coordCible[1] ;	
 			}
 		}
-		
 		return existe ;
 	}
 	
 	/**
+	 * getCoordForme
 	 * donne un tableau de coordonne (ligne colonne)
 	 * permettant d identifier les cellules impliquees dans la realisation de la forme donnee
 	 * mais ne donne la forme que pour le point donne grille[ligne,colonne]
 	 * etant un point le point en haut a gauche de la forme
-	 * @param ligne
-	 * @param colonne
+	 * @param ligneOrigine
+	 * @param colonneOrigine
 	 * @param forme
 	 * @return
 	 */
 	public int[][] getCoordForme (int ligne, int colonne, Forme forme) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (existeCoordForme (ligne, colonne, forme) );
+		assert (existeForme (ligne, colonne, forme) );
 		
-		int[][] coord ;
-
-		for(int i = 0; i< forme.getNbrPoint(); ++i) {
-			
-				coord[i][0]= ;
-				coord[i][1]= ;
+		int[][] coord = new int[forme.getNbrPoint()][2];
+		
+		//le premier point de la forme est evalue en coordonne [ligne,colonne]
+		coord[0][0] = ligne;
+		coord[0][1] = colonne;
+		
+		for(int i = 1; i < forme.getNbrPoint(); ++i) {
+			//on obtient les parametres de la projection (directionCible et profondeurCible) pour parvenir à la cellule suivante
+			Direction directionCible =  Direction.values()[ forme.getOrientation()[i-1] ];
+			int profondeurCible = forme.getDistance()[i-1] ;
+			coord[i] = coordNextJeton(ligne,colonne,profondeurCible, directionCible);
+			ligne = coord[i][0] ;
+			colonne= coord[i][1] ;
 		}
 		return coord ;
 	}
+	
+	
+	public String getJetonForme (int ligne, int colonne, Forme forme) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (existeForme (ligne, colonne, forme) );
 		
+		int[][] coordDesJetons = getCoordForme(ligne,colonne,forme) ;
 		
+		String sJeton = "";
+
+		for (int i=0 ; i < coordDesJetons.length; ++i) {
+			sJeton += grille.getCellule(coordDesJetons[i][0],coordDesJetons[i][1]).getSymbole() ;
+		}
 		
-//		
-//		
-//		
-//		
-//		// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
-//		// jetons : jetonCible
-//		Jeton jetonEvalue = grille.getCellule(ligne, colonne);
-//		
-//		/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
-//		/// jetonEvalue
-//		String aligneEvalue = "";
-//		for (int i = 1; i <= profondeur; ++i) {
-//			// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
-//			// jetonEvalue
-//			aligneEvalue += jetonEvalue.getSymbole();
-//		}
-//
-//		// aligneCible ligne de jeton observé dans la direction donnée
-//		String aligneCible = "";
-//		int colonneCible = 0;
-//		int ligneCible = 0;
-//
-//		// direction donnee
-//		int coeffProfondeur = 0;
-//		do {
-//			// jetonCible jeton que l on ajoute à cibleLigne
-//			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
-//			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-//			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
-//					&& ligneCible >= 0 && colonneCible >= 0) {
-//				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
-//				aligneCible += jetonCible.getSymbole();
-//			}
-//			++coeffProfondeur;
-//		} while (coeffProfondeur < profondeur 
-//				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
-//				&& ligneCible >= 0 && colonneCible >= 0);
-//
-//		// direction oppposee
-//		direction = direction.inverser();
-//		coeffProfondeur = 1; // on ne souhaite pas rajouter le jeton central
-//		do {
-//			// jetonCible jeton que l on ajoute à cibleLigne
-//			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
-//			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-//			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
-//					&& ligneCible >= 0 && colonneCible >= 0) {
-//				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
-//				aligneCible = jetonCible.getSymbole() + aligneCible;
-//			}
-//			++coeffProfondeur;
-//		} while (coeffProfondeur < profondeur 
-//				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
-//				&& ligneCible >= 0 && colonneCible >= 0);
-//
-//		// comparaison des chaines
-//		if (aligneCible.contains(aligneEvalue))
-//			return true;
-//		else
-//			return false;
-//	}
+		return sJeton;
+	}
 	
 	@Override
 	public void evaluerCoup() {
