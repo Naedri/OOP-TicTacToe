@@ -54,6 +54,33 @@ public class Forme {
 			chemin[i][1] = orientation[i];
 		}
 	}
+	
+	
+	/**
+	 * renvoie une forme dont les indices sont decale de int decalageIndice
+	 * @param decalageIndice
+	 * @return
+	 */
+	public Forme transForme (int decalageIndice) {
+		Forme formeTrans = new Forme(getFormeNum());
+		
+		decalageIndice %= getNbrPoint();
+		
+		int indiceDecale ;
+	    		
+		for (int i=0 ;i < getNbrPoint(); ++i) {
+			indiceDecale = (decalageIndice+i) % getNbrPoint();
+			formeTrans.distance[i]= distance[indiceDecale];
+			formeTrans.orientation[i]= orientation[(indiceDecale)] ;
+		}
+				
+		for (int i = 0; i < orientation.length; ++i) {
+			formeTrans.chemin[i][0] = formeTrans.distance[i];
+			formeTrans.chemin[i][1] = formeTrans.orientation[i];
+		}
+		
+		return formeTrans;
+	}
 
 	public String toStringGrilleModele() {
 		Grille grille = new Grille(3,3);				
@@ -92,14 +119,6 @@ public class Forme {
 		sChoisie += "La forme choisie du numero "+ formeNum +" est " + determinantForme +  " " + formeStr + ".\n" ;
 		return sChoisie;
 	}
-	
-//	public void parcourirPointForme(Grille grille, int ligne, int colonne) {
-//		;
-//	}
-//	
-//	public boolean parcourirForme(Grille grille, int ligne, int colonne) {
-//		return false;
-//	}
 	
 	public int[] getDistance() {
 		return distance;

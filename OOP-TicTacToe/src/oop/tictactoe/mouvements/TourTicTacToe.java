@@ -20,7 +20,6 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		this.saisieCellule = new int[2];
 	}
 
-
 	/**
 	 * alignement pour UNE Direction donnee
 	 * 

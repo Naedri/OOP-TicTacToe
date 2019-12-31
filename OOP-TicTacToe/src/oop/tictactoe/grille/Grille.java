@@ -1,5 +1,6 @@
 package oop.tictactoe.grille;
 
+
 import oop.tictactoe.grille.Jeton;
 
 public class Grille implements In_Grille {
@@ -155,6 +156,8 @@ public class Grille implements In_Grille {
 	//permutationJeton
 	/**
 	 * permute deux jetons de la grille
+	 * verifie que les deux jetons electionnes sont dans la grille
+	 * verifie que les deux jetons sont adjacents
 	 * verifie que les les cellules sont rempli de JETON
 	 * verifie que les deux JETONS a permuter sont ouverts 	 
 	 * @param ligneJ1
@@ -163,13 +166,210 @@ public class Grille implements In_Grille {
 	 * @param ligneJ2
 	 */
 	public void permutationJeton(int ligneJ1, int colonneJ1, int colonneJ2, int ligneJ2) {
+		assert(ligneJ1 != ligneJ2 && colonneJ1 != colonneJ2); //les jetons doivent etre differents
+
+		assert (ligneJ1 < this.grille.length && ligneJ1 >= 0); //la cellule doit être dans la grille
+		assert (colonneJ1 < this.grille[0].length && colonneJ1 >= 0); //la cellule doit être dans la grille
+		assert (ligneJ2 < this.grille.length && ligneJ2 >= 0); //la cellule doit être dans la grille
+		assert (colonneJ2 < this.grille[0].length && colonneJ2 >= 0); //la cellule doit être dans la grille
 		
+		assert(ligneJ1 != ligneJ2 && colonneJ1 != colonneJ2); //les jetons doivent etre differents
+		assert(sontAdjacents(ligneJ1, colonneJ1, colonneJ2, ligneJ2)); //les jetons doivent etre adjacents
+		
+		assert (!estVideCellule(ligneJ1, colonneJ1)); // la cellule ne doit pas etre vide		
+		assert (!estVideCellule(ligneJ2, colonneJ2)); // la cellule ne doit pas etre vide
+		
+		assert (getCellule(ligneJ1,colonneJ1).estOuvert() );//les jetons a permutter doivent être ouverts
+		assert (getCellule(ligneJ2,colonneJ2).estOuvert() );//les jetons a permutter doivent être ouverts
+
+		//si les jetons sont differents
+		if (! getCellule(ligneJ1,colonneJ1).estEgal(getCellule(ligneJ2,colonneJ2)) ) {
+			
+			//insertion des clones dans la grille
+			if ( getCellule(ligneJ1,colonneJ1).estEgal(Jeton.JETON_X)) {
+				grille[ligneJ1][colonneJ1] = Jeton.JETON_O ;
+				grille[ligneJ2][colonneJ2] = Jeton.JETON_X ;
+			}
+			else {
+				grille[ligneJ1][colonneJ1] = Jeton.JETON_X ;
+				grille[ligneJ2][colonneJ2] = Jeton.JETON_O ;
+			}
+		}
 	}
 
 
-	public boolean existeAdjacent(int i, int j) {
-		// TODO Auto-generated method stub
+	//nextJeton avec Direction
+	/**
+	 * coordNextJeton permet de savoir quelles sont les coordonnes (ligne,colonne) du jeton image
+	 * càd le jeton contenu dans la cellule 
+	 * projetee depuis la cellule de la grille a ligne,colonne
+	 * vers la direction donnee a la profondeur/distance donnee
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction
+	 * @return
+	 */
+	public int[] coordNextJeton(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert(existeNextCellule(ligne, colonne, profondeur, direction));
+		
+		int[] coord = new int[2];
+		int ligneCible = profondeur * direction.getDcolonne() + colonne ;
+		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
+		
+		coord[0]=ligneCible;
+		coord[1]=colonneCible;
+		return coord ;
+	
+	}
+
+
+	/**
+	 * Pour les elements donnes, existeNextCellule permet de savoir si la cellule image est comprise dans la grille
+	 * Pas d indication de la nature du jeton
+	 * cellule image cad :
+	 * càd le jeton contenu dans la cellule 
+	 * projetee depuis la cellule de la grille a ligne,colonne
+	 * vers la direction donnee a la profondeur/distance donnee
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction
+	 * @return
+	 */
+	public boolean existeNextCellule(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		
+		boolean existe = false;
+		
+		int ligneCible = profondeur * direction.getDcolonne() + colonne ;
+		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
+		
+		if(ligneCible < getLignes() && ligneCible >= 0 
+				&& colonneCible < getColonnes() && colonneCible >= 0) {
+			existe = true;
+		}
+		
+		return existe;
+	}
+
+
+	/**
+	 * getNextJeton permet d obtenir le jeton image 
+	 * càd le jeton contenu dans la cellule 
+	 * projetee depuis la cellule de la grille a ligne,colonne
+	 * vers la direction donnee a la profondeur/distance donnee
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction
+	 * @return
+	 */
+	public Jeton getNextJeton (int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert(existeNextCellule(ligne, colonne, profondeur, direction));
+		
+		int[] coord = coordNextJeton(ligne, colonne, profondeur, direction);
+	
+		return getCellule(coord[0], coord[1]);
+	}
+
+
+	//jetonAdjacent
+//	/**
+//	 * 
+//	 * @param ligne
+//	 * @param colonne
+//	 * @return existe il un jeton adjacent
+//	 */
+//	public boolean existeAdjacent(int ligne, int colonne) {
+//		assert (ligne <= grille.getLignes() && colonne <= grille.getColonnes()); //la cellule doit etre dans la grille
+//		assert (!grille.estVideCellule(ligne, colonne)); // la cellule doit etre vide
+//	    
+//		for (Direction direction : Direction.values()) {
+//	    	int cibleColonne = direction.getDcolonne() + colonne ;
+//			int cibleLigne =  direction.getDligne() + ligne ;
+//			if (cibleLigne <= grille.getLignes() && cibleColonne <= grille.getColonnes()) {
+//				Jeton cibleJeton = grille.getCellule(cibleLigne, cibleColonne) ;
+//				if (!cibleJeton.estVideJeton())
+//					return true ;
+//			}
+//	    }	    	
+//		return false ;
+//	}
+	
+	/**
+	 * existe il dans les cellules voisines de la cellule donnee [ligne,colonne]
+	 * des jetons non vides
+	 * la cellule peut etre vide mais doit etre dans la grille
+	 * @param ligne
+	 * @param colonne
+	 * @return
+	 */
+	public boolean existeAdjacent(int ligne, int colonne) {
+		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
+		
+//		for (Direction oneDirection : EnumSet.range(Direction.EST, Direction.SUD_EST))
+		for (Direction oneDirection : Direction.values())
+			if (existeNextCellule(ligne, colonne, 1, oneDirection)) {
+				if (! getNextJeton(ligne, colonne, 1, oneDirection).estVideJeton()) {
+					return true;
+				}
+			}
 		return false;
+		
+	}
+	
+
+	/**
+	 * les cellules donnees sont elles adjacents
+	 * doivent etre des ellules differentes
+	 * @param ligneJ1
+	 * @param colonneJ1
+	 * @param colonneJ2
+	 * @param ligneJ2
+	 * @return
+	 */
+	public boolean sontAdjacents(int ligneJ1, int colonneJ1, int colonneJ2, int ligneJ2) {
+		assert(ligneJ1 != ligneJ2 && colonneJ1 != colonneJ2); //les jetons doivent etre differents
+
+		assert (ligneJ1 < this.grille.length && ligneJ1 >= 0); //la cellule doit être dans la grille
+		assert (colonneJ1 < this.grille[0].length && colonneJ1 >= 0); //la cellule doit être dans la grille
+		assert (ligneJ2 < this.grille.length && ligneJ2 >= 0); //la cellule doit être dans la grille
+		assert (colonneJ2 < this.grille[0].length && colonneJ2 >= 0); //la cellule doit être dans la grille
+		
+		boolean adjacent = false ;
+		
+		if ( (Math.abs(ligneJ1-ligneJ2) <= 1) && (Math.abs(colonneJ1-colonneJ2) <= 1) )
+			adjacent = true ;
+		
+		return adjacent;
+	}
+
+	//morpion
+	public void fermerAlignementJetons(int ligne, int colonne, int profondeur) {
+		
+		
+		for (Direction oneDirection : Direction.values()) {
+			
+			int[] coordCible = coordNextJeton(ligne, colonne, profondeur, oneDirection);
+
+			int ligneCible = coordCible[0];
+			int colonneCible = coordCible[1];
+			
+			if ( getCellule(ligneCible,colonneCible).estEgal(Jeton.JETON_X)) {
+				grille[ligneCible][colonneCible] = Jeton.JETON_X_MIN ;
+			}
+			else {
+				grille[ligneCible][colonneCible] = Jeton.JETON_O_MIN ;
+			}
+		}
+		
 	}
 	
 }

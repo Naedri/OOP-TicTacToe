@@ -9,7 +9,7 @@ import oop.tictactoe.grille.Grille;
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.Joueur;
 
-class mouvementssTest {
+class mouvementsTest {
 
 	@Test
 	void testTicTacToe() {
