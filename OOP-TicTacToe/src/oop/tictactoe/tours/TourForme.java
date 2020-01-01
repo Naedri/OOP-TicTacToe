@@ -1,11 +1,9 @@
-package oop.tictactoe.mouvements;
+package oop.tictactoe.tours;
 
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
 import oop.tictactoe.grille.Grille;
-
-import java.util.LinkedList;
 
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;

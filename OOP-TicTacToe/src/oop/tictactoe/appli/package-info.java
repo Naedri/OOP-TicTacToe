@@ -1,3 +1,5 @@
+package oop.tictactoe.appli;
+
 /*
  * package qui regroupe les applications de chaque jeu et le menu
  * chaque partie est composee de 

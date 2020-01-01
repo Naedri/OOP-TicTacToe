@@ -1,12 +1,12 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.mouvements.MouvementsPermutation;
+import oop.tictactoe.tours.TourPermutation;
 import oop.tictactoe.jouer.*;
 
 
 public class PartiePermutation extends PartieTicTacToe{
 	
-	private MouvementsPermutation mouvements;
+	private TourPermutation mouvements;
 	private In_MessagesPermutation interf ;	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;

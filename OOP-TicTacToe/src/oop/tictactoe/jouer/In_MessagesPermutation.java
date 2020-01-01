@@ -5,7 +5,7 @@ import oop.tictactoe.jouer.Joueur;
 public interface In_MessagesPermutation extends In_Interaction {
 
 	/**
-	 * Message indiquant
+	 * Message indiquant que
 	 * "le joueur X/O a choisi de permute son jeton dans la cellule ligne ..
 	 * @param j joueur ayant realiser la permutation
 	 * @param celluleCoord1 premier cellule

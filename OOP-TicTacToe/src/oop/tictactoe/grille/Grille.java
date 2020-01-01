@@ -28,6 +28,9 @@ public class Grille implements In_Grille {
 	public int getLignes() {
 		return this.grille.length;
 	}
+	public int getNbrCellules() {
+		return this.grille[0].length * this.grille.length ;
+	}
 	
 	/**
 	 *
@@ -151,6 +154,18 @@ public class Grille implements In_Grille {
 		assert (estVideCellule(ligneCible, colonneCible)); // la cellule doit etre vide
 		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
 		this.grille[ligneCible][colonneCible] = jeton;
+	}
+	
+	public void placerJetonAdjacent(Jeton jeton, int ligneCible, int colonneCible) {
+		assert (ligneCible < this.grille.length && ligneCible >= 0); //la cellule doit être dans la grille
+		assert (colonneCible < this.grille[0].length && colonneCible >= 0); //la cellule doit être dans la grille
+		assert (estVideCellule(ligneCible, colonneCible)); // la cellule doit etre vide
+		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
+	
+		assert(existeAdjacent(ligneCible, colonneCible));
+		
+		placerJeton(jeton,  ligneCible, colonneCible) ;
+
 	}
 	
 	//permutationJeton

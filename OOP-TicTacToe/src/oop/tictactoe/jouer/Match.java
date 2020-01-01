@@ -4,35 +4,53 @@ public class Match {
 	
 	private boolean victoire ; // etat du jeu
 	private int tour ; // nombre de fois qu un joueur a debute son tour (a joue)
-	private int tourMax ; //nombre de tour max pour une partie avant d atteindre le match nul
-
-	private int pointMax ;
+	private int tourMax ; //nombre de tour max pour une partie avant d atteindre le match nul ; si il y en a pas tourMax = 0
+	private int pointMax ; //nombre de point max d'un des joueur a partir duquel la partie s arrete ; si il y en a pas tourMax = à
 	
 	//constructeur
-	public Match(int nombreTourMax ) {
-		victoire = false ;
-		tour = 0 ;
-		tourMax = nombreTourMax ;
-		pointMax = 0 ;
-	}
 	
-	public Match (int nombreTourMax, int nombrePointMax) {
+	/**
+	 * match s arrete 
+	 * apres qu un des joueurs ait atteint le nombre de point max defini (nombrePointMax)
+	 * doit etre >0
+	 * @param nombrePointMax
+	 */
+	public Match(int nombrePointMax ) {
+		assert(nombrePointMax >0);
 		victoire = false ;
 		tour = 0 ;
-		tourMax = nombreTourMax ;
-		
-		assert (nombrePointMax >0); // nombre de point max = 0 signifie que la victoire n est pas fonction du nombre de point
-		pointMax = nombrePointMax;
+		pointMax = nombrePointMax ;
+		tourMax = 0 ;
 	}
-	
-	//match pour le tictactoe avec un nombre de tour de 9 car 9 cellules dans la grille
-	public Match() {
+	/**
+ 	 * si nombrePointMax != 0
+	 * match s arrete 
+	 * apres qu un des joueurs ait atteint le nombre de point max defini (nombrePointMax)
+	 * OU
+	 * apres que le nombre de tour des joueurs ait atteint le nombre de tour max defini (nombreTourMax)
+	 * si nombrePointMax == 0
+	 * match s arrete 
+	 * apres que le nombre de tour des joueurs ait atteint le nombre de tour max defini (nombreTourMax)
+	 *
+	 * @param nombrePointMax
+	 * @param nombreTourMax
+	 */
+	public Match(int nombrePointMax, int nombreTourMax) {
+		assert(nombreTourMax>0 && nombrePointMax >= 0);
 		victoire = false ;
 		tour = 0 ;
-		tourMax = 9 ;
+		pointMax = nombrePointMax ;
+		tourMax = nombreTourMax ;
 	}
 	
 	//getteur
+	/**
+	 * 
+	 * @return a partir de combien de point un joueur a t il gagne
+	 */
+	public int getPointMax() {
+		return pointMax;
+	}
 	/**
 	 * 
 	 * @return combien y a t il de tour au maximum
@@ -53,31 +71,50 @@ public class Match {
 	 * 
 	 * @return quel est l etat du match
 	 */
-	public boolean estVictoire() {
+	public boolean getVictoire() {
 		return victoire;
 	}
-	public void setVictoire(Joueur j1, Joueur j2) {
-		assert(j1.getScore() - j2.getScore() !=0);
-		this.victoire = true;
+	
+	public boolean estTourMax() {
+		if (tourMax != 0) {
+			return !(tour < tourMax) ;
+		}
+		else
+			return false ;
 	}
 	
-	/**
-	 * 
-	 * @return y a t il match nul 
-	 */
-	public boolean estMatchNul() {
-		if (tour >= tourMax)
-			return true;
+	public boolean estPointMax(Joueur j) {
+		if (pointMax != 0) {
+			return !(j.getScore() < pointMax) ;
+		}
 		else
-			return false;
+			return false ;
 	}
 	
 	/**
 	 * 
 	 * @return le match est il termine
 	 */
-	public boolean estTermine() {
-		return !(tour <= tourMax) ;
+	public boolean estTermine(Joueur joueurActuel) {
+		if ( pointMax != 0 && tourMax == 0 ) {
+			//match s arrete 
+			//apres qu un des joueurs ait atteint le nombre de point max defini (nombrePointMax)
+			return !(joueurActuel.getScore() < pointMax) ;
+			
+		}
+		if ( pointMax == 0 && tourMax != 0 ) {
+			//match s arrete 
+			//apres que le nombre de tour des joueurs ait atteint le nombre de tour max defini (nombreTourMax)
+			return !(tour < tourMax) ;
+
+		}
+		else {
+			// if (pointMax != 0 && tourMax != 0)
+			// car pointMax == 0 && tourMax == 0 ne peut exister
+			// match s arrete
+			// des quand le nombrePointMax a été atteint sinon continue jusqu a ce que le nombreTourMax ait été atteint
+			return ( (!(joueurActuel.getScore() < pointMax)) || (!(tour < tourMax)) ) ;
+		}
 	}
 	
 	//methode spe
@@ -88,4 +125,17 @@ public class Match {
 	public void tourDebut() {
 		++ this.tour;
 	}
+	
+	/**
+	 * a appelle a chaque fin de tour du joueurActuel
+	 * pour evaluer si le match est termine (cad victoire ou match null)
+	 * @param joueurActuel dont c est le tour
+	 */
+	public void evalMatchParTour (Joueur joueurActuel) {
+		if (estTermine(joueurActuel)) {
+			if (joueurActuel.getScore()>=pointMax)
+				victoire = true ;
+		}
+	}
+	
 }

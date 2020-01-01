@@ -110,24 +110,27 @@ public interface In_Interaction {
 	/**
 	 * messageResultat
 	 * indiquant victoire ou non
-	 * il faut qu elle soit appelee après un placerJeton
+	 * il faut qu elle soit appelee après un coup joue
 	 * (càd "C est au joueur suivant" ou "Le Joueur X a gagné la partie")
 	 * @param m match en cours
-	 * @param j joueur qui vient de jouer
+	 * @param joueurActuel joueur qui vient de jouer
 	 * @return
 	 */
-	public static String afficherMessageResultat(Match m, Joueur j) {
-		assert(j != null && m != null);
+	public static String afficherMessageResultat(Match m, Joueur joueurActuel) {
+		assert(joueurActuel != null && m != null);
 		String messageResultat;
-		if (m.estVictoire()) {
-			messageResultat = "C est un match victorieux pour le joueur "+j.getJeton().getSymbole()+".\n";
-		}
-		else {
-			if (m.estMatchNul())
-				messageResultat = "C est un match nul.\n" ;
+		m.evalMatchParTour(joueurActuel);
+		
+		if (m.estTermine(joueurActuel)) {
+			if (m.getVictoire()) {
+				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
+			}
 			else
-				messageResultat = "Le joueur "+j.getJeton().getSymbole() + " a termine son tour.\n";
+				messageResultat = "C est un match nul.\n" ;
+
 		}
+		else
+			messageResultat = "Le joueur "+joueurActuel.getJeton().getSymbole() + " a termine son tour.\n";
 		return messageResultat;
 	}
 	

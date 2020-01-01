@@ -1,6 +1,5 @@
 package oop.tictactoe.jouer;
 
-import java.util.EnumSet;
 import oop.tictactoe.grille.Jeton;
 
 public class Joueur {
@@ -15,6 +14,13 @@ public class Joueur {
 	 */
 	public Joueur() {
 		this.jeton = Jeton.values()[compteur %2 +1]; //x doit commencer et JETON_X est le [1]
+		this.score = 0;
+		++compteur;
+	}
+	
+	public Joueur(Jeton jeton) {
+		assert( jeton.estOuvert() && !jeton.estVideJeton());
+		this.jeton = jeton ;
 		this.score = 0;
 		++compteur;
 	}

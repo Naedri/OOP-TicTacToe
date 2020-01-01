@@ -1,6 +1,6 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.mouvements.TourForme;
+import oop.tictactoe.tours.TourForme;
 import oop.tictactoe.jouer.*;
 
 
@@ -11,7 +11,10 @@ public class PartieForme extends PartieTicTacToe  {
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
 	private Match match ;
+	
 	public void lancerPartie() {
+		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
+
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,18 +1,14 @@
-package oop.tictactoe.mouvements;
-
-
+package oop.tictactoe.tours;
 
 import java.util.EnumSet;
-
 import oop.tictactoe.grille.*;
 import oop.tictactoe.jouer.*;
 
 public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
-	//on pourrait aussi appeller le MouvementsTicTacToe Coup.
 	
 	private Grille grille;
 	private Joueur joueur;
-	int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+	private int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 	
 	public TourTicTacToe(Grille grille, Joueur joueurActuel) {
 		this.grille = grille;
@@ -95,7 +91,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 
 	/**
-	 * alignement pour TOUTES les Directions disponible
+	 * alignement pour TOUTES les Directions disponibles
 	 * 
 	 * @param ligne
 	 * @param colonne
@@ -121,7 +117,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 	
 	/**
-	 * 
+	 * permet la saisie et le placement de jeton
 	 */
 	public void jouerCoup() {
 		boolean saisieCorrecte = false;
@@ -139,7 +135,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 	
 	/**
-	 * 
+	 * le coup qui vient d etre joue permet il au joueur de gagner un point de victoire
 	 */
 	public void evaluerCoup() {
 		assert(saisieCellule != null);
