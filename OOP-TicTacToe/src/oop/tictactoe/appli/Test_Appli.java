@@ -8,14 +8,14 @@ class Test_Appli {
 
 //	// statut ok
 //	@Test
-//	void test() {
+//	void testTicTacToe() {
 //		PartieTicTacToe partieTicTacToe = new PartieTicTacToe() ;
 //		partieTicTacToe.lancerPartie() ;
 //	}
 	
 	// statut pas ok
 	@Test
-	void test() {
+	void testMorpion() {
 		int ligneGrille = 5, colonneGrille = 6;
 		PartieMorpion partieMorpion = new PartieMorpion(ligneGrille, colonneGrille) ;
 		partieMorpion.lancerPartie() ;

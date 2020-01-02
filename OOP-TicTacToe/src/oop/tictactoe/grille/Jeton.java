@@ -14,7 +14,7 @@ public enum Jeton {
 		this.symbole = jeton;
 		this.ouvert = ouvert ;
 	}
-	public boolean estEgal(Jeton jetonCible) {
+	public boolean estEgal(Jeton jetonCible){
 		return ( this.symbole==jetonCible.symbole && this.ouvert==jetonCible.ouvert);
 	}
 	

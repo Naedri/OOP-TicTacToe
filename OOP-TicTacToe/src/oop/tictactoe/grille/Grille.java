@@ -1,5 +1,9 @@
 package oop.tictactoe.grille;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import oop.tictactoe.grille.Jeton;
 
@@ -12,6 +16,13 @@ public class Grille implements In_Grille {
 		this.grille = new Jeton[nbrLignes][nbrColonnes];
 		this.viderGrille(); //initialisation
 	}
+	public Grille(int nbrLignes, int nbrColonnes, boolean aleatoire) {
+		this.grille = new Jeton[nbrLignes][nbrColonnes];
+		if (aleatoire)
+			this.remplirAleaGrille(); //initialisation
+		else
+			this.viderGrille();
+	} 
 	
 	
 	// si il n y a pas de taille préciser on fait une grille de TIC TAC TOE de 3*3
@@ -66,14 +77,15 @@ public class Grille implements In_Grille {
 			for (int i = 0; i < ligneJeton.length; i++) {
 				sGrille += " " + ligneJeton[i].toString();
 			}
-//			for (Jeton cellule : ligneJeton)
-//				sGrille = " " + cellule.toString();
 			sGrille += "\n";
 			++ligne;
 		}
 		return sGrille;
 	}
 	
+	/**
+	 * 
+	 */
 	public void afficherGrille() {
 		System.out.println(this.toStringGrille());
 	}
@@ -101,9 +113,6 @@ public class Grille implements In_Grille {
 			for (int i = 0; i < ligneJeton.length; i++) {
 				ligneJeton[i] = Jeton.JETON_VIDE;
 			}
-//			for (Jeton cellule : ligneJeton) {
-//				cellule = Jeton.JETON_VIDE;
-//			}
 		}
 	}
 
@@ -128,16 +137,64 @@ public class Grille implements In_Grille {
 	 * remplissage aléatoire avec JEONT caractère ouvert,  
 	 * à partir d une liste de JETON finie de taille égale à celle de la grille
 	 * tirage aléatoire sans remise de la liste de JETON dans chacune des cellules
-	 * verifie que la grille est remplie de JETON vide au départ
-	 * verifie qu'une victoire n a pas été formée, 
-	 * 	si c'est le cas on change le symbole insére, 
-	 * 	si cela forme une victoire, on laisse le jeton 
-	 *  mais on va  modifier l autre accessible depuis une profondeur 1, 
-	 *  on verifie si ce changement génère une victoire si oui on modifie jeton profondeur 2
-	 * 		si au bout de x profondeur toujours une victoire
-	 * 		on relance le remplissage du debut
 	 */
-	public void remplissageGrille() {
+	public void remplirAleaGrille() {
+		//initialisation de la liste des jetons
+		//comme le joueurX commence il a un avantage
+		//ainsi si le nombre de jeton est impair il y aura un jeton O de plus
+		LinkedList<Jeton> listeJetons= new LinkedList<Jeton>(); //Linked list car acces terminaux constant
+		for (int i = 0; i < getNbrCellules(); ++i) {
+			listeJetons.addLast(Jeton.values()[(i+1) %2 +1]);
+		}
+		
+		//brassage de la liste des jetons
+		//https://www.tutorialspoint.com/java/util/collections_shuffle.htm
+		Collections.shuffle(listeJetons);
+		
+	    //insertion de la liste de jetons dans la grille
+		//boucle for each pour la Linked list qui travaille difficilement avec des indices
+		for (Jeton[] ligneJeton : this.grille) {
+			for (int i = 0; i < ligneJeton.length; i++) {
+				ligneJeton[i] = listeJetons.getFirst();
+				listeJetons.removeFirst();	
+			}
+		}
+		
+//		//Ne fonctionne pas
+//		for (Jeton[] ligneJeton : this.grille) {
+//			for (Jeton jeton : ligneJeton) {
+//				jeton = listeJetons.getFirst();
+//				listeJetons.removeFirst();
+//			}
+//		}
+	}
+	
+	/**
+	 * comparaison de grille
+	 * utilisable pour s assurer que des grilles generees aléatoirement sont differentes
+	 * @param grille1 de jeton
+	 * @param grilleCible de jeton
+	 * @return true si grille1 comporte au moins un jeton different de grille2
+	 */
+	public boolean estEgale(Grille grilleCible) {
+		
+		//comparaison de taille
+		if (this.getNbrCellules() != grilleCible.getNbrCellules()) {
+			return false;
+		}
+		
+		//comparaison des cellules
+		for (int i=0;i < this.getLignes(); ++i) {
+			for (int j = 0; j < this.getColonnes(); ++j) {
+				Jeton jetonCible1 = this.getCellule(i, j);
+				Jeton jetonCible2 = grilleCible.getCellule(i, j);
+				if (! (jetonCible1.estEgal(jetonCible2))) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
 		
 	}
 	
@@ -205,7 +262,7 @@ public class Grille implements In_Grille {
 				grille[ligneJ1][colonneJ1] = Jeton.JETON_O ;
 				grille[ligneJ2][colonneJ2] = Jeton.JETON_X ;
 			}
-			else {
+			if(getCellule(ligneJ1,colonneJ1).estEgal(Jeton.JETON_O)) {
 				grille[ligneJ1][colonneJ1] = Jeton.JETON_X ;
 				grille[ligneJ2][colonneJ2] = Jeton.JETON_O ;
 			}
@@ -231,7 +288,7 @@ public class Grille implements In_Grille {
 		assert(existeNextCellule(ligne, colonne, profondeur, direction));
 		
 		int[] coord = new int[2];
-		int ligneCible = profondeur * direction.getDcolonne() + colonne ;
+		int ligneCible = profondeur * direction.getDligne() + ligne ;
 		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
 		
 		coord[0]=ligneCible;
@@ -260,14 +317,13 @@ public class Grille implements In_Grille {
 		
 		boolean existe = false;
 		
-		int ligneCible = profondeur * direction.getDcolonne() + colonne ;
+		int ligneCible = profondeur * direction.getDligne() + ligne ;
 		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
 		
 		if(ligneCible < getLignes() && ligneCible >= 0 
 				&& colonneCible < getColonnes() && colonneCible >= 0) {
 			existe = true;
 		}
-		
 		return existe;
 	}
 
@@ -292,30 +348,6 @@ public class Grille implements In_Grille {
 	
 		return getCellule(coord[0], coord[1]);
 	}
-
-
-	//jetonAdjacent
-//	/**
-//	 * 
-//	 * @param ligne
-//	 * @param colonne
-//	 * @return existe il un jeton adjacent
-//	 */
-//	public boolean existeAdjacent(int ligne, int colonne) {
-//		assert (ligne <= grille.getLignes() && colonne <= grille.getColonnes()); //la cellule doit etre dans la grille
-//		assert (!grille.estVideCellule(ligne, colonne)); // la cellule doit etre vide
-//	    
-//		for (Direction direction : Direction.values()) {
-//	    	int cibleColonne = direction.getDcolonne() + colonne ;
-//			int cibleLigne =  direction.getDligne() + ligne ;
-//			if (cibleLigne <= grille.getLignes() && cibleColonne <= grille.getColonnes()) {
-//				Jeton cibleJeton = grille.getCellule(cibleLigne, cibleColonne) ;
-//				if (!cibleJeton.estVideJeton())
-//					return true ;
-//			}
-//	    }	    	
-//		return false ;
-//	}
 	
 	/**
 	 * existe il dans les cellules voisines de la cellule donnee [ligne,colonne]
@@ -329,7 +361,6 @@ public class Grille implements In_Grille {
 		assert (ligne < this.grille.length && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < this.grille[0].length && colonne >= 0); //la cellule doit être dans la grille
 		
-//		for (Direction oneDirection : EnumSet.range(Direction.EST, Direction.SUD_EST))
 		for (Direction oneDirection : Direction.values())
 			if (existeNextCellule(ligne, colonne, 1, oneDirection)) {
 				if (! getNextJeton(ligne, colonne, 1, oneDirection).estVideJeton()) {
