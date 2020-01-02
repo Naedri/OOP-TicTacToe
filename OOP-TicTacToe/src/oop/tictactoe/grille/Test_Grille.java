@@ -8,7 +8,7 @@ class Test_Grille {
 
 	@Test 
 	void testJeton(){
-		
+		System.out.println("Test jetons.");
 		Jeton jo =  Jeton.JETON_O ;
 		Jeton jo2 =  Jeton.JETON_O ;
 		Jeton jo3 = Jeton.JETON_O_MIN ;
@@ -16,9 +16,11 @@ class Test_Grille {
 		Jeton jx =  Jeton.JETON_X ;
 		assertTrue(jo.estEgal(jo2));
 		assertTrue(jo.estEgal(jo));
+		assertFalse(jo.estEgal(jo3));
 		
 		assertEquals('O', jo.getSymbole());
 		assertEquals('O', jo2.getSymbole());
+		assertEquals('o', jo3.getSymbole());
 		assertEquals('X', jx.getSymbole());
 		
 		assertFalse(jo.estVideJeton());
@@ -28,14 +30,17 @@ class Test_Grille {
 		assertFalse(jo2.estOuvert());
 		assertEquals('o', jo2.getSymbole());
 		assertTrue(jo2.estEgal(jo3));
+		
+		assertEquals('x', jx.ouvertToFerme().getSymbole());
 	}
 	
 	@Test
-	void testGrille() {
+	void testGrillePlacerJeton() {
+		System.out.println("Test placer Jeton.");
 		
 		Grille grille = new Grille();
-		grille.afficherGrille();
 
+		assertTrue(grille.estVideGrille());
 		assertFalse(grille.estPleineGrille());
 		assertEquals(3, grille.getLignes());
 		assertEquals(3, grille.getColonnes());
@@ -47,18 +52,27 @@ class Test_Grille {
 		assertTrue(grille.estVideCellule(0, 0));
 		grille.placerJeton(jo, 0, 0);
 		assertFalse(grille.estVideCellule(0, 0));
+		assertFalse(grille.estVideGrille());
+		assertFalse(grille.estPleineGrille());
 		grille.placerJeton(jo, 1, 1);
 		grille.placerJeton(jo, 2, 2); //on commence a 0
+		
+		grille = new Grille();
+		for (int i = 0; i<grille.getLignes(); ++i) {
+			for (int j = 0; j < grille.getColonnes(); j++) {
+				grille.placerJeton(jo, i, j);
+			}
+		}
+		assertTrue(grille.estPleineGrille());
+		assertFalse(grille.estVideGrille());
+
 
 		grille = new Grille();
-		grille.afficherGrille();
 		grille.placerJeton(jx, 2, 2);
 		grille.placerJeton(jo, 0, 0);
-		grille.afficherGrille();
 		assertTrue(grille.getCellule(2,2).estEgal(jx));
 		assertTrue(grille.getCellule(0,0).estEgal(jo));
 //		assertTrue(grille.getCellule(3,2).estEgal(jx));	//ne doit pas marcher car 3 est hors grille
-
 		
 		grille = new Grille(5,4);
 		assertFalse(grille.estPleineGrille());
@@ -67,8 +81,6 @@ class Test_Grille {
 		
 		grille.placerJeton(jx, 0, 0);
 		grille.placerJeton(jo, 0, 1);
-		grille.afficherGrille();
-
 		
 		assertTrue(grille.getCellule(0,0).estEgal(jx));
 		assertTrue(grille.getCellule(0,1).estEgal(jo));
@@ -80,13 +92,14 @@ class Test_Grille {
 		grille.placerJeton(jx, 2, 0);
 		grille.placerJeton(jo, 2, 1);
 		grille.placerJeton(jo, 2, 2);
-		grille.afficherGrille();
+		
+		assertFalse(grille.estPleineGrille());
+		
 	}
 	
 	@Test
 	void testGrilleAdjacent() {
 		Grille grille = new Grille(6,7);
-		grille.afficherGrille();		
 		assertFalse(grille.estPleineGrille());
 		
 		System.out.println("Test sans jeton.");
@@ -94,7 +107,7 @@ class Test_Grille {
 		for (int i=0;i < grille.getLignes(); ++i) {
 			for (int j = 0; j < grille.getColonnes(); ++j) {
 				assertFalse(grille.existeAdjacent(i, j));
-				System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
+//				System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 			}
 		}
 
@@ -112,12 +125,12 @@ class Test_Grille {
 			for (int j = 0; j < grille.getColonnes(); ++j) {
 				if ((i==0 && j==1) || (i==1 && j==1) || (i==1 && j==0) ) {
 					assertTrue (grille.existeAdjacent(i, j));
-					System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
+//					System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 
 				}
 				else {
 					assertFalse(grille.existeAdjacent(i, j));
-					System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
+//					System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 
 				}
 			}
@@ -126,7 +139,6 @@ class Test_Grille {
 		System.out.println("Test avec un jeton X.");
 		
 		grille = new Grille(6,7);
-		grille.afficherGrille();		
 		assertFalse(grille.estPleineGrille());
 		
 		Jeton jx = Jeton.JETON_X;
@@ -141,12 +153,12 @@ class Test_Grille {
 			for (int j = 0; j < grille.getColonnes(); ++j) {
 				if ((i==0 && j==1) || (i==1 && j==1) || (i==1 && j==0) ) {
 					assertTrue (grille.existeAdjacent(i, j));
-					System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
+//					System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 
 				}
 				else {
 					assertFalse(grille.existeAdjacent(i, j));
-					System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1) +"ligne "+(j+1)+"colonne.");
+//					System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1) +"ligne "+(j+1)+"colonne.");
 
 				}
 			}
@@ -156,7 +168,6 @@ class Test_Grille {
 		grille = new Grille (6,6);
 		grille.placerJeton(jo, 0, 0);
 		grille.placerJeton(jx, 2, 2);
-		grille.afficherGrille();
 		assertTrue(grille.existeAdjacent(1, 1));
 		assertTrue(grille.existeAdjacent(1, 2));
 		assertTrue(grille.existeAdjacent(1, 3));
@@ -168,10 +179,10 @@ class Test_Grille {
 		
 		
 		for (int i=0;i < grille.getLignes(); ++i) {
-			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+5+"colonne.");
-			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1) +"ligne "+6+"colonne.");
-			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 5+"ligne "+(i+1)+"colonne.");
-			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 6+"ligne "+(i+1)+"colonne.");
+//			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+5+"colonne.");
+//			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1) +"ligne "+6+"colonne.");
+//			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 5+"ligne "+(i+1)+"colonne.");
+//			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 6+"ligne "+(i+1)+"colonne.");
 
 			assertFalse(grille.existeAdjacent(4, i));
 			assertFalse(grille.existeAdjacent(5, i));
@@ -179,25 +190,100 @@ class Test_Grille {
 			assertFalse(grille.existeAdjacent(i,5));
 		}
 		
+		assertTrue(grille.sontAdjacents(0, 0, 1, 1));
+		assertFalse(grille.sontAdjacents(0, 0, 2, 2));
+		assertTrue(grille.sontAdjacents( 1, 1, 0, 0));
+		assertFalse(grille.sontAdjacents(2, 2,0,0));
+		
+		assertTrue(grille.sontAdjacents(1, 1, 2, 2));
+		assertTrue(grille.sontAdjacents(2, 2, 1,1));
+		assertFalse(grille.sontAdjacents(2, 2, 0, 0));
+		
+		assertTrue(grille.sontAdjacents(1, 2, 1, 1));
+		assertFalse(grille.sontAdjacents(1, 3, 1, 1));
+
+		
 	}
 	
 	@Test
 	void testGrilleRemplissageAleatoire() {
+		System.out.println("Test remplissage aleatoire.");
 		System.out.println("remplissage aleatoire 1");
 		Grille grille1 = new Grille(6,7,true);
-		grille1.afficherGrille();
+//		grille1.afficherGrille();
 		System.out.println("remplissage aleatoire 2");
 		Grille grille2 = new Grille(6,7,true);
-		grille2.afficherGrille();
+//		grille2.afficherGrille();
 		System.out.println("remplissage aleatoire 3");
 		Grille grille3 = new Grille(6,7,true);
-		grille3.afficherGrille();
+//		grille3.afficherGrille();
 		
 		assertFalse(grille1.estEgale(grille2));
 		assertFalse(grille1.estEgale(grille3));
 		assertFalse(grille2.estEgale(grille3));
-		
-		
 	}
 
+	
+	@Test
+	void testGrillePermutationJeton(){
+		System.out.println("Test permutation jeton.");
+
+		Jeton jx = Jeton.JETON_X ;
+		Jeton jo = Jeton.JETON_O ;
+		
+		Grille grille = new Grille(4,4);
+		Grille grilleC = new Grille(4,4);
+		
+		grille.placerJeton(jo, 0,0);
+		grille.placerJetonAdjacent(jx, 1,1);
+		grille.placerJetonAdjacent(jo, 2,2);
+		grille.placerJeton(jo, 1,2);
+
+		grilleC.placerJeton(jo, 0,0);
+		grilleC.placerJetonAdjacent(jx, 1,1);
+		grilleC.placerJetonAdjacent(jo, 2,2);
+		grilleC.placerJeton(jo, 1,2);
+
+		
+		grille.permutationJeton(1, 1, 2, 2);
+		assertFalse(grille.estEgale(grilleC));
+		grille.permutationJeton(1, 1, 2, 2);
+		assertTrue(grille.estEgale(grilleC));
+		
+		grille.permutationJeton(0,0, 1, 1);
+		assertFalse(grille.estEgale(grilleC));
+		grille.permutationJeton(0,0, 1, 1);
+		assertTrue(grille.estEgale(grilleC));
+		
+		grille.permutationJeton(1, 2, 1, 1);
+		assertFalse(grille.estEgale(grilleC));
+		grille.permutationJeton(1, 1, 1, 2);
+		assertTrue(grille.estEgale(grilleC));
+	}
+	
+
+	
+	@Test
+	void testGrilleFermetureJeton(){
+		System.out.println("Test fermeture jeton.");
+
+		Jeton jx = Jeton.JETON_X ;
+		Jeton jo = Jeton.JETON_O ;
+		
+		Grille grille = new Grille(4,4);
+		
+		grille.placerJeton(jo, 0, 2);
+		grille.placerJeton(jx, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jo, 2, 1);
+		grille.placerJeton(jo, 2, 2);
+		grille.placerJeton(jo, 2, 3);
+
+		grille.ouvertToFermeJeton(1, 2);		
+		
+		assertTrue(grille.getCellule(1, 1).estOuvert());
+		assertFalse(grille.getCellule(1, 2).estOuvert());
+	}
 }

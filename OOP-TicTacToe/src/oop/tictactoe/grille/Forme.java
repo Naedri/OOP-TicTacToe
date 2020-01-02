@@ -21,7 +21,7 @@ public class Forme {
 				formeNum=1;
 				formeStr = "carre";
 				distance = new int[] {1,1,1,1} ;
-				orientation = new int[] {0,6,4,2};
+				orientation = new int[] {2,4,6,0};
 				//{Direction.EST,Direction.SUD,Direction.OUEST,Direction.NORD}) ;
 				grilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
 				break ;
@@ -31,7 +31,7 @@ public class Forme {
 				formeNum=2;
 				formeStr = "losange";
 				distance = new int[]{1,1,1,1};
-				orientation = new int[]{1,7,5,3};
+				orientation = new int[]{1,3,5,7};
 				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD_OUEST}) ;
 				grilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
 				break;
@@ -41,7 +41,7 @@ public class Forme {
 				formeNum = 3;
 				formeStr = "croix";
 				distance = new int[]{1,1,1,1,1} ;
-				orientation = new int[]{0,6,4,2};
+				orientation = new int[]{1,3,5,7,6};
 				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD,Direction.OUEST}),
 				grilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
 				break ;
@@ -144,6 +144,4 @@ public class Forme {
 	public int getNbrPoint() {
 		return chemin.length;
 	}
-
-
 }

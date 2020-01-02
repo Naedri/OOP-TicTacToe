@@ -1,5 +1,7 @@
 package oop.tictactoe.tours;
 
+import java.util.EnumSet;
+
 import oop.tictactoe.grille.*;
 import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
@@ -16,6 +18,120 @@ public class TourMorpion extends TourTicTacToe {
 		this.grille = grille;
 		this.joueur = joueurActuel;
 		this.saisieCellule = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+	}
+	
+	/**
+	 * il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+	 * renvoie la premiere direction trouvé pour laquel un alignement a ete trouve
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @return
+	 */
+	public Direction directionAlignementXD(int ligne, int colonne, int profondeur) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+		assert (nbrAlignementXD(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+		
+		Direction oneDirection = null ;
+		
+		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
+			if (isAlignement1D1DI(ligne, colonne, profondeur, direction)) {
+				oneDirection = direction ;
+			}
+		
+		return oneDirection ;
+	}
+	/**
+	 * ferme des jetons après ils ont ete trouves dans un alignement
+	 * ferme d abord dans une direction (nord au sud sens horaire)
+	 * puis si le nombre de jeton a fermer n a pas ete atteint
+	 * ferme des jetons dans la direction opposée (nord au sud sens anti horaire)
+	 * @param ligne du jeton model a fermer
+	 * @param colonne du jeton model a fermer
+	 * @param profondeur nombre de jetons que l on souhaite fermer (qui sont impliques dans un alignement)
+	 */
+	public void fermeAlignementXD(int ligne, int colonne, int profondeur) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+		assert (nbrAlignementXD(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+
+		Jeton jetonModel =  grille.getCellule(ligne, colonne); //dernier jeton que l on va fermer et qui nous servera de modele pour la fermeture des autres jetons
+		assert(jetonModel.estOuvert());
+		
+		Direction direction = directionAlignementXD(ligne, colonne, profondeur); //axe dans lequel la fermeture va se realiser
+		
+		boolean aligne = true ;//permet de controler que les jetons fermer sont bien alignes
+		int indice = 1; //permet de progresser le long de l alignements
+		int resteJeton = profondeur-1 ; //compte le nombre de jetons qu il reste a fermer (-1 car on fermera le jeton à grille[ligne][colonne] a la fin
+		
+		while (aligne && indice < profondeur && resteJeton > 0) {
+			int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
+			Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
+			if (jetonModel.estEgal(jetonCibleD)) {
+				grille.ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
+				--resteJeton;
+			}
+			else {
+				aligne = false;
+			}
+			++indice;
+		}
+		
+		// si le nombre de jeton a ferme n est toujours pas atteint
+		// ils doivent etre dans l autre direction
+		if (resteJeton > 0) {
+			aligne = true ;
+			indice = 1;
+			direction= direction.inverser();
+			while (aligne && indice < profondeur && resteJeton > 0) {
+				int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
+				Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
+				if (jetonModel.estEgal(jetonCibleD)) {
+					grille.ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
+					--resteJeton;
+				}
+				else {
+					aligne = false;
+				}
+				++indice;
+			}
+		}
+		
+		//fermeture du jeton model
+		grille.getCellule(ligne, colonne).ouvertToFerme();
+	}
+	
+	/**
+	 * fermer les jeton selon un axe 
+	 * de longueur profondeur
+	 * d orientation suivant oneDirection
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur si egale a 0 la cellule fermee sera uniquement la cellule[ligne][colonne]
+	 * @param oneDirection orientation de l axe de fermeture des jetons
+	 */
+	public void fermerAxeJetons1D(int ligne, int colonne, int profondeur, Direction oneDirection) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		
+		for (int i = 0 ; i <= profondeur; ++i) {
+			if (grille.existeNextCellule(ligne, colonne, profondeur, oneDirection)) {
+				int[] coordCible = grille.coordNextJeton(ligne, colonne, profondeur, oneDirection);
+				int ligneCible = coordCible[0];
+				int colonneCible = coordCible[1];
+				if (!grille.getCellule(ligneCible, colonneCible).estVideJeton()) {
+					if(grille.getCellule(ligneCible, colonneCible).estOuvert()) {
+						grille.ouvertToFermeJeton(ligneCible, colonneCible) ;
+					}
+				}
+			}
+		}
+		
 	}
 	
 	/**
@@ -47,8 +163,8 @@ public class TourMorpion extends TourTicTacToe {
 	 */
 	public void evaluerCoup() {
 		assert(saisieCellule != null);
-		if (alignementCelluleXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
-			grille.fermerAlignementJetons(saisieCellule[0], saisieCellule[1], 3);
+		if (nbrAlignementXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+			fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
 			joueur.marquerPoint();
 		}
 	}

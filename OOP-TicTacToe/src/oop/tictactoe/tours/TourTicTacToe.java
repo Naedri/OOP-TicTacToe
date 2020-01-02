@@ -17,23 +17,23 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 
 	/**
-	 * alignement pour UNE Direction donnee
+	 * alignement pour UNE Direction donnee ET son Inversee
 	 * 
 	 * @param ligne      de la cellule observée
 	 * @param colonne    de la cellule observée
 	 * @param profondeur est le nombre de cellule observées au max qui sont alignées
-	 *                   dans grille
+	 *                   dans grille 
+	 *                   doit etre >=2
 	 * @param direction  et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
-	public boolean alignementCellule1D(int ligne, int colonne, int profondeur, Direction direction) {
+	public boolean isAlignement1D1DI(int ligne, int colonne, int profondeur, Direction direction) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-		assert (profondeur > 2);//ATTENTION PEUT ETRE >=2
+		assert (profondeur >= 2);
 		
 		// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
-		// jetons : jetonCible
 		Jeton jetonEvalue = grille.getCellule(ligne, colonne);
 		
 		/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
@@ -99,18 +99,18 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	 * @return le nombre d'alignement qui ont été trouvés avec alignementCellule
 	 *         dans toutes les directions
 	 */
-	public int alignementCelluleXD(int ligne, int colonne, int profondeur) {
+	public int nbrAlignementXD(int ligne, int colonne, int profondeur) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-		assert (profondeur > 2);
+		assert (profondeur >= 2);
 		
 		int alignement = 0;
 
-		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_OUEST))
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST))
 			// pas besoin de (Direction dd : Direction.values()) car
 			// alignementCellule parcours également les directions inverses
-			if (alignementCellule1D(ligne, colonne, profondeur, oneDirection)) {
+			if (isAlignement1D1DI(ligne, colonne, profondeur, oneDirection)) {
 				++alignement;
 			}
 		return alignement;
@@ -139,7 +139,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	 */
 	public void evaluerCoup() {
 		assert(saisieCellule != null);
-		if (alignementCelluleXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+		if (nbrAlignementXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 			joueur.marquerPoint();
 		}
 	}
