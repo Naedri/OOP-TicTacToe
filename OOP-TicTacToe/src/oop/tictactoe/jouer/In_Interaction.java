@@ -58,7 +58,7 @@ public interface In_Interaction {
 			}
 		}
 		return cellule;
-	}	
+	}
 	
 	public static boolean estValideSaisie(String saisie) {
 		// format : entier[espaces]-[espaces]entier (ligne puis colonne)
@@ -131,7 +131,7 @@ public interface In_Interaction {
 	 * @return
 	 */
 	public static String afficherMessageResultat(Match m, Joueur joueurActuel, Joueur joueurAutre) {
-		assert(joueurActuel != null && m != null);
+		assert(joueurActuel != null && joueurAutre != null && m != null);
 		String messageResultat;
 		m.evalVictoireParPointMax(joueurActuel); //mise a jour
 		

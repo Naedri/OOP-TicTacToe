@@ -1,6 +1,7 @@
 package oop.tictactoe.tours;
 
 import oop.tictactoe.grille.Jeton;
+import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
 import oop.tictactoe.grille.Grille;
@@ -10,9 +11,6 @@ import oop.tictactoe.grille.Forme;
 
 public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlacement   {
 
-	private Grille grille;
-	private Joueur joueur;
-	int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 	private Forme forme;
 	
 	public TourForme(Grille grille, Joueur joueurActuel, Forme forme) {
@@ -172,17 +170,13 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		return formeCible.contains(formeEvaluee);
 	}
 	
-	/*
-	 * 
-	 * 
-	 */
-	
 	@Override
 	public void evaluerCoup() {
-		assert(saisieCellule != null);
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (estCompleteForme(saisieCellule[0], saisieCellule[1], forme)) {
-			joueur.marquerPoint();
-		}
+			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
+			grille.afficherGrille();
+			joueur.marquerPoint();		}
 	}
 
 }

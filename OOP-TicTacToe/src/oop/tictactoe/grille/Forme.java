@@ -9,10 +9,9 @@ public class Forme {
 	private int formeNum ;
 	private String formeStr ;
 	private int[][] grilleModele ;
-	private static String[] listFormesDispo;
+	private static String[] listFormesDispo = new String[] {"carre","losange","croix"};
 
 	public Forme(int choixForme) {
-		listFormesDispo = new String[] {"carre","losange","croix"};
 		
 		switch (choixForme) {
 		//niveau de complexite croissant
@@ -90,11 +89,17 @@ public class Forme {
 		return grilleModele.toString() ;
 	}
 	
-	public String toStringFormeDispo() {
+	public static String[] getListFormesDispo() {
+		return listFormesDispo;
+	}
+	
+	public static String toStringFormeDispo() {
 		String sFormeDispo = "";
 		sFormeDispo += "Les Formes dispo sont :";
 		for (String forme: listFormesDispo) {
-			sFormeDispo += "\n- " + forme ;
+			int indice = 1 ;
+			sFormeDispo += "\n<"+indice +"> " + forme ;
+			++indice;
 			}
 		sFormeDispo += ".\n";
 		return sFormeDispo;
@@ -105,6 +110,18 @@ public class Forme {
 		sConsigne += "Pour realiser la forme suivante : '" + formeStr +"',\n il faut placer les jetons de la manière suivante :\n";
 		sConsigne += toString();
 		return sConsigne ;
+	}
+	
+	public static String toStringFormeDispoConsigne() {
+		String formeMenu = "";
+		formeMenu += toStringFormeDispo();
+		
+		for (int i = 1 ; i <= listFormesDispo.length ; ++i) {
+			Forme formeExemple = new Forme(1);
+			formeMenu += formeExemple.toStringConsigne();
+		}		
+		return formeMenu ;
+		
 	}
 	
 	public String toStringFormeChoisie() {
@@ -137,9 +154,6 @@ public class Forme {
 	}
 	public int[][] getFormeGrille() {
 		return grilleModele;
-	}
-	public static String[] getListFormesDispo() {
-		return listFormesDispo;
 	}
 	public int getNbrPoint() {
 		return chemin.length;

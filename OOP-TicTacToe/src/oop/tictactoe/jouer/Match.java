@@ -129,13 +129,17 @@ public class Match {
 	/**
 	 * a appelle a chaque fin de tour du joueurActuel
 	 * pour evaluer si le match est termine (cad victoire ou match null)
+	 * cette methode peut seulement mettre le math en victoire mais pas l inverse
 	 * @param joueurActuel dont c est le tour
 	 */
 	public void evalVictoireParPointMax (Joueur joueurActuel) {
-		if (estTermine(joueurActuel)) {
-			if (joueurActuel.getScore()>=pointMax)
-				victoire = true ;
+		if (pointMax !=0 ) {
+			if (estTermine(joueurActuel)) {
+				if (joueurActuel.getScore()>=pointMax)
+					victoire = true ;
+			}
 		}
+
 	}
 	
 }

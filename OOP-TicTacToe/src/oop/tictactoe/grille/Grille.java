@@ -17,7 +17,6 @@ public class Grille implements In_Grille {
 	public Grille(int nbrLignes, int nbrColonnes, boolean aleatoire) {
 		this.grille = new Jeton[nbrLignes][nbrColonnes];
 		this.viderGrille(); //vidange necessaire pour le assert de remplirAleaGrille
-
 		if (aleatoire) {
 			this.remplirAleaGrille(); //initialisation
 		}
@@ -30,6 +29,13 @@ public class Grille implements In_Grille {
 		this.viderGrille(); //initialisation
 	}
 
+	public Grille(boolean aleatoire) {
+		this.grille = new Jeton[3][3];//ce sont des references qui s attendent a recevoir des jetons mais ils sont nulls au depart
+		this.viderGrille(); //initialisation
+		if (aleatoire) {
+			this.remplirAleaGrille(); //initialisation
+		}
+		}
 	// getters
 	public int getColonnes() {
 		return this.grille[0].length;

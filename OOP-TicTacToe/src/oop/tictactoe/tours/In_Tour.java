@@ -4,7 +4,7 @@ public interface In_Tour {
 	
 	/**
 	 * permet au joueur de joueur(cad saisir) son coup
-	 * 
+	 * cela peut etre le placement de jeton ou la permutation de deux jetons
 	 * ne peut pas contenir d'argument car ceux ci doivent pouvoir varier
 	 */
 	public void jouerCoup();

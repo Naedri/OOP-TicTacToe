@@ -5,18 +5,27 @@ import oop.tictactoe.jouer.*;
 import oop.tictactoe.grille.*;
 
 
-public class PartieTicTacToe {
+public class PartieTicTacToe  implements In_Partie {
 	
-	private Joueur joueur1 ;
-	private Joueur joueur2 ;
-	private Match match ;
-	private Grille grille ;
+	protected Joueur joueur1 ;
+	protected Joueur joueur2 ;
+	protected Match match ;
+	protected Grille grille ;
+//	protected int nbrAlign ; //nombre de jetons a aligner
 	
 	public PartieTicTacToe() {
 		joueur1 = new Joueur();
 		joueur2 = new Joueur();
 		grille = new Grille();
 		match = new Match(1);//nombre de point max = 1
+	}
+	
+	public PartieTicTacToe(int choixGrilleLigne, int choixGrilleColonne) {
+		assert(choixGrilleLigne >=0 && choixGrilleColonne >= 0);
+		joueur1 = new Joueur();
+		joueur2 = new Joueur();
+		grille = new Grille(choixGrilleLigne, choixGrilleColonne);
+		match = new Match(1); //nombre de point max = 1
 	}
 	
 	public void lancerPartie() {
@@ -26,6 +35,7 @@ public class PartieTicTacToe {
 			match.tourDebut();
 			
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
+			
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
 			TourTicTacToe tour = new TourTicTacToe(grille, joueurActuel);
 

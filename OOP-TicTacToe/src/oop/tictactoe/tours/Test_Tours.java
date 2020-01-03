@@ -169,7 +169,24 @@ class Test_Tours {
 		assertTrue(grille.estEgale(grilleFerme));
 		
 		System.out.println("testTourMorpion FAIT \n");
-
+	}
+	
+	@Test
+	void testTourPermutation(){
+		System.out.println("testTourPermutation EN COURS \n");
+		
+		
+		
+		System.out.println("testTourPermutation FAIT \n");
+	}
+	
+	@Test
+	void testTourForme(){
+		System.out.println("testTourForme EN COURS \n");
+		
+		
+		
+		System.out.println("testTourForme FAIT \n");
 	}
 
 }

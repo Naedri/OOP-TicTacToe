@@ -6,9 +6,9 @@ import oop.tictactoe.jouer.*;
 
 public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	
-	private Grille grille;
-	private Joueur joueur;
-	private int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+	protected Grille grille;
+	protected Joueur joueur;
+	protected int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 	
 	public TourTicTacToe(Grille grille, Joueur joueurActuel) {
 		this.grille = grille;
@@ -117,9 +117,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		return alignement;
 	}
 	
-	/**
-	 * permet la saisie et le placement de jeton
-	 */
+
 	public void jouerCoup() {
 		boolean saisieCorrecte = false;
 
@@ -135,9 +133,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueur, saisieCellule));
 	}
 	
-	/**
-	 * le coup qui vient d etre joue permet il au joueur de gagner un point de victoire
-	 */
+
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {

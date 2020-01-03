@@ -7,17 +7,10 @@ import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
 
-public class TourMorpion extends TourTicTacToe {
-	
-	private Grille grille;
-	private Joueur joueur;
-	private int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
-		
+public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesPlacement {
+
 	public TourMorpion(Grille grille, Joueur joueurActuel) {
 		super(grille, joueurActuel);
-		this.grille = grille;
-		this.joueur = joueurActuel;
-		this.saisieCellule = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 	}
 	
 	/**
@@ -146,9 +139,7 @@ public class TourMorpion extends TourTicTacToe {
 		
 	}
 	
-	/**
-	 * permet la saisie et le placement de jeton
-	 */
+	@Override
 	public void jouerCoup() {
 		boolean saisieCorrecte = false;
 
@@ -175,9 +166,7 @@ public class TourMorpion extends TourTicTacToe {
 		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueur, saisieCellule));
 	}
 	
-	/**
-	 * 
-	 */
+	@Override
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
