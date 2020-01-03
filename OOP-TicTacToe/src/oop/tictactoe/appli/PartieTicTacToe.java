@@ -20,7 +20,6 @@ public class PartieTicTacToe {
 	}
 	
 	public void lancerPartie() {
-		System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
 		grille.afficherGrille();
 		while(!(match.estTourMax() || match.getVictoire())) {
 			match.tourDebut();

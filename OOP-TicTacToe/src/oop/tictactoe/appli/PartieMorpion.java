@@ -29,24 +29,14 @@ public class PartieMorpion extends PartieTicTacToe {
 	
 	
 	public void lancerPartie() {
-		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
-		
 		grille.afficherGrille();
 		while(!(match.estTourMax() || match.getVictoire())) {
 			match.tourDebut();
 			
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 			System.out.println(In_Interaction.afficherMessageTour(joueurActuel));
-			
-			TourTicTacToe tour;
-			
-			if (match.getTour()==1) {
-				tour = new TourTicTacToe(grille, joueurActuel);
-			}
-			else {
-				tour = new TourMorpion(grille, joueurActuel);
-			}
-				
+			TourMorpion tour = new TourMorpion(grille, joueurActuel);
+
 			tour.jouerCoup();
 			grille.afficherGrille();
 			tour.evaluerCoup();
@@ -56,5 +46,34 @@ public class PartieMorpion extends PartieTicTacToe {
 			System.out.println(In_Interaction.afficherMessageResultat(match, joueurActuel));
 		}
 	}
+	
+//	public void lancerPartie() {
+//		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
+//		
+//		grille.afficherGrille();
+//		while(!(match.estTourMax() || match.getVictoire())) {
+//			match.tourDebut();
+//			
+//			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
+//			System.out.println(In_Interaction.afficherMessageTour(joueurActuel));
+//			
+//			TourTicTacToe tour;
+//			
+//			if (match.getTour()==1) {
+//				tour = new TourTicTacToe(grille, joueurActuel);
+//			}
+//			else {
+//				tour = new TourMorpion(grille, joueurActuel);
+//			}
+//				
+//			tour.jouerCoup();
+//			grille.afficherGrille();
+//			tour.evaluerCoup();
+//			
+//			match.evalMatchParTour (joueurActuel);
+//
+//			System.out.println(In_Interaction.afficherMessageResultat(match, joueurActuel));
+//		}
+//	}
 	
 }

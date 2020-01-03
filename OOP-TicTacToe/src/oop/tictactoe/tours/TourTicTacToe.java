@@ -92,14 +92,14 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 
 	/**
 	 * alignement pour TOUTES les Directions disponibles
-	 * 
+	 * le nombre de direction pour laquelle un alignement a ete trouvé
 	 * @param ligne
 	 * @param colonne
 	 * @param profondeur
-	 * @return le nombre d'alignement qui ont été trouvés avec alignementCellule
+	 * @return le nombre de direction/orientation qui ont été trouvés avec alignementCellule
 	 *         dans toutes les directions
 	 */
-	public int nbrAlignementXD(int ligne, int colonne, int profondeur) {
+	public int nbrDirectAvecAlign(int ligne, int colonne, int profondeur) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -107,12 +107,13 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		
 		int alignement = 0;
 
-		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST))
-			// pas besoin de (Direction dd : Direction.values()) car
-			// alignementCellule parcours également les directions inverses
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
+			// pas besoin de (Direction dd : Direction.values())
 			if (isAlignement1D1DI(ligne, colonne, profondeur, oneDirection)) {
 				++alignement;
 			}
+		}
+
 		return alignement;
 	}
 	
@@ -138,8 +139,8 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	 * le coup qui vient d etre joue permet il au joueur de gagner un point de victoire
 	 */
 	public void evaluerCoup() {
-		assert(saisieCellule != null);
-		if (nbrAlignementXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 			joueur.marquerPoint();
 		}
 	}

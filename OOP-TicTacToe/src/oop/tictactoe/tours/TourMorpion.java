@@ -22,28 +22,30 @@ public class TourMorpion extends TourTicTacToe {
 	
 	/**
 	 * il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
-	 * renvoie la premiere direction trouvé pour laquel un alignement a ete trouve
+	 * renvoie la PREMIERE direction trouvée pour laquel un alignement a ete trouve
 	 * @param ligne
 	 * @param colonne
 	 * @param profondeur
-	 * @return
+	 * @return PREMIERE direction trouvée pour laquel un alignement a ete trouve
 	 */
 	public Direction directionAlignementXD(int ligne, int colonne, int profondeur) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
-		assert (nbrAlignementXD(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+		assert (nbrDirectAvecAlign(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
 		
 		Direction oneDirection = null ;
 		
 		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
 			if (isAlignement1D1DI(ligne, colonne, profondeur, direction)) {
 				oneDirection = direction ;
+				return oneDirection ;
 			}
 		
 		return oneDirection ;
 	}
+	
 	/**
 	 * ferme des jetons après ils ont ete trouves dans un alignement
 	 * ferme d abord dans une direction (nord au sud sens horaire)
@@ -58,7 +60,7 @@ public class TourMorpion extends TourTicTacToe {
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
-		assert (nbrAlignementXD(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+		assert (nbrDirectAvecAlign(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
 
 		Jeton jetonModel =  grille.getCellule(ligne, colonne); //dernier jeton que l on va fermer et qui nous servera de modele pour la fermeture des autres jetons
 		assert(jetonModel.estOuvert());
@@ -67,28 +69,10 @@ public class TourMorpion extends TourTicTacToe {
 		
 		boolean aligne = true ;//permet de controler que les jetons fermer sont bien alignes
 		int indice = 1; //permet de progresser le long de l alignements
-		int resteJeton = profondeur-1 ; //compte le nombre de jetons qu il reste a fermer (-1 car on fermera le jeton à grille[ligne][colonne] a la fin
+		int resteJeton = profondeur ; //compte le nombre de jetons qu il reste a fermer (-1 car on fermera le jeton à grille[ligne][colonne] a la fin
 		
-		while (aligne && indice < profondeur && resteJeton > 0) {
-			int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
-			Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
-			if (jetonModel.estEgal(jetonCibleD)) {
-				grille.ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
-				--resteJeton;
-			}
-			else {
-				aligne = false;
-			}
-			++indice;
-		}
-		
-		// si le nombre de jeton a ferme n est toujours pas atteint
-		// ils doivent etre dans l autre direction
-		if (resteJeton > 0) {
-			aligne = true ;
-			indice = 1;
-			direction= direction.inverser();
-			while (aligne && indice < profondeur && resteJeton > 0) {
+		while (aligne && indice < profondeur && resteJeton >= 1) {
+			if (grille.existeNextCellule(ligne, colonne, indice, direction)) {
 				int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
 				Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
 				if (jetonModel.estEgal(jetonCibleD)) {
@@ -100,10 +84,38 @@ public class TourMorpion extends TourTicTacToe {
 				}
 				++indice;
 			}
+			else {
+				aligne = false ;
+			}
 		}
 		
+		// si le nombre de jeton a ferme n est toujours pas atteint
+		// ils doivent etre dans l autre direction
+		if (resteJeton >= 1) {
+			aligne = true ;
+			indice = 1;
+			direction= direction.inverser();
+			while (aligne && indice < profondeur && resteJeton >= 1) {
+				if (grille.existeNextCellule(ligne, colonne, indice, direction)) {
+					int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
+					Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
+					if (jetonModel.estEgal(jetonCibleD)) {
+						grille.ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
+						--resteJeton;
+					}
+					else {
+						aligne = false;
+					}
+					++indice;
+				}
+				else {
+					aligne = false ;
+				}
+			}
+		}
 		//fermeture du jeton model
-		grille.getCellule(ligne, colonne).ouvertToFerme();
+		assert(resteJeton == 1);
+		grille.ouvertToFermeJeton(ligne, colonne);
 	}
 	
 	/**
@@ -144,12 +156,17 @@ public class TourMorpion extends TourTicTacToe {
 			saisieCellule = In_Interaction.saisirCellule(grille);
 			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule));
 			if (grille.estVideCellule(saisieCellule[0], saisieCellule[1])) {
-
-				if (grille.existeAdjacent(saisieCellule[0], saisieCellule[1])) {
+				
+				if (grille.estVideGrille()) {
 					saisieCorrecte = true ;
+					}
+				else {
+					if (grille.existeAdjacent(saisieCellule[0], saisieCellule[1])) {
+						saisieCorrecte = true ;
+					}
+					else
+						System.out.println("La case selectionnee ne comporte pas de jeton adjacent. Veuillez recommencer.\n");
 				}
-				else
-					System.out.println("La case selectionnee ne comporte pas de jeton adjacent. Veuillez recommencer.\n");
 			}
 			else
 				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
@@ -162,8 +179,8 @@ public class TourMorpion extends TourTicTacToe {
 	 * 
 	 */
 	public void evaluerCoup() {
-		assert(saisieCellule != null);
-		if (nbrAlignementXD(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 			fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
 			joueur.marquerPoint();
 		}

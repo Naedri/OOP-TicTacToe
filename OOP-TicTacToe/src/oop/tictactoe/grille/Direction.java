@@ -10,10 +10,11 @@ public enum Direction {
 	//enum index commence a 0
 	
 	// déplacement relatif de la direction
-	private final int dcolonne, dligne;
+	private final int dligne, dcolonne;
 	
-	private Direction(int dx, int dy) {
-	  this.dcolonne = dx; this.dligne = dy;
+	private Direction(int deplacementLigne, int deplacementColonne) {
+	  this.dcolonne = deplacementColonne; 
+	  this.dligne = deplacementLigne;
 	}
 	
 	/** Retourne le déplacement sur l'axe des x correspondant à la

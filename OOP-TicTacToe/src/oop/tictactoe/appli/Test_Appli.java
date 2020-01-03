@@ -10,14 +10,16 @@ class Test_Appli {
 //	@Test
 //	void testTicTacToe() {
 //		PartieTicTacToe partieTicTacToe = new PartieTicTacToe() ;
+//		System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
 //		partieTicTacToe.lancerPartie() ;
 //	}
 	
-	// statut pas ok
+	// statut ok
 	@Test
 	void testMorpion() {
 		int ligneGrille = 5, colonneGrille = 6;
 		PartieMorpion partieMorpion = new PartieMorpion(ligneGrille, colonneGrille) ;
+		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
 		partieMorpion.lancerPartie() ;
 	}
 
