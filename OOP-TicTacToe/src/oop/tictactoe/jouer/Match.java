@@ -131,7 +131,7 @@ public class Match {
 	 * pour evaluer si le match est termine (cad victoire ou match null)
 	 * @param joueurActuel dont c est le tour
 	 */
-	public void evalMatchParTour (Joueur joueurActuel) {
+	public void evalVictoireParPointMax (Joueur joueurActuel) {
 		if (estTermine(joueurActuel)) {
 			if (joueurActuel.getScore()>=pointMax)
 				victoire = true ;

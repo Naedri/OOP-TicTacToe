@@ -116,21 +116,46 @@ public interface In_Interaction {
 	 * @param joueurActuel joueur qui vient de jouer
 	 * @return
 	 */
-	public static String afficherMessageResultat(Match m, Joueur joueurActuel) {
+	public static String afficherMessageFinTour(Joueur joueurActuel) {
+		assert(joueurActuel != null);
+		return "Le joueur "+joueurActuel.getJeton().getSymbole() + " a termine son tour.\n";
+	}
+	
+	/**
+	 * messageResultat
+	 * indiquant victoire ou non
+	 * il faut qu elle soit appelee après un coup joue
+	 * (càd "C est au joueur suivant" ou "Le Joueur X a gagné la partie")
+	 * @param m match en cours
+	 * @param joueurActuel joueur qui vient de jouer
+	 * @return
+	 */
+	public static String afficherMessageResultat(Match m, Joueur joueurActuel, Joueur joueurAutre) {
 		assert(joueurActuel != null && m != null);
 		String messageResultat;
-		m.evalMatchParTour(joueurActuel);
+		m.evalVictoireParPointMax(joueurActuel); //mise a jour
 		
 		if (m.estTermine(joueurActuel)) {
 			if (m.getVictoire()) {
 				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
 			}
-			else
-				messageResultat = "C est un match nul.\n" ;
-
+			else {
+				if (joueurActuel.getScore() > joueurAutre.getScore()) {
+					messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
+				}
+				if (joueurActuel.getScore() < joueurAutre.getScore()) {
+					messageResultat = "C est un match victorieux pour le joueur "+joueurAutre.getJeton().getSymbole()+".\n";
+				}
+				else {
+					messageResultat = "C est un match nul.\n" ;
+				}
+			}
+			messageResultat += "Le joueur "+joueurActuel.getJeton().getSymbole()+" a marque " + joueurActuel.getScore() + " points.\n";
+			messageResultat += "Le joueur "+joueurAutre.getJeton().getSymbole()+" a marque " + joueurAutre.getScore() + " points.\n";
 		}
-		else
-			messageResultat = "Le joueur "+joueurActuel.getJeton().getSymbole() + " a termine son tour.\n";
+		else {
+			messageResultat = "Le match n est pas termine.\n";
+		}
 		return messageResultat;
 	}
 	
@@ -139,7 +164,7 @@ public interface In_Interaction {
 	 * @param j joueur dont le tour commence
 	 * @return
 	 */
-	public static String afficherMessageTour(Joueur j) {
+	public static String afficherMessageDebutTour(Joueur j) {
 		assert(j != null);
 		return "C'est au joueur " + j.getJeton().getSymbole() + " de jouer.\n";
 	}
