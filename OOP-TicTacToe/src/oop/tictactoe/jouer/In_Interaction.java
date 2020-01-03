@@ -168,6 +168,11 @@ public interface In_Interaction {
 		assert(j != null);
 		return "C'est au joueur " + j.getJeton().getSymbole() + " de jouer.\n";
 	}
+
+	public static String afficherMessageCoupMarquant(Joueur joueur) {
+		assert(joueur != null);
+		return "Le joueur " + joueur.getJeton().getSymbole() + " a marque un point.\n";
+	}
 	
 	
 }

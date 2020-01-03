@@ -182,6 +182,8 @@ public class TourMorpion extends TourTicTacToe {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
 			fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
+			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
+			grille.afficherGrille();
 			joueur.marquerPoint();
 		}
 	}

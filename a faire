@@ -1,3 +1,0 @@
-modifier classe match pour avoir joueur actuel
-modifier interface_interaction pour avoir score des joueurs a comparer apres une victoire
-modifier evaluerCoup des fonctions pour afficher la grille si un joueur a marquer un point et le fermer
