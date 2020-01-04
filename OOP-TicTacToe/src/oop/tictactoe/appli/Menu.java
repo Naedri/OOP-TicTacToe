@@ -3,10 +3,10 @@ package oop.tictactoe.appli;
 import java.util.Scanner;
 
 import oop.tictactoe.grille.Forme;
-import oop.tictactoe.grille.Grille;
 
 public class Menu {
 	
+	public int choixREADME = 0 ;
 //	private PartieTicTacToe partie ;
 //	private PartieMorpion appliMorpion ;
 //	private PartieXAlignements appliXAlignement ;
@@ -20,7 +20,7 @@ public class Menu {
 	 * @param borneMin choixMinimale autorsé
 	 * @param borneMax choixMaximum autorsé
 	 */
-	public int setChoix(int borneMin, int borneMax) {
+	private int setChoix(int borneMin, int borneMax) {
 		boolean saisieCorrecte = false ;
 		int nombreChoisie = borneMin;
 		while ( !saisieCorrecte) {
@@ -52,8 +52,6 @@ public class Menu {
 }
 
 	public void affichageMenuPrincipal() {
-		int choix ;
-		
 		System.out.println("Bienvenue dans le jeu TicTacToe et ses variantes.\n\n");
 		System.out.println("<<< MENU PRINCIPAL >>>\n");
 		System.out.println("Veuillez tapez :");
@@ -61,53 +59,90 @@ public class Menu {
 		System.out.println("< 2 > Pour afficher des informations sur ce projet.");
 		System.out.println("< 3 > Pour jouer.");
 		
+		int choix ;
 		choix = setChoix(1, 3);
 		
 		switch (choix) {
-		case 1 :
-			System.out.println("<<< REGLES >>>\n");
-			System.out.println("Le Tic-Tac-Toe, aussi appelé Morpion et OxO en Belgique, est un jeu de réflexion se\n" + 
-					"pratiquant à deux joueurs au tour par tour dont le but est de créer le premier un alignement. Nous\n" + 
-					"commençons par le jeu dans sa forme la plus simple.\n" + 
-					"Le jeu se joue sur une grille de 3 × 3. Deux joueurs s’affrontent. Ils doivent remplir chacun à\n" + 
-					"leur tour une case de la grille avec le symbole qui leur est attribué : O ou X. Le gagnant est celui qui\n" + 
-					"arrive le premier à aligner trois symboles identiques, horizontalement, verticalement ou en diagonale.\n" + 
-					"La partie est nulle si toutes les cases sont occupées et qu’aucun joueur n’a réalisé un alignement. Il\n" + 
-					"est coutume de laisser le joueur jouant X effectuer le premier coup de la partie.");
-			break;
-		case 2 :
-			System.out.println("<<< INFORMATIONS >>>\n");
-			System.out.println("Auteur : Adrien JALLAIS - adrien.jallais@protonmail.com\n");
-			System.out.println("Etablissement : IUT Paris Descartes.\n");
-			System.out.println("Diplome prepare : DUT Annee Speciale.\n");
-			System.out.println("Sujet propose par : POITRENAUD Denis.\n");
-			System.out.println("Lien GitHub : < https://github.com/Naedri/OOP-TicTacToe.git > \n");
-			System.out.println("Version 1.0.\n");
-
-			break;
-		case 3 :
-			System.out.println("<<< JOUEZ ! >>>\n");
-			affichageMenuJeu();
-			break;
-		default:
-			System.out.println("Choix de menu invalide.\n");
-			break;
+			case 1 :
+				System.out.println("<<< REGLES >>>\n");
+				affichageMenuRegles();
+				break;
+			case 2 :
+				System.out.println("<<< INFORMATIONS >>>\n");
+				affichageMenuInfo();
+				break;
+			case 3 :
+				System.out.println("<<< JOUEZ ! >>>\n");
+				affichageMenuJeu();
+				break;
+			default:
+				System.out.println("Choix de menu invalide.\n");
+				break;
 		}
 		System.out.println("Retour au Menu Principal.\n");
 		affichageMenuPrincipal();
 	}
 	
-	public void affichageMenuJeu() {
+	private void affichageMenuRegles() {
+		System.out.println("\nLe Tic-Tac-Toe.");
+		System.out.println("Le Tic-Tac-Toe, aussi appelé Morpion et OxO en Belgique, est un jeu de réflexion se\n" + 
+				"pratiquant à deux joueurs au tour par tour dont le but est de créer le premier un alignement. Nous\n" + 
+				"commençons par le jeu dans sa forme la plus simple.\n" + 
+				"Le jeu se joue sur une grille de 3 × 3. Deux joueurs s’affrontent. Ils doivent remplir chacun à\n" + 
+				"leur tour une case de la grille avec le symbole qui leur est attribué : O ou X. Le gagnant est celui qui\n" + 
+				"arrive le premier à aligner trois symboles identiques, horizontalement, verticalement ou en diagonale.\n" + 
+				"La partie est nulle si toutes les cases sont occupées et qu’aucun joueur n’a réalisé un alignement. Il\n" + 
+				"est coutume de laisser le joueur jouant X effectuer le premier coup de la partie.");
+		System.out.println("\nLe Morpion.");
+		System.out.println("ans le jeu de Morpion, les grilles ont une taille quelconque. Les règles du jeu sont modifiées\n" + 
+				"comme suit.\n" + 
+				"• La partie ne se termine plus au premier alignement mais continue en alternant les coups des\n" + 
+				"deux joueurs jusqu’à ce que toutes les cases soient occupées.\n" + 
+				"• Un joueur ne peut poser un symbole que sur une case étant adjacente (horizontalement, verti-\n" + 
+				"calement ou en diagonale) à une case déjà occupée. Au premier coup, le placement est libre.\n" + 
+				"• Un même symbole ne peut compter que pour un alignement. Dès qu’un alignement est formé,\n" + 
+				"les symboles qui le composent ne peuvent plus concourir à la réalisation d’un autre alignement.\n" + 
+				"Ces symboles sont dits être fermés. Les symboles non encore fermés sont dits être ouverts.\n" + 
+				"• En fin de partie, le joueur ayant fait le plus d’alignements gagne. La partie est nulle en cas\n" + 
+				"d’égalité.");
+		System.out.println("\nLe Tic-Tac-Toe extension forme.");
+		System.out.println("Ce n’est plus des alignements qu’il faut faire mais des formes particulières (une croix par\n" + 
+				"exemple).");
+		System.out.println("\nLe Tic-Tac-Toe extension permutation.");
+		System.out.println("La grille est initialement remplie aléatoirement d’autant de X que de O (plus un X ou un O choisi\n" + 
+				"lui aussi aléatoirement si le nombre de cases est impair). Un coup ne consiste plus à déposer\n" + 
+				"un symbole mais à permuter un X avec un O. Les symboles permutés peuvent être ouverts ou\n" + 
+				"fermés. Un point est remporté si cette permutation conduit à réaliser une forme particulière\n" + 
+				"de symboles ouverts (un alignement de 3 symboles, par exemple). Le joueur qui remporte le\n" + 
+				"point ne dépend pas de qui joue le coup mais du symbole composant la forme. Si c’est un X\n" + 
+				"(resp. O), le point est remporté par le joueur X (resp. O). Ainsi, une même permutation peut\n" + 
+				"conduire à augmenter le score des deux joueurs.");
+	}
+
+	private void affichageMenuInfo() {
+		System.out.println("Auteur : Adrien JALLAIS - adrien.jallais@protonmail.com\n");
+		System.out.println("Etablissement : IUT Paris Descartes.\n");
+		System.out.println("Diplome prepare : DUT Annee Speciale.\n");
+		System.out.println("Sujet propose par : POITRENAUD Denis.\n");
+		System.out.println("Lien GitHub : < https://github.com/Naedri/OOP-TicTacToe.git > \n");
+		System.out.println("Version 1.0.\n");
+	}
+
+	private void affichageMenuJeu() {
 		int choixJeu;
 		
-		System.out.println("Veuillez tapez :");
-		System.out.println("< 0 > Pour revenir au Menu Principal");
-		System.out.println("< 1 > Pour jouer au TicTacToe.");
-		System.out.println("< 2 > Pour jouer au Morpion.");
-		System.out.println("< 3 > Pour jouer au TicTacToe extension Forme.");
-		System.out.println("< 4 > Pour jouer au TicTacToe extension Permutation.");
-		
-		choixJeu = setChoix(0,4);
+		if (choixREADME == 0) {
+			System.out.println("Veuillez tapez :");
+			System.out.println("< 0 > Pour revenir au Menu Principal");
+			System.out.println("< 1 > Pour jouer au TicTacToe.");
+			System.out.println("< 2 > Pour jouer au Morpion.");
+			System.out.println("< 3 > Pour jouer au TicTacToe extension Forme.");
+			System.out.println("< 4 > Pour jouer au TicTacToe extension Permutation.");
+			choixJeu = setChoix(0,4);
+		}
+		else {
+			choixJeu = choixREADME;
+		}
 		
 		if (choixJeu != 0) {
 			int choixGrilleLigne;

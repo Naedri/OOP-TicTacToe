@@ -262,7 +262,7 @@ public class Grille implements In_Grille {
 		assert (!estVideCellule(ligneJ1, colonneJ1)); // la cellule ne doit pas etre vide		
 		assert (!estVideCellule(ligneJ2, colonneJ2)); // la cellule ne doit pas etre vide
 
-		assert(sontAdjacents(ligneJ1, colonneJ1, colonneJ2, ligneJ2)); //les jetons doivent etre adjacents
+		assert(sontAdjacents(ligneJ1, colonneJ1, ligneJ2, colonneJ2)); //les jetons doivent etre adjacents
 
 		//si les jetons sont differents
 		if (! getCellule(ligneJ1,colonneJ1).estEgal(getCellule(ligneJ2,colonneJ2)) ) {
@@ -382,31 +382,53 @@ public class Grille implements In_Grille {
 	 * les cellules donnees sont elles adjacents
 	 * doivent etre des ellules differentes
 	 * Il n est pas verifie que les cellules comprennent des jetons non vides
-	 * @param ligneJ1
-	 * @param colonneJ1
-	 * @param colonneJ2
-	 * @param ligneJ2
+	 * @param ligne1
+	 * @param colonne1
+	 * @param colonne2
+	 * @param ligne2
 	 * @return
 	 */
-	public boolean sontAdjacents(int ligneJ1, int colonneJ1, int ligneJ2, int colonneJ2) {
-		assert(ligneJ1 != ligneJ2 || colonneJ1 != colonneJ2); //les jetons doivent etre differents
+	public boolean sontAdjacents(int ligne1, int colonne1, int ligne2, int colonne2) {
+		assert(sontDifferentes(ligne1, colonne1, ligne2, colonne2)); //les jetons doivent etre differents
 
-		assert (ligneJ1 < this.grille.length && ligneJ1 >= 0); //la cellule doit être dans la grille
-		assert (colonneJ1 < this.grille[0].length && colonneJ1 >= 0); //la cellule doit être dans la grille
-		assert (ligneJ2 < this.grille.length && ligneJ2 >= 0); //la cellule doit être dans la grille
-		assert (colonneJ2 < this.grille[0].length && colonneJ2 >= 0); //la cellule doit être dans la grille
+		assert (ligne1 < this.grille.length && ligne1 >= 0); //la cellule doit être dans la grille
+		assert (colonne1 < this.grille[0].length && colonne1 >= 0); //la cellule doit être dans la grille
+		assert (ligne2 < this.grille.length && ligne2 >= 0); //la cellule doit être dans la grille
+		assert (colonne2 < this.grille[0].length && colonne2 >= 0); //la cellule doit être dans la grille
 		
 		boolean adjacent = false ;
 		
-		if ( (Math.abs(ligneJ1-ligneJ2) <= 1) && (Math.abs(colonneJ1-colonneJ2) <= 1) )
+		if ( (Math.abs(ligne1-ligne2) <= 1) && (Math.abs(colonne1-colonne2) <= 1) ) {
 			adjacent = true ;
+		}
 		
 		return adjacent;
+	}
+	
+	/**
+	 * Les cellules sont elles de coordonnees differentes
+	 * @param ligne1
+	 * @param colonne1
+	 * @param ligne2
+	 * @param colonne2
+	 * @return
+	 */
+	public boolean sontDifferentes(int ligne1, int colonne1, int ligne2, int colonne2) {
+		if (ligne1 != ligne2) {
+			return true;
+		}
+		if (colonne1 != colonne2) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	//morpion
 	public void ouvertToFermeJeton(int ligne, int colonne) {
 		grille[ligne][colonne] = grille[ligne][colonne].ouvertToFerme();		
 	}
+	
 	
 }

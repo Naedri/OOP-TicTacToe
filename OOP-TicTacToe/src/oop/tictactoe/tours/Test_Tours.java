@@ -175,7 +175,83 @@ class Test_Tours {
 	void testTourPermutation(){
 		System.out.println("testTourPermutation EN COURS \n");
 		
+		Jeton jx = Jeton.JETON_X;
+		Jeton jo = Jeton.JETON_O;
 		
+		//tour avec deux joueurs DIFFERENTS
+		Grille grille = new Grille();
+		grille.placerJeton(jx, 0, 0);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 2, 1);
+		grille.placerJeton(jo, 0, 1);
+		grille.placerJeton(jo, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jo, 2, 2);
+		
+		Joueur joueuro = new Joueur(jo);
+		Joueur joueurx = new Joueur(jx);
+		TourPermutation tour = new TourPermutation(grille, joueurx, joueuro);
+		
+		assertEquals(0, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());
+
+		tour.jouerCoup();
+		tour.evaluerCoup();
+		
+		assertEquals(1, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());
+		
+		//tour avec deux joueurs differents INVERSE
+		grille = new Grille();
+		grille.placerJeton(jx, 0, 0);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 2, 1);
+		grille.placerJeton(jo, 0, 1);
+		grille.placerJeton(jo, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jo, 2, 2);
+		
+		joueuro = new Joueur(jo);
+		joueurx = new Joueur(jx);
+		tour = new TourPermutation(grille, joueuro, joueurx);
+		
+		assertEquals(0, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());
+
+		tour.jouerCoup();
+		tour.evaluerCoup();
+		
+		assertEquals(1, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());		
+		
+		//tour avec deux joueurs EGAUX
+		grille = new Grille();
+		grille.placerJeton(jx, 0, 0);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 2, 1);
+		grille.placerJeton(jo, 0, 1);
+		grille.placerJeton(jo, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jo, 2, 2);
+		
+		joueuro = new Joueur(jo);
+		joueurx = new Joueur(jx);
+		tour = new TourPermutation(grille, joueurx, joueurx);
+		
+		assertEquals(0, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());
+
+		tour.jouerCoup();
+		tour.evaluerCoup();
+		
+		assertEquals(0, joueuro.getScore());
+		assertEquals(0, joueurx.getScore());
 		
 		System.out.println("testTourPermutation FAIT \n");
 	}

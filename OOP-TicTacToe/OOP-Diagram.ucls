@@ -90,7 +90,7 @@
   </association>  
   <association id="14">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="15" name="joueur2">        
+      <attribute id="15" name="joueur1">        
         <position height="0" width="0" x="-28" y="-20"/>      
       </attribute>      
       <multiplicity id="16" minimum="0" maximum="1">        
@@ -102,14 +102,14 @@
   </association>  
   <association id="17">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="18" name="joueur1">        
-        <position height="0" width="0" x="-28" y="-20"/>      
+      <attribute id="18" name="match">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-28" y="-20"/>      
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="20">    
@@ -126,14 +126,14 @@
   </association>  
   <association id="23">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="24" name="match">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="24" name="joueur2">        
+        <position height="0" width="0" x="-28" y="-20"/>      
       </attribute>      
       <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-28" y="-20"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

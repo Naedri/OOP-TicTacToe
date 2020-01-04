@@ -18,19 +18,23 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 	
 	@Override
 	public void jouerCoup() {
-		boolean saisieCorrecte = false;
+		boolean saisieCorrectejouerCoup = false;
 
-		while (!saisieCorrecte) {
+		while (!saisieCorrectejouerCoup) {
 			saisieCellule = In_Interaction.saisirCellule(grille);
 			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule));
 			saisieCellule2 = In_Interaction.saisirCellule(grille);
 			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule2));
 
-			if (grille.sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1])) {
-				saisieCorrecte = true ;
+			if (grille.sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) { // les jetons doivent etre adjacents
+				if( grille.sontDifferentes(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) { //les jetons doivent etre de cases differentes
+					saisieCorrectejouerCoup = true ;
+				}
+				else
+					System.out.println("La case selectionnee n est identique a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
 			}
 			else
-				System.out.println("La case selectionnee n est pas adjacent a la premiere case selectionnee. Veuillez recommencer.\n");
+				System.out.println("La case selectionnee n est pas adjacente a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
 			
 		}
 		grille.permutationJeton(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]);
@@ -49,13 +53,13 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 		if (grille.getCellule(saisieCellule[0], saisieCellule[1]).estOuvert()) {
 			Joueur joueurMarquant = null ;
 			if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
-				fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
 				if (grille.getCellule(saisieCellule[0], saisieCellule[1]).estEgal(joueur.getJeton() ) ) {
 					joueurMarquant = joueur;
 				}
 				else {
 					joueurMarquant = joueurAutre;
 				}
+				fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
 				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
 				grille.afficherGrille();
 				joueurMarquant.marquerPoint();
@@ -65,13 +69,13 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 		if (grille.getCellule(saisieCellule2[0], saisieCellule2[1]).estOuvert()) {
 			Joueur joueurMarquant = null ;
 			if (nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], 3) >=1 ) {
-				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], 3);
 				if (grille.getCellule(saisieCellule2[0], saisieCellule2[1]).estEgal(joueur.getJeton() ) ) {
 					joueurMarquant = joueur;
 				}
 				else {
 					joueurMarquant = joueurAutre;
 				}
+				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], 3);
 				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
 				grille.afficherGrille();
 				joueurMarquant.marquerPoint();

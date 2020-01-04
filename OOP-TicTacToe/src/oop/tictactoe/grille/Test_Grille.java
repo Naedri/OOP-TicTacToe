@@ -286,4 +286,40 @@ class Test_Grille {
 		assertTrue(grille.getCellule(1, 1).estOuvert());
 		assertFalse(grille.getCellule(1, 2).estOuvert());
 	}
+	
+	@Test
+	void testGrilleDifferentesCellules(){
+		System.out.println("Test Differentes Cellules.");
+
+		Jeton jx = Jeton.JETON_X ;
+		Jeton jo = Jeton.JETON_O ;
+		
+		Grille grille = new Grille(4,4);
+		
+		grille.placerJeton(jo, 0, 2);
+		grille.placerJeton(jx, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jo, 2, 1);
+		
+		grille.afficherGrille();
+		
+		assertFalse(grille.sontDifferentes(0, 1, 0, 1));
+		assertFalse(grille.sontDifferentes(1, 1, 1, 1));
+		assertFalse(grille.sontDifferentes(0, 0, 0, 0));
+		assertFalse(grille.sontDifferentes(1, 0, 1, 0));
+		assertFalse(grille.sontDifferentes(2, 2, 2, 2));
+		assertFalse(grille.sontDifferentes(1, 2, 1, 2));
+		assertFalse(grille.sontDifferentes(0, 2, 0, 2));
+
+		
+		assertTrue(grille.sontDifferentes(1, 0, 0, 1));
+		assertTrue(grille.sontDifferentes(0, 1, 1, 0));
+		assertTrue(grille.sontDifferentes(1, 0, 0, 1));
+		assertTrue(grille.sontDifferentes(0, 1, 1, 0));
+		assertTrue(grille.sontDifferentes(1, 2, 0, 1));
+		assertTrue(grille.sontDifferentes(1, 2, 2, 1));
+		
+	}
 }
