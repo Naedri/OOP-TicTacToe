@@ -36,7 +36,7 @@ public class Match {
 	 * @param nombreTourMax
 	 */
 	public Match(int nombrePointMax, int nombreTourMax) {
-		assert(nombreTourMax>0 && nombrePointMax >= 0);
+//		assert(nombrePointMax >=0 && nombreTourMax >0);
 		victoire = false ;
 		tour = 0 ;
 		pointMax = nombrePointMax ;
@@ -99,22 +99,22 @@ public class Match {
 		if ( pointMax != 0 && tourMax == 0 ) {
 			//match s arrete 
 			//apres qu un des joueurs ait atteint le nombre de point max defini (nombrePointMax)
-			return !(joueurActuel.getScore() < pointMax) ;
+			return joueurActuel.getScore() >= pointMax ;
 			
 		}
 		if ( pointMax == 0 && tourMax != 0 ) {
 			//match s arrete 
 			//apres que le nombre de tour des joueurs ait atteint le nombre de tour max defini (nombreTourMax)
-			return !(tour < tourMax) ;
+			return tour >= tourMax ;
 
 		}
-		else {
-			// if (pointMax != 0 && tourMax != 0)
-			// car pointMax == 0 && tourMax == 0 ne peut exister
-			// match s arrete
+		if (pointMax != 0 && tourMax != 0) {
+			//match s arrete 
 			// des quand le nombrePointMax a été atteint sinon continue jusqu a ce que le nombreTourMax ait été atteint
-			return ( (!(joueurActuel.getScore() < pointMax)) || (!(tour < tourMax)) ) ;
+			return ( (joueurActuel.getScore() >= pointMax) || (tour >= tourMax) ) ;
 		}
+		else
+			return false ;
 	}
 	
 	//methode spe

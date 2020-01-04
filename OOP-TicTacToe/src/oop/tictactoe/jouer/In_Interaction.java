@@ -132,7 +132,43 @@ public interface In_Interaction {
 	 */
 	public static String afficherMessageResultat(Match m, Joueur joueurActuel, Joueur joueurAutre) {
 		assert(joueurActuel != null && joueurAutre != null && m != null);
-		String messageResultat;
+		String messageResultat = "" ;
+		m.evalVictoireParPointMax(joueurActuel); //mise a jour
+		
+		if (m.estTermine(joueurActuel)) {
+				if (joueurActuel.getScore() == joueurAutre.getScore()) {
+					messageResultat = "C est un match nul.\n" ;
+				}
+				else {
+					if (joueurActuel.getScore() > joueurAutre.getScore()) {
+						messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
+					}
+					if (joueurActuel.getScore() < joueurAutre.getScore()) {
+						messageResultat = "C est un match victorieux pour le joueur "+joueurAutre.getJeton().getSymbole()+".\n";
+					}
+				}
+				messageResultat += "Le joueur "+joueurActuel.getJeton().getSymbole()+" a marque " + joueurActuel.getScore() + " points.\n";
+				messageResultat += "Le joueur "+joueurAutre.getJeton().getSymbole()+" a marque " + joueurAutre.getScore() + " points.\n";
+		}
+		else {
+			messageResultat = "Le match n est pas termine.\n";
+		}
+
+		return messageResultat;
+	}
+	
+	/**
+	 * messageResultat
+	 * indiquant victoire ou non
+	 * il faut qu elle soit appelee après un coup joue
+	 * (càd "C est au joueur suivant" ou "Le Joueur X a gagné la partie")
+	 * @param m match en cours
+	 * @param joueurActuel joueur qui vient de jouer
+	 * @return
+	 */
+	public static String afficherMessageResultat(Match m, Joueur joueurActuel) {
+		assert(joueurActuel != null && m != null);
+		String messageResultat ;
 		m.evalVictoireParPointMax(joueurActuel); //mise a jour
 		
 		if (m.estTermine(joueurActuel)) {
@@ -140,22 +176,14 @@ public interface In_Interaction {
 				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
 			}
 			else {
-				if (joueurActuel.getScore() > joueurAutre.getScore()) {
-					messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
-				}
-				if (joueurActuel.getScore() < joueurAutre.getScore()) {
-					messageResultat = "C est un match victorieux pour le joueur "+joueurAutre.getJeton().getSymbole()+".\n";
-				}
-				else {
-					messageResultat = "C est un match nul.\n" ;
-				}
+				messageResultat = "C est un match nul.\n" ;
 			}
-			messageResultat += "Le joueur "+joueurActuel.getJeton().getSymbole()+" a marque " + joueurActuel.getScore() + " points.\n";
-			messageResultat += "Le joueur "+joueurAutre.getJeton().getSymbole()+" a marque " + joueurAutre.getScore() + " points.\n";
 		}
 		else {
-			messageResultat = "Le match n est pas termine.\n";
+//			messageResultat = "Le match n est pas termine.\n";
+			messageResultat = "Le joueur "+joueurActuel.getJeton().getSymbole()+" a termine son tour.\n";
 		}
+
 		return messageResultat;
 	}
 	

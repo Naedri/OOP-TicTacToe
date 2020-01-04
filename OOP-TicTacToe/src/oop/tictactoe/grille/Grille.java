@@ -65,20 +65,27 @@ public class Grille implements In_Grille {
 	 * @return une chaine de caractère contenant l'etat de la grille
 	 */
 	public String toStringGrille() {
-		String sGrille = "" ;
+		String sGrille = " " ; // decalage pour les noms de lignes en dizaines
 		int ligne = 0;
 
 		// ligne des indices de colonnes
 		for (int i = 1; i <= this.grille[0].length; ++i)
-			sGrille += " " + " " + " " + i ;
-
+			if (i<10) {
+				sGrille += " " + " " + " " + i ;
+			}
+			else
+				sGrille += " " + " " + i ;
 		sGrille += "\n";
 		++ligne;
 
 		// il faut d'abord parcourir les reference de ligne de jeton pour acceder aux
 		// jetons
 		for (Jeton[] ligneJeton : grille) {
-			sGrille += ligne;
+			if (ligne<10) {
+				sGrille += " " + ligne;
+			}
+			else
+				sGrille += ligne;
 			for (int i = 0; i < ligneJeton.length; i++) {
 				sGrille += " " + ligneJeton[i].toString();
 			}
@@ -224,6 +231,15 @@ public class Grille implements In_Grille {
 		assert (colonneCible < this.grille[0].length && colonneCible >= 0); //la cellule doit être dans la grille
 		assert (estVideCellule(ligneCible, colonneCible)); // la cellule doit etre vide
 		assert (!jeton.estVideJeton() && jeton.estOuvert()); // le jeton place ne doit pas etre vide ni ferme
+		this.grille[ligneCible][colonneCible] = jeton;
+	}
+	
+	public void placerJetonFerme(Jeton jeton, int ligneCible, int colonneCible) {
+		assert (ligneCible < this.grille.length && ligneCible >= 0); //la cellule doit être dans la grille
+		assert (colonneCible < this.grille[0].length && colonneCible >= 0); //la cellule doit être dans la grille
+		assert (estVideCellule(ligneCible, colonneCible)); // la cellule doit etre vide
+		assert (!jeton.estVideJeton()); // le jeton place ne doit pas etre vide
+		assert(!jeton.estOuvert()); //le jeton doit etre ferme
 		this.grille[ligneCible][colonneCible] = jeton;
 	}
 	
@@ -414,20 +430,29 @@ public class Grille implements In_Grille {
 	 * @return
 	 */
 	public boolean sontDifferentes(int ligne1, int colonne1, int ligne2, int colonne2) {
-		if (ligne1 != ligne2) {
-			return true;
-		}
-		if (colonne1 != colonne2) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (ligne1 != ligne2 || colonne1 != colonne2);
 	}
 	
 	//morpion
 	public void ouvertToFermeJeton(int ligne, int colonne) {
 		grille[ligne][colonne] = grille[ligne][colonne].ouvertToFerme();		
+	}
+	
+	/**
+	 * renvoie le nombre de jeton observe dans une grille
+	 * @param jetonEvalue evalue
+	 * @return le nombre de jeton observe dans une grille
+	 */
+	public int getNbrJeton(Jeton jetonEvalue) {
+		int nbr = 0 ;
+		for (int i = 0; i < grille.length; i++) {
+			for (int j = 0; j < grille[0].length; j++) {
+				if (getCellule(i, j).estEgal(jetonEvalue)) {
+					++nbr;
+				}
+			}
+		}
+		return nbr ;
 	}
 	
 	

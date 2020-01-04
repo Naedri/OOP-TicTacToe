@@ -11,8 +11,12 @@ public class Forme {
 	private int[][] grilleModele ;
 	private static String[] listFormesDispo = new String[] {"carre","losange","croix"};
 
+	/**
+	 * choixForme 1 pour Carre - 2 pour losange - 3 pour croix
+	 * @param choixForme 1 pour Carre - 2 pour losange - 3 pour croix
+	 */
 	public Forme(int choixForme) {
-		
+		assert(choixForme != 0 && choixForme <=3 );		
 		switch (choixForme) {
 		//niveau de complexite croissant
 			case 1:

@@ -44,6 +44,7 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 	 * ferme d abord dans une direction (nord au sud sens horaire)
 	 * puis si le nombre de jeton a fermer n a pas ete atteint
 	 * ferme des jetons dans la direction opposée (nord au sud sens anti horaire)
+	 * il faut que le jeton evalue soit ouvert
 	 * @param ligne du jeton model a fermer
 	 * @param colonne du jeton model a fermer
 	 * @param profondeur nombre de jetons que l on souhaite fermer (qui sont impliques dans un alignement)
@@ -56,15 +57,15 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 		assert (nbrDirectAvecAlign(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
 
 		Jeton jetonModel =  grille.getCellule(ligne, colonne); //dernier jeton que l on va fermer et qui nous servera de modele pour la fermeture des autres jetons
-		assert(jetonModel.estOuvert());
+		assert(jetonModel.estOuvert());//il faut que le jeton evalue soit ouvert
 		
 		Direction direction = directionAlignementXD(ligne, colonne, profondeur); //axe dans lequel la fermeture va se realiser
 		
 		boolean aligne = true ;//permet de controler que les jetons fermer sont bien alignes
 		int indice = 1; //permet de progresser le long de l alignements
-		int resteJeton = profondeur ; //compte le nombre de jetons qu il reste a fermer (-1 car on fermera le jeton à grille[ligne][colonne] a la fin
+		int resteJeton = profondeur ; //compte le nombre de jetons qu il reste a fermer
 		
-		while (aligne && indice < profondeur && resteJeton >= 1) {
+		while (aligne && indice < profondeur && resteJeton > 1) {
 			if (grille.existeNextCellule(ligne, colonne, indice, direction)) {
 				int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
 				Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);
@@ -88,7 +89,7 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 			aligne = true ;
 			indice = 1;
 			direction= direction.inverser();
-			while (aligne && indice < profondeur && resteJeton >= 1) {
+			while (aligne && indice < profondeur && resteJeton > 1) {
 				if (grille.existeNextCellule(ligne, colonne, indice, direction)) {
 					int[] coordCibleD = grille.coordNextJeton(ligne, colonne, indice, direction);
 					Jeton jetonCibleD = grille.getCellule(coordCibleD[0], coordCibleD[1]);

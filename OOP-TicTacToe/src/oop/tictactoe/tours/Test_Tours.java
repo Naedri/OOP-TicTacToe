@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import oop.tictactoe.grille.Direction;
+import oop.tictactoe.grille.Forme;
 import oop.tictactoe.grille.Grille;
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.Joueur;
@@ -167,19 +168,225 @@ class Test_Tours {
 		tour.fermeAlignementXD(2, 2, 3);
 		
 		assertTrue(grille.estEgale(grilleFerme));
+//		System.out.println("fermerAlignement XD");
+//		grille.afficherGrille();
+//		grilleFerme.afficherGrille();
+		
+		//fermeAlignementXD avec 3
+		grille = new Grille(6,6);
+		joueurO = new Joueur(Jeton.JETON_O);
+		grille.placerJeton(jx, 0, 1);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 0, 3);
+		grille.placerJeton(jx, 0, 4);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jx, 1, 2);
+		tour = new TourMorpion(grille, joueurO);
+		tour.fermeAlignementXD(0, 2, 3);
+		
+		grilleFerme = new Grille(6,6);
+		grilleFerme.placerJeton(jx, 0, 1);
+		grilleFerme.placerJeton(jo, 1, 1);
+		grilleFerme.placerJeton(jx, 1, 2);
+		Jeton jxmin = Jeton.JETON_X_MIN;
+		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+		grilleFerme.placerJetonFerme(jxmin, 0, 3);
+		grilleFerme.placerJetonFerme(jxmin, 0, 4);
+		
+		assertTrue(grille.estEgale(grilleFerme));
+		assertTrue(grilleFerme.estEgale(grille));
+//		
+//		System.out.println("fermerAlignement XD avec 3");
+//		grille.afficherGrille();
+//		grilleFerme.afficherGrille();
+//		
+		//fermeAlignementXD avec 4
+		grille = new Grille(6,6);
+		joueurO = new Joueur(Jeton.JETON_O);
+		grille.placerJeton(jx, 0, 1);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 0, 3);
+		grille.placerJeton(jx, 0, 4);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jx, 1, 2);
+		tour = new TourMorpion(grille, joueurO);
+		tour.fermeAlignementXD(0, 2, 4);
+		
+		grilleFerme = new Grille(6,6);
+		grilleFerme.placerJeton(jo, 1, 1);
+		grilleFerme.placerJeton(jx, 1, 2);
+		jxmin = Jeton.JETON_X_MIN;
+		grilleFerme.placerJetonFerme(jxmin, 0, 1);
+		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+		grilleFerme.placerJetonFerme(jxmin, 0, 3);
+		grilleFerme.placerJetonFerme(jxmin, 0, 4);
+		
+		assertTrue(grille.estEgale(grilleFerme));
+		assertTrue(grilleFerme.estEgale(grille));
+		
+//		System.out.println("fermerAlignement XD avec 4");
+//		grille.afficherGrille();
+//		grilleFerme.afficherGrille();
+		
+		//fermeAlignementXD avec 2
+		grille = new Grille(6,6);
+		joueurO = new Joueur(Jeton.JETON_O);
+		grille.placerJeton(jx, 0, 1);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 0, 3);
+		grille.placerJeton(jx, 0, 4);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jx, 1, 2);
+		tour = new TourMorpion(grille, joueurO);
+		tour.fermeAlignementXD(0, 2, 2);
+		
+		grilleFerme = new Grille(6,6);
+		grilleFerme.placerJeton(jo, 1, 1);
+		grilleFerme.placerJeton(jx, 0, 1);
+		grilleFerme.placerJeton(jx, 0, 3);
+		grilleFerme.placerJeton(jx, 0, 4);
+		jxmin = Jeton.JETON_X_MIN;
+		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+		grilleFerme.placerJetonFerme(jxmin, 1, 2);
+		
+		assertTrue(grille.estEgale(grilleFerme));
+		assertTrue(grilleFerme.estEgale(grille));
+//		System.out.println("fermerAlignement XD avec 2");
+//		grille.afficherGrille();
+//		grilleFerme.afficherGrille();
 		
 		System.out.println("testTourMorpion FAIT \n");
 	}
 	
+//	@Test
+//	void testTourPermutation(){
+//		System.out.println("testTourPermutation EN COURS \n");
+//		
+//		Jeton jx = Jeton.JETON_X;
+//		Jeton jo = Jeton.JETON_O;
+//		
+//		//tour avec deux joueurs DIFFERENTS AVEC s=coup gagnant
+//		Grille grille = new Grille();
+//		grille.placerJeton(jx, 0, 0);
+//		grille.placerJeton(jx, 2, 0);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 2, 1);
+//		grille.placerJeton(jo, 0, 1);
+//		grille.placerJeton(jo, 1, 0);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jo, 1, 2);
+//		grille.placerJeton(jo, 2, 2);
+//		
+//		Joueur joueuro = new Joueur(jo);
+//		Joueur joueurx = new Joueur(jx);
+//		TourPermutation tour = new TourPermutation(grille, joueurx, joueuro);
+//		
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		System.out.println("faire : 1-2 puis 1-3");
+//		//1-2
+//		//1-3
+//		tour.jouerCoup();
+//		tour.evaluerCoup();
+//		
+//		assertEquals(1, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		
+//		//tour avec deux joueurs differents INVERSE AVEC coup gagnant
+//		grille = new Grille();
+//		grille.placerJeton(jx, 0, 0);
+//		grille.placerJeton(jx, 2, 0);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 2, 1);
+//		grille.placerJeton(jo, 0, 1);
+//		grille.placerJeton(jo, 1, 0);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jo, 1, 2);
+//		grille.placerJeton(jo, 2, 2);
+//		
+//		joueuro = new Joueur(jo);
+//		joueurx = new Joueur(jx);
+//		tour = new TourPermutation(grille, joueuro, joueurx);
+//		
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		System.out.println("faire : 1-2 puis 1-3");
+//		//1-2
+//		//1-3
+//		tour.jouerCoup();
+//		tour.evaluerCoup();
+//		
+//		assertEquals(1, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());		
+//		
+//		//tour avec deux joueurs DIFFERENT mais sans coup gagnant
+//		grille = new Grille();
+//		grille.placerJeton(jx, 0, 0);
+//		grille.placerJeton(jx, 2, 0);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 2, 1);
+//		grille.placerJeton(jo, 0, 1);
+//		grille.placerJeton(jo, 1, 0);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jo, 1, 2);
+//		grille.placerJeton(jo, 2, 2);
+//		
+//		joueuro = new Joueur(jo);
+//		joueurx = new Joueur(jx);
+//		
+//		tour = new TourPermutation(grille, joueurx, joueuro);
+//		
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		System.out.println("faire : 2-1 puis 3-1");
+//		//2-1
+//		//3-1
+//		tour.jouerCoup();
+//		tour.evaluerCoup();
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		
+//		//tour avec deux joueurs DIFFERENT avec coup gagnant diagonal
+//		grille = new Grille();
+//		grille.placerJeton(jx, 0, 0);
+//		grille.placerJeton(jx, 2, 0);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 2, 1);
+//		grille.placerJeton(jo, 0, 1);
+//		grille.placerJeton(jo, 1, 0);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jo, 1, 2);
+//		grille.placerJeton(jo, 2, 2);
+//		
+//		joueuro = new Joueur(jo);
+//		joueurx = new Joueur(jx);
+//		
+//		tour = new TourPermutation(grille, joueurx, joueuro);
+//		
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		grille.afficherGrille();
+//		System.out.println("faire : 2-2 puis 3-2");
+//		//2-2
+//		//3-2
+//		tour.jouerCoup();
+//		tour.evaluerCoup();
+//		grille.afficherGrille();
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(1, joueurx.getScore());
+//		
+//		
+//		System.out.println("testTourPermutation FAIT \n");
+//	}
+//	
 	@Test
-	void testTourPermutation(){
-		System.out.println("testTourPermutation EN COURS \n");
+	void testTourForme(){
+		System.out.println("testTourForme EN COURS \n");
 		
+		//tour avec deux joueurs differents INVERSE AVEC coup gagnant
+		Grille grille = new Grille();
 		Jeton jx = Jeton.JETON_X;
 		Jeton jo = Jeton.JETON_O;
-		
-		//tour avec deux joueurs DIFFERENTS
-		Grille grille = new Grille();
 		grille.placerJeton(jx, 0, 0);
 		grille.placerJeton(jx, 2, 0);
 		grille.placerJeton(jx, 0, 2);
@@ -192,74 +399,20 @@ class Test_Tours {
 		
 		Joueur joueuro = new Joueur(jo);
 		Joueur joueurx = new Joueur(jx);
-		TourPermutation tour = new TourPermutation(grille, joueurx, joueuro);
-		
-		assertEquals(0, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());
+		Forme carre = new Forme(1);
+		TourForme tour = new TourForme(grille, joueuro, carre);
 
-		tour.jouerCoup();
-		tour.evaluerCoup();
-		
-		assertEquals(1, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());
-		
-		//tour avec deux joueurs differents INVERSE
-		grille = new Grille();
-		grille.placerJeton(jx, 0, 0);
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 2, 1);
-		grille.placerJeton(jo, 0, 1);
-		grille.placerJeton(jo, 1, 0);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jo, 1, 2);
-		grille.placerJeton(jo, 2, 2);
-		
-		joueuro = new Joueur(jo);
-		joueurx = new Joueur(jx);
-		tour = new TourPermutation(grille, joueuro, joueurx);
-		
-		assertEquals(0, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());
-
-		tour.jouerCoup();
-		tour.evaluerCoup();
-		
-		assertEquals(1, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());		
-		
-		//tour avec deux joueurs EGAUX
-		grille = new Grille();
-		grille.placerJeton(jx, 0, 0);
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 2, 1);
-		grille.placerJeton(jo, 0, 1);
-		grille.placerJeton(jo, 1, 0);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jo, 1, 2);
-		grille.placerJeton(jo, 2, 2);
-		
-		joueuro = new Joueur(jo);
-		joueurx = new Joueur(jx);
-		tour = new TourPermutation(grille, joueurx, joueurx);
-		
-		assertEquals(0, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());
-
-		tour.jouerCoup();
-		tour.evaluerCoup();
-		
-		assertEquals(0, joueuro.getScore());
-		assertEquals(0, joueurx.getScore());
-		
-		System.out.println("testTourPermutation FAIT \n");
-	}
-	
-	@Test
-	void testTourForme(){
-		System.out.println("testTourForme EN COURS \n");
-		
+		grille.afficherGrille();
+//		assertEquals(0, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());
+//		System.out.println("faire : 1-2 puis 1-3");
+//		//1-2
+//		//1-3
+//		tour.jouerCoup();
+//		tour.evaluerCoup();
+//		
+//		assertEquals(1, joueuro.getScore());
+//		assertEquals(0, joueurx.getScore());	
 		
 		
 		System.out.println("testTourForme FAIT \n");

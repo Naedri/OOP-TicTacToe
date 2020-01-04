@@ -45,10 +45,11 @@ public class PartieTicTacToe  implements In_Partie {
 			
 			match.evalVictoireParPointMax (joueurActuel);
 
-			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
+//			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
+			System.out.println(In_Interaction.afficherMessageResultat(match, joueurActuel));
 		}
 		//on compte les points
-		System.out.println(In_Interaction.afficherMessageResultat(match,joueur1,joueur2));;
+//		System.out.println(In_Interaction.afficherMessageResultat(match,joueur1,joueur2));;
 
 	}
 }

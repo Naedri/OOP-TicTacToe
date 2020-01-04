@@ -12,6 +12,8 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 
 	public TourPermutation(Grille grille, Joueur joueurActuel, Joueur joueurAutre) {
 		super(grille,joueurActuel);
+		assert(joueurActuel != joueurAutre);
+		assert(! joueurActuel.getJeton().estEgal(joueurAutre.getJeton()));
 		this.saisieCellule2 = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 		this.joueurAutre = joueurAutre ; //necessaire car une même permutation peut conduire à augmenter le score des deux joueurs.
 	}
@@ -21,20 +23,23 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 		boolean saisieCorrectejouerCoup = false;
 
 		while (!saisieCorrectejouerCoup) {
+			System.out.println("Vous allez choisir les deux cases pour permutation.\n");
 			saisieCellule = In_Interaction.saisirCellule(grille);
 			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule));
 			saisieCellule2 = In_Interaction.saisirCellule(grille);
 			System.out.println(In_Interaction.afficherMessageCellule(joueur, saisieCellule2));
-
-			if (grille.sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) { // les jetons doivent etre adjacents
-				if( grille.sontDifferentes(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) { //les jetons doivent etre de cases differentes
+			
+			//les jetons doivent etre de cases differentes
+			if( grille.sontDifferentes(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) {
+				// les jetons doivent etre adjacents
+				if (grille.sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) {
 					saisieCorrectejouerCoup = true ;
 				}
 				else
-					System.out.println("La case selectionnee n est identique a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
+					System.out.println("La case selectionnee n est pas adjacente a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
 			}
 			else
-				System.out.println("La case selectionnee n est pas adjacente a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
+				System.out.println("La case selectionnee est identique a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
 			
 		}
 		grille.permutationJeton(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]);

@@ -176,7 +176,8 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		if (estCompleteForme(saisieCellule[0], saisieCellule[1], forme)) {
 			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
 			grille.afficherGrille();
-			joueur.marquerPoint();		}
+			joueur.marquerPoint();
+		}
 	}
 
 }
