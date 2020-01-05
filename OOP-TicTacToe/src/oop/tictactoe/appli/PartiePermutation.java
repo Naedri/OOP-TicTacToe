@@ -32,7 +32,7 @@ public class PartiePermutation extends PartieMorpion implements In_Partie{
 		grille.afficherGrille();
 		//on fait des tours
 		int resteJeton = grille.getNbrJeton(joueur1.getJeton());
-		while(resteJeton>=3) {
+		while(resteJeton >= nbrAlign) {
 			match.tourDebut();
 			
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;

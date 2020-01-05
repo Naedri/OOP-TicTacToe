@@ -6,7 +6,7 @@ import oop.tictactoe.grille.Forme;
 
 public class Menu {
 	
-	public int choixREADME = 0 ;
+//	public int choixREADME = 0 ;
 //	private PartieTicTacToe partie ;
 //	private PartieMorpion appliMorpion ;
 //	private PartieXAlignements appliXAlignement ;
@@ -20,7 +20,7 @@ public class Menu {
 	 * @param borneMin choixMinimale autorsé
 	 * @param borneMax choixMaximum autorsé
 	 */
-	private int setChoix(int borneMin, int borneMax) {
+	public static int setChoix(int borneMin, int borneMax) {
 		boolean saisieCorrecte = false ;
 		int nombreChoisie = borneMin;
 		while ( !saisieCorrecte) {
@@ -51,7 +51,7 @@ public class Menu {
 		return nombreChoisie ;
 }
 
-	public void affichageMenuPrincipal() {
+	public static void affichageMenuPrincipal() {
 		System.out.println("Bienvenue dans le jeu TicTacToe et ses variantes.\n\n");
 		System.out.println("<<< MENU PRINCIPAL >>>\n");
 		System.out.println("Veuillez tapez :");
@@ -83,7 +83,7 @@ public class Menu {
 		affichageMenuPrincipal();
 	}
 	
-	private void affichageMenuRegles() {
+	private static void affichageMenuRegles() {
 		System.out.println("\nLe Tic-Tac-Toe.");
 		System.out.println("Le Tic-Tac-Toe, aussi appelé Morpion et OxO en Belgique, est un jeu de réflexion se\n" + 
 				"pratiquant à deux joueurs au tour par tour dont le but est de créer le premier un alignement. Nous\n" + 
@@ -119,7 +119,7 @@ public class Menu {
 				"conduire à augmenter le score des deux joueurs.");
 	}
 
-	private void affichageMenuInfo() {
+	private static void affichageMenuInfo() {
 		System.out.println("Auteur : Adrien JALLAIS - adrien.jallais@protonmail.com\n");
 		System.out.println("Etablissement : IUT Paris Descartes.\n");
 		System.out.println("Diplome prepare : DUT Annee Speciale.\n");
@@ -128,22 +128,17 @@ public class Menu {
 		System.out.println("Version 1.0.\n");
 	}
 
-	private void affichageMenuJeu() {
+	public static void affichageMenuJeu() {
 		int choixJeu;
 		
-		if (choixREADME == 0) {
-			System.out.println("Veuillez tapez :");
-			System.out.println("< 0 > Pour revenir au Menu Principal");
-			System.out.println("< 1 > Pour jouer au TicTacToe.");
-			System.out.println("< 2 > Pour jouer au Morpion.");
-			System.out.println("< 3 > Pour jouer au TicTacToe extension Forme.");
-			System.out.println("< 4 > Pour jouer au TicTacToe extension Permutation.");
-			choixJeu = setChoix(0,4);
-		}
-		else {
-			choixJeu = choixREADME;
-		}
-		
+		System.out.println("Veuillez tapez :");
+		System.out.println("< 0 > Pour revenir au Menu Principal");
+		System.out.println("< 1 > Pour jouer au TicTacToe.");
+		System.out.println("< 2 > Pour jouer au Morpion.");
+		System.out.println("< 3 > Pour jouer au TicTacToe extension Forme.");
+		System.out.println("< 4 > Pour jouer au TicTacToe extension Permutation.");
+		choixJeu = setChoix(0,4);
+
 		if (choixJeu != 0) {
 			int choixGrilleLigne;
 			int choixGrilleColonne ;
