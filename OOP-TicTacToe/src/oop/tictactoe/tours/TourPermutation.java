@@ -18,6 +18,14 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 		this.joueurAutre = joueurAutre ; //necessaire car une même permutation peut conduire à augmenter le score des deux joueurs.
 	}
 	
+	public TourPermutation(Grille grille, Joueur joueurActuel, Joueur joueurAutre, int nbrAlign) {
+		super(grille,joueurActuel,nbrAlign);
+		assert(joueurActuel != joueurAutre);
+		assert(! joueurActuel.getJeton().estEgal(joueurAutre.getJeton()));
+		this.saisieCellule2 = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+		this.joueurAutre = joueurAutre ; //necessaire car une même permutation peut conduire à augmenter le score des deux joueurs.
+	}
+
 	@Override
 	public void jouerCoup() {
 		boolean saisieCorrectejouerCoup = false;
@@ -57,14 +65,14 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 
 		if (grille.getCellule(saisieCellule[0], saisieCellule[1]).estOuvert()) {
 			Joueur joueurMarquant = null ;
-			if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+			if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
 				if (grille.getCellule(saisieCellule[0], saisieCellule[1]).estEgal(joueur.getJeton() ) ) {
 					joueurMarquant = joueur;
 				}
 				else {
 					joueurMarquant = joueurAutre;
 				}
-				fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
+				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
 				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
 				grille.afficherGrille();
 				joueurMarquant.marquerPoint();
@@ -73,14 +81,14 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 		
 		if (grille.getCellule(saisieCellule2[0], saisieCellule2[1]).estOuvert()) {
 			Joueur joueurMarquant = null ;
-			if (nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], 3) >=1 ) {
+			if (nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], nbrAlign) >=1 ) {
 				if (grille.getCellule(saisieCellule2[0], saisieCellule2[1]).estEgal(joueur.getJeton() ) ) {
 					joueurMarquant = joueur;
 				}
 				else {
 					joueurMarquant = joueurAutre;
 				}
-				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], 3);
+				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], nbrAlign);
 				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
 				grille.afficherGrille();
 				joueurMarquant.marquerPoint();

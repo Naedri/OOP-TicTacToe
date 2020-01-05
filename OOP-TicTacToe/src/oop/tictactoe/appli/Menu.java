@@ -147,7 +147,7 @@ public class Menu {
 		if (choixJeu != 0) {
 			int choixGrilleLigne;
 			int choixGrilleColonne ;
-			int choixNbrAlignements;
+			int choixNbrAlignements = 3;
 			int choixForme = 1 ;
 			
 			if (choixJeu == 3) {
@@ -184,9 +184,10 @@ public class Menu {
 				System.out.println("Veuillez choisir un nombre entre 3 et 5 compris.");
 				System.out.println("Attention ce nombre ne doit pas être plus grand que le nombre de colonnes ou de lignes de votre grille.");
 				int choixNbrAlignMax = (choixGrilleColonne >= choixGrilleLigne) ? choixGrilleLigne : choixGrilleColonne;
+				choixNbrAlignMax = (choixNbrAlignMax > 5 ) ? 5 : choixNbrAlignMax ;
 				choixNbrAlignements = setChoix(3, choixNbrAlignMax);
 				
-				System.out.println("Les nombre d alignement choisi est de "+ choixNbrAlignements +".");
+				System.out.println("Le nombre d alignement choisi est de "+ choixNbrAlignements +" jetons.");
 
 			}
 			
@@ -195,11 +196,11 @@ public class Menu {
 			switch (choixJeu) {
 				case 1 :
 					System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
-					partie = new PartieTicTacToe(choixGrilleLigne,choixGrilleColonne);
+					partie = new PartieTicTacToe(choixGrilleLigne,choixGrilleColonne,choixNbrAlignements);
 					break;
 				case 2 :
 					System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
-					partie = new PartieMorpion(choixGrilleLigne,choixGrilleColonne);
+					partie = new PartieMorpion(choixGrilleLigne,choixGrilleColonne,choixNbrAlignements);
 					break;
 				case 3 :
 					System.out.println("La partie de TicTacToe Forme va commencer, preparez-vous !\n");
@@ -207,7 +208,7 @@ public class Menu {
 					break;
 				case 4 :
 					System.out.println("La partie de TicTacToe Permutation va commencer, preparez-vous !\n");
-					partie = new PartiePermutation(choixGrilleLigne,choixGrilleColonne);
+					partie = new PartiePermutation(choixGrilleLigne,choixGrilleColonne,choixNbrAlignements);
 					break;
 			}
 			

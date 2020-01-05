@@ -11,13 +11,14 @@ public class PartieTicTacToe  implements In_Partie {
 	protected Joueur joueur2 ;
 	protected Match match ;
 	protected Grille grille ;
-//	protected int nbrAlign ; //nombre de jetons a aligner
+	protected int nbrAlign ; //nombre de jetons a aligner
 	
 	public PartieTicTacToe() {
 		joueur1 = new Joueur();
 		joueur2 = new Joueur();
 		grille = new Grille();
 		match = new Match(1);//nombre de point max = 1
+		nbrAlign = 3 ;
 	}
 	
 	public PartieTicTacToe(int choixGrilleLigne, int choixGrilleColonne) {
@@ -26,8 +27,18 @@ public class PartieTicTacToe  implements In_Partie {
 		joueur2 = new Joueur();
 		grille = new Grille(choixGrilleLigne, choixGrilleColonne);
 		match = new Match(1); //nombre de point max = 1
+		nbrAlign = 3 ;
 	}
 	
+	public PartieTicTacToe(int choixGrilleLigne, int choixGrilleColonne, int choixNbrAlignements) {
+		assert(choixGrilleLigne >=0 && choixGrilleColonne >= 0);
+		joueur1 = new Joueur();
+		joueur2 = new Joueur();
+		grille = new Grille(choixGrilleLigne, choixGrilleColonne);
+		match = new Match(1); //nombre de point max = 1
+		nbrAlign = choixNbrAlignements ;
+	}
+
 	public void lancerPartie() {
 		grille.afficherGrille();
 		//on fait des tours
@@ -37,7 +48,7 @@ public class PartieTicTacToe  implements In_Partie {
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 			
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			TourTicTacToe tour = new TourTicTacToe(grille, joueurActuel);
+			TourTicTacToe tour = new TourTicTacToe(grille, joueurActuel, nbrAlign);
 
 			tour.jouerCoup();
 			grille.afficherGrille();

@@ -397,7 +397,6 @@ class Test_Tours {
 		grille.placerJeton(jo, 2, 2);
 		
 		Joueur joueuro = new Joueur(jo);
-		Joueur joueurx = new Joueur(jx);
 		Forme carre = new Forme(1);
 		Forme losange = new Forme(2);
 		Forme etoile = new Forme(3);

@@ -9,11 +9,20 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	protected Grille grille;
 	protected Joueur joueur;
 	protected int[] saisieCellule ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
+	protected int nbrAlign ;
 	
 	public TourTicTacToe(Grille grille, Joueur joueurActuel) {
 		this.grille = grille;
 		this.joueur = joueurActuel;
 		this.saisieCellule = new int[2];
+		this.nbrAlign = 3;
+	}
+
+	public TourTicTacToe(Grille grille, Joueur joueurActuel, int nbrAlign) {
+		this.grille = grille;
+		this.joueur = joueurActuel;
+		this.saisieCellule = new int[2];
+		this.nbrAlign = nbrAlign;
 	}
 
 	/**
@@ -136,7 +145,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
-		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
 			joueur.marquerPoint();
 		}
 	}

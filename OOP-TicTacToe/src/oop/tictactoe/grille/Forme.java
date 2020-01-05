@@ -10,7 +10,7 @@ public class Forme {
 	private String formeStr ;
 	private int[][] tabGrilleModele ;
 	private static String[] listFormesDispo = new String[] {"carre","losange","croix"};
-
+	
 	/**
 	 * choixForme 1 pour Carre - 2 pour losange - 3 pour croix
 	 * @param choixForme 1 pour Carre - 2 pour losange - 3 pour croix
@@ -57,8 +57,7 @@ public class Forme {
 			chemin[i][1] = orientation[i];
 		}
 	}
-	
-	
+
 	/**
 	 * transForme renvoie une forme dont les indices sont decale de int decalageIndice
 	 * @param decalageIndice

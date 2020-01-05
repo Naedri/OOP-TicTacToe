@@ -21,6 +21,12 @@ public class PartiePermutation extends PartieMorpion implements In_Partie{
 		match = new Match(0,0);
 	}
 	
+	public PartiePermutation(int grilleNrbLignes, int grilleNbrColonnes, int choixNbrAlignements) {
+		super(grilleNrbLignes, grilleNrbLignes, choixNbrAlignements);
+		grille = new Grille(grilleNrbLignes,grilleNbrColonnes, true);
+		match = new Match(0,0);
+	}
+
 	@Override
 	public void lancerPartie() {
 		grille.afficherGrille();
@@ -34,7 +40,7 @@ public class PartiePermutation extends PartieMorpion implements In_Partie{
 			Joueur joueurAutre = (joueurActuel.getJeton().estEgal(joueur1.getJeton())) ? joueur2 : joueur1 ;
 
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			TourPermutation tour = new TourPermutation(grille, joueurActuel, joueurAutre);
+			TourPermutation tour = new TourPermutation(grille, joueurActuel, joueurAutre, nbrAlign);
 
 			tour.jouerCoup();
 			grille.afficherGrille();

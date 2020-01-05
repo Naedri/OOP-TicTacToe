@@ -15,6 +15,11 @@ public class PartieMorpion extends PartieTicTacToe implements In_Partie {
 		match = new Match(0,grille.getNbrCellules()); //nombre de point max = infini ; nombre de coup max = nombre taille grille
 	}
 	
+	public PartieMorpion(int grilleNrbLignes, int grilleNbrColonnes, int choixNbrAlignements) {
+		super(grilleNrbLignes, grilleNbrColonnes,choixNbrAlignements);
+		match = new Match(0,grille.getNbrCellules()); //nombre de point max = infini ; nombre de coup max = nombre taille grille
+	}
+
 	@Override
 	public void lancerPartie() {
 		grille.afficherGrille();
@@ -25,7 +30,7 @@ public class PartieMorpion extends PartieTicTacToe implements In_Partie {
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			TourMorpion tour = new TourMorpion(grille, joueurActuel);
+			TourMorpion tour = new TourMorpion(grille, joueurActuel, nbrAlign);
 
 			tour.jouerCoup();
 			grille.afficherGrille();

@@ -13,6 +13,10 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 		super(grille, joueurActuel);
 	}
 	
+	public TourMorpion(Grille grille, Joueur joueurActuel, int nbrAlign) {
+		super(grille, joueurActuel, nbrAlign);
+	}
+
 	/**
 	 * il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
 	 * renvoie la PREMIERE direction trouvée pour laquel un alignement a ete trouve
@@ -170,8 +174,8 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 	@Override
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
-		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], 3) >=1 ) {
-			fermeAlignementXD(saisieCellule[0], saisieCellule[1], 3);
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
+			fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
 			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
 			grille.afficherGrille();
 			joueur.marquerPoint();

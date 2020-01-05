@@ -1,11 +1,8 @@
 package oop.tictactoe.appli;
 
 import oop.tictactoe.tours.TourForme;
-import oop.tictactoe.tours.TourMorpion;
 import oop.tictactoe.grille.Forme;
-import oop.tictactoe.grille.Grille;
 import oop.tictactoe.jouer.*;
-
 
 public class PartieForme extends PartieTicTacToe implements In_Partie {
 	
