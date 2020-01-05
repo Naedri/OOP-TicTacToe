@@ -58,9 +58,11 @@ public class Menu {
 		System.out.println("< 1 > Pour afficher les règles.");
 		System.out.println("< 2 > Pour afficher des informations sur ce projet.");
 		System.out.println("< 3 > Pour jouer.");
+		System.out.println("< 4 > Pour quitter.");
+		
 		
 		int choix ;
-		choix = setChoix(1, 3);
+		choix = setChoix(1, 4);
 		
 		switch (choix) {
 			case 1 :
@@ -75,12 +77,17 @@ public class Menu {
 				System.out.println("<<< JOUEZ ! >>>\n");
 				affichageMenuJeu();
 				break;
+			case 4 :
+				System.out.println("Au revoir.\n");
+				break;
 			default:
 				System.out.println("Choix de menu invalide.\n");
 				break;
 		}
-		System.out.println("Retour au Menu Principal.\n");
-		affichageMenuPrincipal();
+		if (choix != 4) {
+			System.out.println("Retour au Menu Principal.\n");
+			affichageMenuPrincipal();
+		}
 	}
 	
 	private static void affichageMenuRegles() {

@@ -11,7 +11,7 @@ class Test_Appli {
 //		System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
 //		partieTicTacToe.lancerPartie() ;
 //	}
-//	
+	
 //	// statut ok
 //	@Test
 //	void testMorpion() {
@@ -20,7 +20,7 @@ class Test_Appli {
 //		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
 //		partieMorpion.lancerPartie() ;
 //	}
-//	
+	
 //	// statut ok
 //	@Test
 //	void testPermutation() {
@@ -31,13 +31,13 @@ class Test_Appli {
 //	}
 	
 	
-	// statut PAS ok
-	@Test
-	void testForme() {
-		PartieForme partieForme= new PartieForme() ;
-		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
-		partieForme.lancerPartie() ;
-	}
+//	// statut ok
+//	@Test
+//	void testForme() {
+//		PartieForme partieForme= new PartieForme() ;
+//		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
+//		partieForme.lancerPartie() ;
+//	}
 	
 	
 

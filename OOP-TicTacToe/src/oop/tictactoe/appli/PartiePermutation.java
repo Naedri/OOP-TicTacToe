@@ -12,31 +12,38 @@ public class PartiePermutation extends PartieMorpion implements In_Partie{
 	public PartiePermutation() {
 		super();
 		grille = new Grille(true);
-		match = new Match(0,0);
+		int pointMax = grille.getNbrCellules() - grille.getNbrCellules()%2 ;
+		pointMax /= 2 ;
+		pointMax /= nbrAlign;
+		match = new Match(pointMax); //les joueurs joueront tant qu il restera des coups gagnants (alignement de taille nbrAlign)
 	}
 	
 	public PartiePermutation(int grilleNrbLignes, int grilleNbrColonnes) {
 		super(grilleNrbLignes, grilleNrbLignes);
 		grille = new Grille(grilleNrbLignes,grilleNbrColonnes, true);
-		match = new Match(0,0);
+		int pointMax = grille.getNbrCellules() - grille.getNbrCellules()%2 ;
+		pointMax /= 2 ;
+		pointMax /= nbrAlign;
+		match = new Match(pointMax); //les joueurs joueront tant qu il restera des coups gagnants (alignement de taille nbrAlign)
 	}
 	
 	public PartiePermutation(int grilleNrbLignes, int grilleNbrColonnes, int choixNbrAlignements) {
 		super(grilleNrbLignes, grilleNrbLignes, choixNbrAlignements);
 		grille = new Grille(grilleNrbLignes,grilleNbrColonnes, true);
-		match = new Match(0,0);
+		int pointMax = grille.getNbrCellules() - grille.getNbrCellules()%2 ;
+		pointMax /= 2 ;
+		pointMax /= nbrAlign;
+		match = new Match(pointMax); //les joueurs joueront tant qu il restera des coups gagnants (alignement de taille nbrAlign)
 	}
-
+	
 	@Override
 	public void lancerPartie() {
 		grille.afficherGrille();
 		//on fait des tours
-		int resteJeton = grille.getNbrJeton(joueur1.getJeton());
-		while(resteJeton >= nbrAlign) {
+		while(!(match.estTourMax() || match.getVictoire())) {
 			match.tourDebut();
 			
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
-//			Joueur joueurAutre = ( match.getTour()%2 == 0 ) ? joueur1 : joueur2 ;
 			Joueur joueurAutre = (joueurActuel.getJeton().estEgal(joueur1.getJeton())) ? joueur2 : joueur1 ;
 
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
@@ -49,16 +56,47 @@ public class PartiePermutation extends PartieMorpion implements In_Partie{
 			match.evalVictoireParPointMax (joueurActuel);
 
 			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
-			
-			//reste t il des jetons a aligner pour les joueurs ?
-			if (grille.getNbrJeton(joueur1.getJeton()) < grille.getNbrJeton(joueur2.getJeton())) {
-				resteJeton =  grille.getNbrJeton(joueur1.getJeton()) ;
-			}
-			else
-				resteJeton =  grille.getNbrJeton(joueur2.getJeton()) ;
+
 		}
 		//on compte les points
 		System.out.println(In_Interaction.afficherMessageResultat(match, joueur1, joueur2));
 
 	}
 }
+
+
+//	@Override
+//	public void lancerPartie() {
+//		grille.afficherGrille();
+//		//on fait des tours
+//		int resteJeton = grille.getNbrJeton(joueur1.getJeton());
+//		while(resteJeton >= nbrAlign) {
+//			match.tourDebut();
+//			
+//			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
+//			//Joueur joueurAutre = ( match.getTour()%2 == 0 ) ? joueur1 : joueur2 ;
+//			Joueur joueurAutre = (joueurActuel.getJeton().estEgal(joueur1.getJeton())) ? joueur2 : joueur1 ;
+//
+//			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
+//			TourPermutation tour = new TourPermutation(grille, joueurActuel, joueurAutre, nbrAlign);
+//
+//			tour.jouerCoup();
+//			grille.afficherGrille();
+//			tour.evaluerCoup();
+//			
+//			match.evalVictoireParPointMax (joueurActuel);
+//
+//			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
+//			
+//			//reste t il des jetons a aligner pour les joueurs ?
+//			if (grille.getNbrJeton(joueur1.getJeton()) < grille.getNbrJeton(joueur2.getJeton())) {
+//				resteJeton =  grille.getNbrJeton(joueur1.getJeton()) ;
+//			}
+//			else
+//				resteJeton =  grille.getNbrJeton(joueur2.getJeton()) ;
+//		}
+//		//on compte les points
+//		System.out.println(In_Interaction.afficherMessageResultat(match, joueur1, joueur2));
+//
+//	}
+//}
