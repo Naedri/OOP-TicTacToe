@@ -60,7 +60,7 @@ public class Forme {
 	
 	
 	/**
-	 * renvoie une forme dont les indices sont decale de int decalageIndice
+	 * transForme renvoie une forme dont les indices sont decale de int decalageIndice
 	 * @param decalageIndice
 	 * @return
 	 */
@@ -73,8 +73,8 @@ public class Forme {
 	    		
 		for (int i=0 ;i < getNbrPoint(); ++i) {
 			indiceDecale = (decalageIndice+i) % getNbrPoint();
-			formeTrans.distance[i]= distance[indiceDecale];
-			formeTrans.orientation[i]= orientation[(indiceDecale)] ;
+			formeTrans.distance[indiceDecale]= distance[i];
+			formeTrans.orientation[indiceDecale]= orientation[(i)] ;
 		}
 				
 		for (int i = 0; i < orientation.length; ++i) {

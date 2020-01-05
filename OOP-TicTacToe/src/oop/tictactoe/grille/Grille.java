@@ -288,37 +288,8 @@ public class Grille implements In_Grille {
 		}
 	}
 
-
 	//nextJeton avec Direction
-	/**
-	 * coordNextJeton permet de savoir quelles sont les coordonnes (ligne,colonne) du jeton image
-	 * càd le jeton contenu dans la cellule 
-	 * projetee depuis la cellule de la grille a ligne,colonne
-	 * vers la direction donnee a la profondeur/distance donnee
-	 * Le jeton peut etre vide
- 	 * Pas de limite de profondeur
-	 * @param ligne
-	 * @param colonne
-	 * @param profondeur
-	 * @param direction
-	 * @return
-	 */
-	public int[] coordNextJeton(int ligne, int colonne, int profondeur, Direction direction) {
-		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert(existeNextCellule(ligne, colonne, profondeur, direction));
-		
-		int[] coord = new int[2];
-		int ligneCible = profondeur * direction.getDligne() + ligne ;
-		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
-		
-		coord[0]=ligneCible;
-		coord[1]=colonneCible;
-		return coord ;
 	
-	}
-
-
 	/**
 	 * Pour les elements donnes, existeNextCellule permet de savoir si la cellule image est comprise dans la grille
 	 * Pas d indication de la nature du jeton
@@ -349,6 +320,33 @@ public class Grille implements In_Grille {
 		return existe;
 	}
 
+	
+	/**
+	 * coordNextJeton permet de savoir quelles sont les coordonnes (ligne,colonne) du jeton image
+	 * càd le jeton contenu dans la cellule 
+	 * projetee depuis la cellule de la grille a ligne,colonne
+	 * vers la direction donnee a la profondeur/distance donnee
+	 * Le jeton peut etre vide
+ 	 * Pas de limite de profondeur
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction
+	 * @return
+	 */
+	public int[] coordNextJeton(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert(existeNextCellule(ligne, colonne, profondeur, direction));
+		
+		int[] coord = new int[2];
+		int ligneCible = profondeur * direction.getDligne() + ligne ;
+		int colonneCible =  profondeur * direction.getDcolonne() + colonne ;
+		
+		coord[0]=ligneCible;
+		coord[1]=colonneCible;
+		return coord ;
+	}
 
 	/**
 	 * getNextJeton permet d obtenir le jeton image 

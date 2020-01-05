@@ -2,6 +2,9 @@ package oop.tictactoe.grille;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.EnumSet;
+
 import org.junit.jupiter.api.Test;
 
 class Test_Grille {
@@ -288,6 +291,31 @@ class Test_Grille {
 	}
 	
 	@Test
+	void testGrille() {
+		Grille grille = new Grille(4,4);
+		Jeton jx = Jeton.JETON_X ;
+		Jeton jo = Jeton.JETON_O ;
+		grille.placerJeton(jo, 0, 2);
+		grille.placerJeton(jx, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jo, 2, 1);
+		grille.placerJeton(jo, 2, 2);
+		grille.placerJeton(jo, 2, 3);
+		assertEquals(6, grille.getNbrJeton(jo));
+		assertEquals(2, grille.getNbrJeton(jx));
+		grille.placerJeton(jo, 3, 0);
+		grille.placerJeton(jx, 0, 3);
+		grille.placerJeton(jx, 3,3);
+		assertEquals(7, grille.getNbrJeton(jo));
+		assertEquals(4, grille.getNbrJeton(jx));
+		grille.placerJeton(jx, 1,3);
+		assertEquals(7, grille.getNbrJeton(jo));
+		assertEquals(5, grille.getNbrJeton(jx));
+	}
+	
+	@Test
 	void testGrilleDifferentesCellules(){
 		System.out.println("Test Differentes Cellules.");
 
@@ -302,9 +330,7 @@ class Test_Grille {
 		grille.placerJeton(jo, 1, 2);
 		grille.placerJeton(jx, 2, 0);
 		grille.placerJeton(jo, 2, 1);
-		
-		grille.afficherGrille();
-		
+				
 		assertFalse(grille.sontDifferentes(0, 1, 0, 1));
 		assertFalse(grille.sontDifferentes(1, 1, 1, 1));
 		assertFalse(grille.sontDifferentes(0, 0, 0, 0));
@@ -324,21 +350,52 @@ class Test_Grille {
 	}
 	
 	@Test
-	void testGrilleForme(){
-//		System.out.println(Forme.toStringFormeDispo());
-//		
-//		Forme carre = new Forme(1);
-//		System.out.println(carre.toStringConsigne());
-//
-//		Forme croix = new Forme(2);
-//		System.out.println(croix.toStringConsigne());
-//
-//		Forme losange = new Forme(3);
-//		System.out.println(losange.toStringConsigne());
-//		
-//		System.out.println("Menu");
-//		System.out.println(Forme.toStringFormeDispoConsigne());
+	void testGrilleDeplacement(){
+		Grille grille = new Grille(5,5);
+		grille.placerJeton(Jeton.JETON_X, 2, 2);
+//		grille.afficherGrille();
 		
+		assertTrue(grille.existeNextCellule(0, 0, 1, Direction.SUD));		
+		assertTrue(grille.existeNextCellule(0, 0, 2, Direction.SUD));
+		assertTrue(grille.existeNextCellule(0, 0, 3, Direction.SUD));
+		assertTrue(grille.existeNextCellule(0, 0, 4, Direction.SUD));
+		assertFalse(grille.existeNextCellule(0, 0, 5, Direction.SUD));
+		assertFalse(grille.existeNextCellule(0, 0, 6, Direction.SUD));
+
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.NORD_OUEST)) {
+			assertTrue(grille.existeNextCellule(1, 1, 1, oneDirection));
+		}
+		
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.NORD_OUEST)) {
+			assertTrue(grille.existeNextCellule(2, 2, 2, oneDirection));
+		}
+		
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.NORD_OUEST)) {
+			assertFalse(grille.existeNextCellule(2, 2, 3, oneDirection));
+		}
+
+		int[] coordTest ;
+		
+		coordTest = new int[] {1,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(0, 0, 1, Direction.SUD));
+		
+		coordTest = new int[] {2,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(0, 0, 2, Direction.SUD));
+		
+		coordTest = new int[] {3,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(0, 0, 3, Direction.SUD));
+		
+		coordTest = new int[] {2,4};
+		assertArrayEquals(coordTest, grille.coordNextJeton(2, 2, 2, Direction.EST));
+		
+		coordTest = new int[] {2,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(2, 2, 2, Direction.OUEST));
+		
+		coordTest = new int[] {0,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(2, 2, 2, Direction.NORD_OUEST));
+		
+		coordTest = new int[] {4,0};
+		assertArrayEquals(coordTest, grille.coordNextJeton(2, 2, 2, Direction.SUD_OUEST));
 		
 	}
 	

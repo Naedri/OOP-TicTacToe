@@ -383,7 +383,6 @@ class Test_Tours {
 	void testTourForme(){
 		System.out.println("testTourForme EN COURS \n");
 		
-		//tour avec deux joueurs differents INVERSE AVEC coup gagnant
 		Grille grille = new Grille();
 		Jeton jx = Jeton.JETON_X;
 		Jeton jo = Jeton.JETON_O;
@@ -400,20 +399,94 @@ class Test_Tours {
 		Joueur joueuro = new Joueur(jo);
 		Joueur joueurx = new Joueur(jx);
 		Forme carre = new Forme(1);
-		TourForme tour = new TourForme(grille, joueuro, carre);
-
-		grille.afficherGrille();
-//		assertEquals(0, joueuro.getScore());
-//		assertEquals(0, joueurx.getScore());
-//		System.out.println("faire : 1-2 puis 1-3");
-//		//1-2
-//		//1-3
-//		tour.jouerCoup();
-//		tour.evaluerCoup();
-//		
-//		assertEquals(1, joueuro.getScore());
-//		assertEquals(0, joueurx.getScore());	
+		Forme losange = new Forme(2);
+		Forme etoile = new Forme(3);
+		assertEquals(4, carre.getNbrPoint());
+		assertEquals(4, losange.getNbrPoint());
+		assertEquals(5, etoile.getNbrPoint());
 		
+		TourForme tour ;
+		tour = new TourForme(grille, joueuro, carre);
+		
+		assertTrue(tour.existeForme(0, 0, carre));
+		assertTrue(tour.existeForme(1, 1, carre));
+		assertFalse(tour.existeForme(2, 2, carre));
+		assertFalse(tour.existeForme(0, 2, carre));
+		assertFalse(tour.existeForme(2, 0, carre));
+		assertFalse(tour.existeForme(1, 2, carre));
+		assertFalse(tour.existeForme(2, 1, carre));
+		assertFalse(tour.existeForme(2, 2, carre));
+
+		//getCoordForme
+		int[][] coordTest = new int[][] {{0,0},{0,1},{1,1},{1,0}}; //tour du carre dans le sens des aiguilles d une montre
+		
+		int[][] coordTest1 = new int[carre.getNbrPoint()][2];
+		coordTest1 = tour.getCoordForme(0, 0, carre);
+		
+		assertArrayEquals(coordTest,coordTest1);
+		
+		//getJetonForme
+		String jetonCarre = tour.getJetonForme(0, 0, carre);
+		String StrCarre = "OOOO";
+		assertEquals(jetonCarre, StrCarre);
+				
+		grille.permutationJeton(0, 2, 0, 1);
+		jetonCarre = tour.getJetonForme(0, 0, carre);
+		StrCarre = "OXOO";
+		assertEquals(jetonCarre, StrCarre);
+		jetonCarre = tour.getJetonForme(0, 1, carre);
+		StrCarre = "XOXO";
+		assertEquals(jetonCarre, StrCarre);
+		
+		grille.permutationJeton(0, 2, 0, 1);
+
+		//getJetonFormeAll
+		grille = new Grille();
+		grille.placerJeton(jo, 0, 0);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 2, 1);
+				
+		tour = new TourForme(grille, joueuro, carre);
+		
+		System.out.println(tour.getJetonFormeAll(1, 1, carre));
+		grille.afficherGrille();
+
+		grille.placerJeton(jo, 2, 2);
+		
+		System.out.println(tour.getJetonFormeAll(1, 1, carre));
+		grille.afficherGrille();
+		
+		grille.placerJeton(jo, 1, 1);
+		
+		System.out.println(tour.getJetonFormeAll(1, 1, carre));
+		grille.afficherGrille();
+		
+		//estCompleteForme
+		grille = new Grille();
+		grille.placerJeton(jo, 0, 0);
+		grille.placerJeton(jx, 2, 0);
+		grille.placerJeton(jx, 0, 2);
+		grille.placerJeton(jx, 2, 1);
+		grille.placerJeton(jo, 0, 1);
+		grille.placerJeton(jo, 1, 0);
+		grille.placerJeton(jo, 1, 1);
+		grille.placerJeton(jx, 1, 2);
+		grille.placerJeton(jo, 2, 2);
+		grille.afficherGrille();
+		
+		tour = new TourForme(grille, joueuro, carre);
+		assertTrue(tour.estCompleteForme(0, 0));
+		assertTrue(tour.estCompleteForme(1, 1));
+		assertTrue(tour.estCompleteForme(0, 1));
+		assertTrue(tour.estCompleteForme(1, 0));
+
+		assertFalse(tour.estCompleteForme(0, 2));
+		assertFalse(tour.estCompleteForme(1, 2));
+		assertFalse(tour.estCompleteForme(2, 2));
+		assertFalse(tour.estCompleteForme(2, 0));
+		assertFalse(tour.estCompleteForme(2, 1));
+		assertFalse(tour.estCompleteForme(2, 2));
 		
 		System.out.println("testTourForme FAIT \n");
 	}

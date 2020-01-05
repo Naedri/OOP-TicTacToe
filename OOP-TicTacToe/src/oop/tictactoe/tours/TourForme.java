@@ -19,10 +19,13 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	}
 	
 	/**
-	 * existeCoordForme permet de savoir 
+	 * existeForme permet de savoir 
 	 * si les cellules de toute une forme 
-	 * à partir d un point donné 
+	 * à partir d un point donné (en haut a gauche de la forme)
 	 * sont inclus dans la grille
+	 * 
+	 * mais pas de savoir si elle existe
+	 * juste de savoir si elle est comprises dans la grille à partir du point en haut a gauche
 	 * @param ligneOrigine
 	 * @param colonneOrigine
 	 * @param forme
@@ -60,7 +63,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @param ligneOrigine
 	 * @param colonneOrigine
 	 * @param forme
-	 * @return
+	 * @return unt table contenant x coordonnes (donc une table de table a deux dimensions)
 	 */
 	public int[][] getCoordForme (int ligne, int colonne, Forme forme) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
@@ -126,14 +129,11 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	public String getJetonFormeAll (int ligne, int colonne, Forme forme) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-
 		
 		String sJetonAll = "";
-		Forme formeTemp = new Forme(forme.getFormeNum());
 		
 		for (int i = 0 ; i < forme.getNbrPoint(); ++i) {
-			formeTemp = formeTemp.transForme(i) ;
+			Forme formeTemp = forme.transForme(i) ;
 			if (existeForme(ligne, colonne, formeTemp)) {
 				sJetonAll += getJetonForme(ligne, colonne, formeTemp);
 			}
@@ -150,10 +150,10 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @param forme
 	 * @return
 	 */
-	public boolean estCompleteForme (int ligne, int colonne, Forme forme) {
+	public boolean estCompleteForme (int ligne, int colonne) {
 		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (! grille.estVideCellule(ligne, colonne)); //la cellule evaluee ne doit pas etre vide
 		
 		//quelle chaine devrait on avoir pour que la forme soit complete
 		Jeton jetonCible = grille.getCellule(ligne, colonne);
@@ -167,13 +167,13 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		String formeEvaluee =  getJetonFormeAll(ligne, colonne, forme);
 		
 		// comparaison des chaines
-		return formeCible.contains(formeEvaluee);
+		return formeEvaluee.contains(formeCible);
 	}
 	
 	@Override
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
-		if (estCompleteForme(saisieCellule[0], saisieCellule[1], forme)) {
+		if (estCompleteForme(saisieCellule[0], saisieCellule[1])) {
 			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
 			grille.afficherGrille();
 			joueur.marquerPoint();
