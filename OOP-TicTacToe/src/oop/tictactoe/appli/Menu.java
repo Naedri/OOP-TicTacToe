@@ -26,7 +26,7 @@ public class Menu {
 		while ( !saisieCorrecte) {
 			
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Veuillez choisir un nombre entre " + borneMin + " et " + borneMax + ".\nPuis appuyez sur \'Entree\'.\n");
+//			System.out.println("Veuillez choisir un nombre entre " + borneMin + " et " + borneMax + " compris.\nPuis appuyez sur \'Entree\'.\n");
 			String saisie = sc.nextLine();
 			System.out.println("Vous avez tape : " + saisie +".\n");
 			
