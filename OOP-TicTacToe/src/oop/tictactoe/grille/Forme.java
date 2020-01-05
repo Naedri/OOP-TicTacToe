@@ -8,7 +8,7 @@ public class Forme {
 	private int[][] chemin;
 	private int formeNum ;
 	private String formeStr ;
-	private int[][] grilleModele ;
+	private int[][] tabGrilleModele ;
 	private static String[] listFormesDispo = new String[] {"carre","losange","croix"};
 
 	/**
@@ -26,7 +26,7 @@ public class Forme {
 				distance = new int[] {1,1,1,1} ;
 				orientation = new int[] {2,4,6,0};
 				//{Direction.EST,Direction.SUD,Direction.OUEST,Direction.NORD}) ;
-				grilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
+				tabGrilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
 				break ;
 				
 			case 2 :
@@ -36,7 +36,7 @@ public class Forme {
 				distance = new int[]{1,1,1,1};
 				orientation = new int[]{1,3,5,7};
 				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD_OUEST}) ;
-				grilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
+				tabGrilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
 				break;
 	
 			case 3 :
@@ -46,7 +46,7 @@ public class Forme {
 				distance = new int[]{1,1,1,1,1} ;
 				orientation = new int[]{1,3,5,7,6};
 				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD,Direction.OUEST}),
-				grilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
+				tabGrilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
 				break ;
 		}
 		//creation de la table chemin avec une profondeur et une direction par ligne
@@ -87,10 +87,10 @@ public class Forme {
 
 	public String toStringGrilleModele() {
 		Grille grille = new Grille(3,3);				
-		for (int i = 0; i < grilleModele.length; ++i) {
-			grille.placerJeton(Jeton.JETON_X, grilleModele[i][0], grilleModele[i][1]);
+		for (int i = 0; i < tabGrilleModele[0].length; ++i) {
+			grille.placerJeton(Jeton.JETON_X, tabGrilleModele[0][i], tabGrilleModele[1][i]);
 		}
-		return grilleModele.toString() ;
+		return grille.toStringGrille() ;
 	}
 	
 	public static String[] getListFormesDispo() {
@@ -99,9 +99,9 @@ public class Forme {
 	
 	public static String toStringFormeDispo() {
 		String sFormeDispo = "";
-		sFormeDispo += "Les Formes dispo sont :";
+		sFormeDispo += "Les formes disponibles sont :";
+		int indice = 1 ;
 		for (String forme: listFormesDispo) {
-			int indice = 1 ;
 			sFormeDispo += "\n<"+indice +"> " + forme ;
 			++indice;
 			}
@@ -112,7 +112,7 @@ public class Forme {
 	public String toStringConsigne() {
 		String sConsigne = "";
 		sConsigne += "Pour realiser la forme suivante : '" + formeStr +"',\n il faut placer les jetons de la manière suivante :\n";
-		sConsigne += toString();
+		sConsigne += toStringGrilleModele();
 		return sConsigne ;
 	}
 	
@@ -121,7 +121,7 @@ public class Forme {
 		formeMenu += toStringFormeDispo();
 		
 		for (int i = 1 ; i <= listFormesDispo.length ; ++i) {
-			Forme formeExemple = new Forme(1);
+			Forme formeExemple = new Forme(i);
 			formeMenu += formeExemple.toStringConsigne();
 		}		
 		return formeMenu ;
@@ -157,7 +157,7 @@ public class Forme {
 		return formeStr;
 	}
 	public int[][] getFormeGrille() {
-		return grilleModele;
+		return tabGrilleModele;
 	}
 	public int getNbrPoint() {
 		return chemin.length;

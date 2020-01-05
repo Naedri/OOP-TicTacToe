@@ -387,14 +387,14 @@ class Test_Tours {
 		Grille grille = new Grille();
 		Jeton jx = Jeton.JETON_X;
 		Jeton jo = Jeton.JETON_O;
-		grille.placerJeton(jx, 0, 0);
+		grille.placerJeton(jo, 0, 0);
 		grille.placerJeton(jx, 2, 0);
 		grille.placerJeton(jx, 0, 2);
 		grille.placerJeton(jx, 2, 1);
 		grille.placerJeton(jo, 0, 1);
 		grille.placerJeton(jo, 1, 0);
 		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jo, 1, 2);
+		grille.placerJeton(jx, 1, 2);
 		grille.placerJeton(jo, 2, 2);
 		
 		Joueur joueuro = new Joueur(jo);

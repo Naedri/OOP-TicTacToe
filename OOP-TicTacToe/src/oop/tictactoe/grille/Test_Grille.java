@@ -322,4 +322,24 @@ class Test_Grille {
 		assertTrue(grille.sontDifferentes(1, 2, 2, 1));
 		
 	}
+	
+	@Test
+	void testGrilleForme(){
+//		System.out.println(Forme.toStringFormeDispo());
+//		
+//		Forme carre = new Forme(1);
+//		System.out.println(carre.toStringConsigne());
+//
+//		Forme croix = new Forme(2);
+//		System.out.println(croix.toStringConsigne());
+//
+//		Forme losange = new Forme(3);
+//		System.out.println(losange.toStringConsigne());
+//		
+//		System.out.println("Menu");
+//		System.out.println(Forme.toStringFormeDispoConsigne());
+		
+		
+	}
+	
 }
