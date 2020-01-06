@@ -2,6 +2,7 @@ package oop.tictactoe.grille;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Random;
 
 import oop.tictactoe.grille.Jeton;
 
@@ -164,16 +165,30 @@ public class Grille implements In_Grille {
 	 * remplissage aléatoire avec JEONT caractère ouvert,  
 	 * à partir d une liste de JETON finie de taille égale à celle de la grille
 	 * tirage aléatoire sans remise de la liste de JETON dans chacune des cellules
-	 * comme le joueurX commence il a un avantage 
-	 * ainsi si le nombre de jeton est impair il y aura un jeton O de plus
+	 * si le nombre de jeton est impair le dernier jeton sera determine de maniere aleatoire
 	 * Ne pourra etre appellee que si la grille est vide
 	 */
 	public void remplirAleaGrille() {
 		assert(this.estVideGrille());
-		//initialisation de la liste des jetons
+		//initialisation de la liste des jetons 
 		LinkedList<Jeton> listeJetons= new LinkedList<Jeton>(); //Linked list car acces terminaux constant
-		for (int i = 0; i < getNbrCellules(); ++i) {
-			listeJetons.addLast(Jeton.values()[(i+1) %2 +1]);
+//		//initialisation de la liste des jetons si le nombre de jeton est impair il y aura un jeton O de plus
+//		for (int i = 0; i < getNbrCellules(); ++i) {
+//			listeJetons.addLast(Jeton.values()[(i+1) %2 +1]);
+//		}
+		//initialisation de la liste des jetons
+		if (getNbrCellules() % 2 == 0 ) {
+			for (int i = 0; i < getNbrCellules(); ++i) {
+				listeJetons.addLast(Jeton.values()[(i%2) +1]);
+			}
+		}
+		else {
+			Random r = new Random();
+			int valeur = r.nextInt(2) + 1; //valeur entre 1 et 2
+			listeJetons.addLast(Jeton.values()[valeur]);
+			for (int i = 1; i < getNbrCellules(); ++i) { //on ne commence plus a 0 mais a 1
+				listeJetons.addLast(Jeton.values()[(i%2) +1]);
+			}
 		}
 		
 		//brassage de la liste des jetons
