@@ -182,4 +182,11 @@ public class TourMorpion extends TourTicTacToe  implements In_Tour, In_MessagesP
 		}
 	}
 	
+	
+	// ******* METHODE GRILLE *******
+	// ******* METHODE GRILLE Fermeture *******
+	public void ouvertToFermeJeton(int ligne, int colonne) {
+		grille[ligne][colonne] = grille[ligne][colonne].ouvertToFerme();		
+	}
+	
 }
