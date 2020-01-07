@@ -42,3 +42,5 @@ aurait il fallu changer directement les jetons en creant une méthode
 15. linked list pour la liste des jetons
 
 16. faudrait il mettre a null la saisie cellule apres l avoir evalue ?
+
+17. dans tourMorpion on doit utiliser une partieMorpion car on a besoin de la table des jetonsFermes

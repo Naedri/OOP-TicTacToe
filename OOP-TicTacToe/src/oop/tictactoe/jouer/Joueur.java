@@ -19,7 +19,7 @@ public class Joueur {
 	}
 	
 	public Joueur(Jeton jeton) {
-		assert( jeton.estOuvert() && !jeton.estVideJeton());
+		assert( !jeton.estVideJeton());
 		this.jeton = jeton ;
 		this.score = 0;
 		++compteur;

@@ -1,8 +1,7 @@
 package oop.tictactoe.jouer;
 
 import java.util.Scanner;
-
-import oop.tictactoe.grille.Grille;
+import oop.tictactoe.grille.Jeton;
 
 public interface In_Interaction {
 	
@@ -21,7 +20,7 @@ public interface In_Interaction {
 	 * securise le choix de la cellule par le joueur (l entrée )
 	 * ne verifie pas que la cellule est pleine ou non
 	 */
-	public static int[] saisirCellule(Grille grille) {
+	public static int[] saisirCellule(Jeton[][] grille) {
 		boolean saisieCorrecte = false ;
 		int[] cellule  = new int[2];
 
@@ -40,8 +39,8 @@ public interface In_Interaction {
 						//decrementation pour s adapter à l affichage
 						--cellule[0];
 						--cellule[1];
-						if (cellule[0]>=0 && cellule[0]<grille.getLignes()
-								&& cellule[1]>=0 && cellule[1]<grille.getColonnes()) {
+						if (cellule[0]>=0 && cellule[0]<grille.length
+								&& cellule[1]>=0 && cellule[1]<grille[0].length) {
 							//sortie de la boucle
 							saisieCorrecte = true ;
 							}
@@ -157,35 +156,6 @@ public interface In_Interaction {
 		return messageResultat;
 	}
 	
-	/**
-	 * messageResultat
-	 * indiquant victoire ou non
-	 * il faut qu elle soit appelee après un coup joue
-	 * (càd "C est au joueur suivant" ou "Le Joueur X a gagné la partie")
-	 * @param m match en cours
-	 * @param joueurActuel joueur qui vient de jouer
-	 * @return
-	 */
-	public static String afficherMessageResultat(Match m, Joueur joueurActuel) {
-		assert(joueurActuel != null && m != null);
-		String messageResultat ;
-		m.evalVictoireParPointMax(joueurActuel); //mise a jour
-		
-		if (m.estTermine(joueurActuel)) {
-			if (m.getVictoire()) {
-				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
-			}
-			else {
-				messageResultat = "C est un match nul.\n" ;
-			}
-		}
-		else {
-//			messageResultat = "Le match n est pas termine.\n";
-			messageResultat = "Le joueur "+joueurActuel.getJeton().getSymbole()+" a termine son tour.\n";
-		}
-
-		return messageResultat;
-	}
 	
 	/**
 	 * messageTour

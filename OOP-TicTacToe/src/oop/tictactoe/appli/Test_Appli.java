@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 class Test_Appli {
 
-//	// statut ok
-//	@Test
-//	void testTicTacToe() {
-//		PartieTicTacToe partieTicTacToe = new PartieTicTacToe() ;
-//		System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
-//		partieTicTacToe.lancerPartie() ;
-//	}
+	// statut ok
+	@Test
+	void testTicTacToe() {
+		PartieTicTacToe partieTicTacToe = new PartieTicTacToe() ;
+		System.out.println("La partie de TicTacToe va commencer, preparez-vous !\n");
+		partieTicTacToe.lancerPartie() ;
+	}
 	
 //	// statut ok
 //	@Test

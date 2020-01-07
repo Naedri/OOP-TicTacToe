@@ -27,19 +27,19 @@ public enum Jeton {
 		return this.equals(JETON_VIDE);
 	}
 	
-	//ouvert boolean
-	public boolean estOuvert() {
-		return this.ouvert ;
-	}
+//	//ouvert boolean
+//	public boolean estOuvert() {
+//		return this.ouvert ;
+//	}
 	
-	/**
-	 * Ferme un jeton ouvert
-	 * @return
-	 */
-	public Jeton ouvertToFerme() {
-		assert(this.ouvert == true) ;
-		return Jeton.values()[(this.ordinal() +2) %5];
-	}
+//	/**
+//	 * Ferme un jeton ouvert
+//	 * @return
+//	 */
+//	public Jeton ouvertToFerme() {
+//		assert(this.ouvert == true) ;
+//		return Jeton.values()[(this.ordinal() +2) %5];
+//	}
 	
 	//toString
 	public String toString() {

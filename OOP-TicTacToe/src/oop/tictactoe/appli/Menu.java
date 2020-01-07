@@ -135,7 +135,7 @@ public class Menu {
 		System.out.println("Version 1.0.\n");
 	}
 
-	public static void affichageMenuJeu() {
+	private static void affichageMenuJeu() {
 		int choixJeu;
 		
 		System.out.println("Veuillez tapez :");

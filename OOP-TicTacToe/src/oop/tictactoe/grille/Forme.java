@@ -1,5 +1,7 @@
 package oop.tictactoe.grille;
 
+import oop.tictactoe.appli.PartieTicTacToe;
+
 public class Forme {
 
 	//il ne sera dessine que des formes symetriques multiaxes
@@ -85,11 +87,11 @@ public class Forme {
 	}
 
 	public String toStringGrilleModele() {
-		Grille grille = new Grille(3,3);				
+		PartieTicTacToe partie = new PartieTicTacToe();			
 		for (int i = 0; i < tabGrilleModele[0].length; ++i) {
-			grille.placerJeton(Jeton.JETON_X, tabGrilleModele[0][i], tabGrilleModele[1][i]);
+			partie.placerJeton(Jeton.JETON_X, tabGrilleModele[0][i], tabGrilleModele[1][i]);
 		}
-		return grille.toStringGrille() ;
+		return partie.toStringGrille() ;
 	}
 	
 	public static String[] getListFormesDispo() {
