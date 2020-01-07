@@ -9,13 +9,15 @@ import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
 
 public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPlacement {
-
+	
 	public TourMorpion(PartieMorpion partie, Joueur joueurActuel) {
 		super(partie, joueurActuel);
+		this.partie = (PartieMorpion) partie ;
 	}
 	
 	public TourMorpion(PartieMorpion partie, Joueur joueurActuel, int nbrAlign) {
 		super(partie, joueurActuel, nbrAlign);
+		this.partie = (PartieMorpion) partie ;
 	}
 
 	//************ EN AMONT DU COUP ******************

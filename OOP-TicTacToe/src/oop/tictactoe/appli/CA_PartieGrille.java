@@ -3,7 +3,7 @@ package oop.tictactoe.appli;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 
-public abstract class CA_PartieGrille implements In_Grille {
+public abstract class CA_PartieGrille implements In_Grille, In_Partie {
 
 	private Jeton[][] grille;
 	

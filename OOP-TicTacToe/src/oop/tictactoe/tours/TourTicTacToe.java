@@ -10,7 +10,7 @@ import oop.tictactoe.jouer.*;
 
 public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	
-	protected PartieTicTacToe partie;
+	protected CA_PartieGrille partie;
 	protected Joueur joueur;
 	protected int[] saisieCellule ;
 	protected int nbrAlign ;
@@ -155,6 +155,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 		return alignement;
 	}
 
+	@Override
 	public void jouerCoup() {
 		boolean saisieCorrecte = false;
 
@@ -171,6 +172,7 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	}
 	
 
+	@Override
 	public void evaluerCoup() {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
