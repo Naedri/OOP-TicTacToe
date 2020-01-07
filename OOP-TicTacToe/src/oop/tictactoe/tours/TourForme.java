@@ -4,8 +4,7 @@ import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
-import oop.tictactoe.grille.Grille;
-
+import oop.tictactoe.appli.CA_PartieGrille;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
 
@@ -13,8 +12,8 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 
 	private Forme forme;
 	
-	public TourForme(Grille grille, Joueur joueurActuel, Forme forme) {
-		super(grille, joueurActuel);
+	public TourForme(CA_PartieGrille partie, Joueur joueurActuel, Forme forme) {
+		super(partie, joueurActuel);
 		this.forme = forme ;
 	}
 	
@@ -41,12 +40,12 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 			int profondeurCible = forme.getDistance()[i] ;
 			
 			//on verifie que la cellule cible existe
-			if (!grille.existeNextCellule(ligne, colonne,profondeurCible, directionCible)) {
+			if (!partie.existeNextCellule(ligne, colonne,profondeurCible, directionCible)) {
 				return false; // si il y a au moins un point de la forme qui n est pas dans la grille on renvoie false
 			}
 			else {
 				//si elle existe on extrait ses coordonnees pout les reutiliser dans la boucle
-				int[] coordCible = grille.coordNextJeton(ligne, colonne,profondeurCible, directionCible );
+				int[] coordCible = partie.coordNextJeton(ligne, colonne,profondeurCible, directionCible );
 				ligne = coordCible[0] ;
 				colonne= coordCible[1] ;	
 			}
@@ -66,8 +65,8 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @return unt table contenant x coordonnes (donc une table de table a deux dimensions)
 	 */
 	public int[][] getCoordForme (int ligne, int colonne, Forme forme) {
-		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (existeForme (ligne, colonne, forme) );
 		
 		int[][] coord = new int[forme.getNbrPoint()][2];
@@ -80,7 +79,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 			//on obtient les parametres de la projection (directionCible et profondeurCible) pour parvenir à la cellule suivante
 			Direction directionCible =  Direction.values()[ forme.getOrientation()[i-1] ];
 			int profondeurCible = forme.getDistance()[i-1] ;
-			coord[i] = grille.coordNextJeton(ligne,colonne,profondeurCible, directionCible);
+			coord[i] = partie.coordNextJeton(ligne,colonne,profondeurCible, directionCible);
 			ligne = coord[i][0] ;
 			colonne= coord[i][1] ;
 		}
@@ -98,8 +97,8 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @return
 	 */
 	public String getJetonForme (int ligne, int colonne, Forme forme) {
-		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (existeForme (ligne, colonne, forme) );
 		
 		int[][] coordDesJetons = getCoordForme(ligne,colonne,forme) ;
@@ -107,7 +106,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		String sJeton = "";
 
 		for (int i=0 ; i < coordDesJetons.length; ++i) {
-			sJeton += grille.getCellule(coordDesJetons[i][0],coordDesJetons[i][1]).getSymbole() ;
+			sJeton += partie.getCellule(coordDesJetons[i][0],coordDesJetons[i][1]).getSymbole() ;
 		}
 		
 		return sJeton;
@@ -127,8 +126,8 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @return
 	 */
 	public String getJetonFormeAll (int ligne, int colonne, Forme forme) {
-		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		
 		String sJetonAll = "";
 		
@@ -151,12 +150,12 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 	 * @return
 	 */
 	public boolean estCompleteForme (int ligne, int colonne) {
-		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (! grille.estVideCellule(ligne, colonne)); //la cellule evaluee ne doit pas etre vide
+		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (! partie.estVideCellule(ligne, colonne)); //la cellule evaluee ne doit pas etre vide
 		
 		//quelle chaine devrait on avoir pour que la forme soit complete
-		Jeton jetonCible = grille.getCellule(ligne, colonne);
+		Jeton jetonCible = partie.getCellule(ligne, colonne);
 		String formeCible= "";
 		for (int i = 1; i <= forme.getNbrPoint(); ++i) {
 			formeCible += jetonCible.getSymbole();
@@ -175,7 +174,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		if (estCompleteForme(saisieCellule[0], saisieCellule[1])) {
 			System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur));
-			grille.afficherGrille();
+			partie.afficherGrille();
 			joueur.marquerPoint();
 		}
 	}

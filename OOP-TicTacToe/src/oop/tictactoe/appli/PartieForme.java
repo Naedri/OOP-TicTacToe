@@ -1,5 +1,6 @@
 package oop.tictactoe.appli;
 
+import oop.tictactoe.tours.In_Tour;
 import oop.tictactoe.tours.TourForme;
 import oop.tictactoe.grille.Forme;
 import oop.tictactoe.jouer.*;
@@ -20,7 +21,7 @@ public class PartieForme extends PartieTicTacToe implements In_Partie {
 	
 	@Override
 	public void lancerPartie() {
-		grille.afficherGrille();
+		afficherGrille();
 		//on fait des tours
 		while(!(match.estTourMax() || match.getVictoire())) {
 			match.tourDebut();
@@ -28,10 +29,10 @@ public class PartieForme extends PartieTicTacToe implements In_Partie {
 			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
 
 			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			TourForme tour = new TourForme(grille, joueurActuel, forme);
+			In_Tour tour = new TourForme(this, joueurActuel, forme);
 
 			tour.jouerCoup();
-			grille.afficherGrille();
+			afficherGrille();
 			tour.evaluerCoup();
 			
 			match.evalVictoireParPointMax (joueurActuel);
