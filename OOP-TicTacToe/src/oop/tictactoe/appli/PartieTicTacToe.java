@@ -1,85 +1,61 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.tours.In_Tour;
-import oop.tictactoe.tours.TourTicTacToe;
+import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.*;
 
 
-public class PartieTicTacToe extends CA_PartieGrille implements In_Partie {
+public class PartieTicTacToe extends CA_Grille_Partie_alignement {
 	
-	protected Joueur joueur1 ;
-	protected Joueur joueur2 ;
-	protected Match match ;
-	protected int nbrAlign ; //nombre de jetons a aligner
+	private int nbrAlign ; //nombre de jetons a aligner
+	private int[] saisieCellule ;
 	
 	public PartieTicTacToe() {
-		super();
-		joueur1 = new Joueur();
-		joueur2 = new Joueur();
-		match = new Match(1,9);//nombre de point max = 1 et nombre de tour max = 9
+		//taille de 3*3 et pointMax =1 et nbrTourMax=9
+		super(3,3,1,9);
 		nbrAlign = 3 ;
 	}
 	
 	public PartieTicTacToe(int choixGrilleLigne, int choixGrilleColonne) {
-		super(choixGrilleLigne, choixGrilleColonne);
-		joueur1 = new Joueur();
-		joueur2 = new Joueur();
-		match = new Match(1,9); //nombre de point max = 1 et nombre de tour max = 9
+		super(choixGrilleLigne, choixGrilleColonne, 1,9);
 		nbrAlign = 3 ;
 	}
 	
 	public PartieTicTacToe(int choixGrilleLigne, int choixGrilleColonne, int choixNbrAlignements) {
-		super(choixGrilleLigne, choixGrilleColonne);
-		joueur1 = new Joueur();
-		joueur2 = new Joueur();
-		match = new Match(1,9); //nombre de point max = 1 et nombre de tour max = 9
+		super(choixGrilleLigne, choixGrilleColonne, 1,9);
 		nbrAlign = choixNbrAlignements ;
 	}
-
-	public void lancerPartie() {
-		afficherGrille();
-		//on fait des tours
-		while(!(match.estTourMax() || match.getVictoire())) {
-			match.tourDebut();
-			
-			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
-			
-			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			In_Tour tour = new TourTicTacToe(this, joueurActuel, nbrAlign);
-
-			tour.jouerCoup();
-			afficherGrille();
-			tour.evaluerCoup();
-						
-			System.out.println(afficherMessageResultat(match, joueurActuel));
-		}
-	}
+	
+	@Override
+	protected void jouerCoup(Joueur joueurActuel) {
+		boolean saisieCorrecte = false;
 		
-	/**
-	 * messageResultat
-	 * indiquant victoire ou non
-	 * il faut qu elle soit appelee après un coup joue
-	 * (càd "C est au joueur suivant" ou "Le Joueur X a gagné la partie")
-	 * @param m match en cours
-	 * @param joueurActuel joueur qui vient de jouer
-	 * @return
-	 */
-	public static String afficherMessageResultat(Match m, Joueur joueurActuel) {
-		assert(joueurActuel != null && m != null);
-		String messageResultat ;
-		m.evalVictoireParPointMax(joueurActuel); //mise a jour
+		while (!saisieCorrecte) {
+			saisieCellule = In_Interaction.saisirCellule( getGrille());
+			System.out.println(In_Interaction.afficherMessageCellule(joueurActuel, saisieCellule));
+			if ( estVideCellule(saisieCellule[0], saisieCellule[1]))
+				saisieCorrecte = true ;
+			else
+				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+			}
+		placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
+		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
 		
-		if (m.estTermine(joueurActuel)) {
-			if (m.getVictoire()) {
-				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
-			}
-			else {
-				messageResultat = "C est un match nul.\n" ;
-			}
-		}
-		else {
-			messageResultat = "Le joueur "+joueurActuel.getJeton().getSymbole()+" a termine son tour.\n";
-		}
-		return messageResultat;
 	}
+
+	@Override
+	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
+			// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
+			Jeton jetonEvalue = getCellule(saisieCellule[0],  saisieCellule[1]);
+			if (jetonEvalue.estEgal(joueur1.getJeton())){
+				joueur1.marquerPoint();
+			}
+			if (jetonEvalue.estEgal(joueur2.getJeton())){
+				joueur2.marquerPoint();
+			}
+				
+		}		
+	}
+	
 }

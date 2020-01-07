@@ -207,7 +207,7 @@ public class Menu {
 
 			}
 			
-			CA_PartieGrille partie = null ; 
+			CA_Grille_Partie partie = null ; 
 			
 			switch (choixJeu) {
 				case 1 :

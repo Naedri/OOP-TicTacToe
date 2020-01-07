@@ -3,19 +3,19 @@ package oop.tictactoe.appli;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 
-public abstract class CA_PartieGrille implements In_Grille, In_Partie {
+public abstract class CA_Grille implements In_Grille {
 
 	private Jeton[][] grille;
 	
 	// ******* METHODE GRILLE *******
 	
 	// ******* METHODE GRILLE CONSTRUCTEUR *******
-	public CA_PartieGrille(int nbrLignes, int nbrColonnes) {
+	public CA_Grille(int nbrLignes, int nbrColonnes) {
 		assert(nbrLignes > 0 && nbrColonnes > 0);
 		this.grille = new Jeton[nbrLignes][nbrColonnes];
 		this.viderGrille(); //initialisation
 	}
-	public CA_PartieGrille() {
+	public CA_Grille() {
 		this.grille = new Jeton[3][3];
 		this.viderGrille(); //initialisation
 	}

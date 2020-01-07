@@ -8,20 +8,6 @@ public class Match {
 	private int pointMax ; //nombre de point max d'un des joueur a partir duquel la partie s arrete ; si il y en a pas tourMax = à
 	
 	//constructeur
-	
-	/**
-	 * match s arrete 
-	 * apres qu un des joueurs ait atteint le nombre de point max defini (nombrePointMax)
-	 * doit etre >0
-	 * @param nombrePointMax
-	 */
-	public Match(int nombrePointMax ) {
-		assert(nombrePointMax >0);
-		victoire = false ;
-		tour = 0 ;
-		pointMax = nombrePointMax ;
-		tourMax = 0 ;
-	}
 	/**
  	 * si nombrePointMax != 0
 	 * match s arrete 
@@ -36,7 +22,6 @@ public class Match {
 	 * @param nombreTourMax
 	 */
 	public Match(int nombrePointMax, int nombreTourMax) {
-		assert(nombrePointMax >=0 && nombreTourMax >0);
 		victoire = false ;
 		tour = 0 ;
 		pointMax = nombrePointMax ;
@@ -113,7 +98,7 @@ public class Match {
 			// des quand le nombrePointMax a été atteint sinon continue jusqu a ce que le nombreTourMax ait été atteint
 			return ( (joueurActuel.getScore() >= pointMax) || (tour >= tourMax) ) ;
 		}
-		else //il ne devrait pas y avoir d autres cas au vue de assert(nombrePointMax >=0 && nombreTourMax >0);
+		else
 			return false ;
 	}
 	

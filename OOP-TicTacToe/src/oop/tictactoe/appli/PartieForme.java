@@ -1,46 +1,56 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.tours.In_Tour;
-import oop.tictactoe.tours.TourForme;
 import oop.tictactoe.grille.Forme;
+import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.*;
 
-public class PartieForme extends PartieTicTacToe implements In_Partie {
+public class PartieForme extends CA_Grille_Partie_forme {
 	
-	private Forme forme ;
+	private int[] saisieCellule ;
 	
 	public PartieForme() {
-		super(12,12);
-		forme = Forme.CARRE;
+		super(Forme.CARRE);
+		this.saisieCellule = new int[2];
 	}
 	
 	public PartieForme(Forme forme) {
-		super(12,12);
-		this.forme = forme;
+		super(forme);
+		this.saisieCellule = new int[2];
 	}
 	
 	@Override
-	public void lancerPartie() {
-		afficherGrille();
-		//on fait des tours
-		while(!(match.estTourMax() || match.getVictoire())) {
-			match.tourDebut();
-			
-			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
-
-			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			In_Tour tour = new TourForme(this, joueurActuel, forme);
-
-			tour.jouerCoup();
-			afficherGrille();
-			tour.evaluerCoup();
-			
-			match.evalVictoireParPointMax (joueurActuel);
-
-			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
-		}
-		//on compte les points
-		System.out.println(In_Interaction.afficherMessageResultat(match, joueur1, joueur2));
-
+	protected void jouerCoup(Joueur joueurActuel) {
+		boolean saisieCorrecte = false;
+		
+		while (!saisieCorrecte) {
+			saisieCellule = In_Interaction.saisirCellule( getGrille());
+			System.out.println(In_Interaction.afficherMessageCellule(joueurActuel, saisieCellule));
+			if ( estVideCellule(saisieCellule[0], saisieCellule[1]))
+				saisieCorrecte = true ;
+			else
+				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+			}
+		placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
+		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
+		
 	}
+
+
+	@Override
+	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
+		if (estCompleteForme(saisieCellule[0], saisieCellule[1])) {
+			// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
+			Jeton jetonEvalue = getCellule(saisieCellule[0],  saisieCellule[1]);
+			if (jetonEvalue.estEgal(joueur1.getJeton())){
+				joueur1.marquerPoint();
+			}
+			if (jetonEvalue.estEgal(joueur2.getJeton())){
+				joueur2.marquerPoint();
+			}
+				
+		}		
+	}
+	
+	
 }

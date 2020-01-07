@@ -15,7 +15,7 @@ public class Appli {
 	 */
 	public static void main(String[] args) {
 		
-		PartieTicTacToe partie = null ; 
+		CA_Grille_Partie partie = null ; 
 
 	    for(String s : args){
 

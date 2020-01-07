@@ -1,157 +1,83 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.tours.In_Tour;
-import oop.tictactoe.tours.TourMorpion;
 import oop.tictactoe.grille.Jeton;
-import oop.tictactoe.jouer.*;
+import oop.tictactoe.jouer.In_Interaction;
+import oop.tictactoe.jouer.In_MessagesPlacement;
+import oop.tictactoe.jouer.Joueur;
 
-public class PartieMorpion extends PartieTicTacToe implements In_Partie {
+public class PartieMorpion extends CA_Grille_Partie_alignement_fermeture {
+
+	private int nbrAlign ;
+	private int[] saisieCellule ;
 	
-	private boolean[][] grilleOuvertureJetons ; //table d etat (fermer ou ouvert) de jetons qui devront apparaitre comme fermes
-
+	public PartieMorpion(int nbrLignes, int nbrColonnes, int nbrAlign) {
+		super(nbrLignes, nbrColonnes,  0, (nbrLignes*nbrColonnes));
+		this.saisieCellule = new int[2];
+		this.nbrAlign = nbrAlign;
+		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
+		assert (nbrAlign <= choixNbrAlignMax); //ce nombre ne doit pas être plus grand que le nombre de colonnes ou de lignes de votre grille
+	}
+	
+	public PartieMorpion(int nbrLignes, int nbrColonnes) {
+		super(nbrLignes, nbrColonnes,  0, (nbrLignes*nbrColonnes));
+		this.saisieCellule = new int[2];
+		this.nbrAlign = 3;
+		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
+		assert (nbrAlign <= choixNbrAlignMax); //ce nombre ne doit pas être plus grand que le nombre de colonnes ou de lignes de votre grille
+	}
 	
 	public PartieMorpion() {
-		super();
-		match = new Match(0,getNbrCellules()); //nombre de point max = infini ; nombre de coup max = nombre taille grille
-		grilleOuvertureJetons = new boolean[this.getLignes()][this.getColonnes()];
-		iniGrilleFermeture();
-	}
-	
-	public PartieMorpion(int grilleNrbLignes, int grilleNbrColonnes) {
-		super(grilleNrbLignes, grilleNrbLignes);
-		match = new Match(0,getNbrCellules()); //nombre de point max = infini ; nombre de coup max = nombre taille grille
-		grilleOuvertureJetons = new boolean[this.getLignes()][this.getColonnes()];
-		iniGrilleFermeture() ;
-	}
-	
-	public PartieMorpion(int grilleNrbLignes, int grilleNbrColonnes, int choixNbrAlignements) {
-		super(grilleNrbLignes, grilleNbrColonnes,choixNbrAlignements);
-		match = new Match(0,getNbrCellules()); //nombre de point max = infini ; nombre de coup max = nombre taille grille
-		grilleOuvertureJetons = new boolean[this.getLignes()][this.getColonnes()];
-		iniGrilleFermeture() ;
+		super(5, 6,  0, (5*6));
+		this.saisieCellule = new int[2];
+		this.nbrAlign = 3;
 	}
 
 	@Override
-	public void lancerPartie() {
-		afficherGrille();
-		//on fait des tours
-		while(!(match.estTourMax() || match.getVictoire())) {
-			match.tourDebut();
+	protected void jouerCoup(Joueur joueurActuel) {
+		boolean saisieCorrecte = false;
+	
+		while (!saisieCorrecte) {
+			saisieCellule = In_Interaction.saisirCellule( getGrille());
+			System.out.println(In_Interaction.afficherMessageCellule(joueurActuel, saisieCellule));
+			if ( estVideCellule(saisieCellule[0], saisieCellule[1])) {
+				
+				if ( estVideGrille()) {
+					saisieCorrecte = true ;
+					}
+				else {
+					if (existeAdjacent(saisieCellule[0], saisieCellule[1])) {
+						saisieCorrecte = true ;
+					}
+					else
+						System.out.println("La case selectionnee ne comporte pas de jeton adjacent. Veuillez recommencer.\n");
+				}
+			}
+			else
+				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+			}
+		 placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
+		System.out.println(In_MessagesPlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
+	}
+	
+	@Override
+	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
+		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
 			
-			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
-
-			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-			In_Tour tour = new TourMorpion(this, joueurActuel, nbrAlign);
-
-			tour.jouerCoup();
+			Jeton jetonEvalue = getCellule(saisieCellule[0],  saisieCellule[1]);
+			if (jetonEvalue.estEgal(joueur1.getJeton())){
+				joueur1.marquerPoint();
+				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur1));
+			}
+			if (jetonEvalue.estEgal(joueur2.getJeton())){
+				joueur2.marquerPoint();
+				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueur1));
+			}
+			
+			fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
 			afficherGrille();
-			tour.evaluerCoup();
-			
-			match.evalVictoireParPointMax (joueurActuel);
-
-			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
 		}
-		//on compte les points
-		System.out.println(In_Interaction.afficherMessageResultat(match, joueur1, joueur2));
-
-	}
-	
-	
-	
-	// ******* METHODE GRILLE *******
-	// ******* METHODE GRILLE Fermeture *******
-	//les jetons sont au depart ouvert (true)
-	private void iniGrilleFermeture() {
-		for (boolean[] ligneJeton : grilleOuvertureJetons) {
-			for (int i = 0; i < ligneJeton.length; i++) {
-				ligneJeton[i] = true;
-			}
-		}
-	}
-	public void ouvertToFermeJeton(int ligne, int colonne) {
-		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); //la cellule doit être dans la grille
-		grilleOuvertureJetons[ligne][colonne] = true ;
-	}
-	public boolean estOuvert(int ligne, int colonne) {
-		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); //la cellule doit être dans la grille
-		return grilleOuvertureJetons[ligne][colonne];
-	}
-	
-	// ******* METHODE GRILLE AFFICHAGE *******
-	/**
-	 * toString
-	 * @return une chaine de caractère contenant l'etat de la grille
-	 */
-	@Override
-	public String toStringGrille() {
-		String sGrille = " " ; // decalage pour les noms de lignes en dizaines
-		int ligne = 0;
-	
-		// ligne des indices de colonnes
-		for (int i = 1; i <= getColonnes(); ++i)
-			if (i<10) {
-				sGrille += " " + " " + " " + i ;
-			}
-			else
-				sGrille += " " + " " + i ;
-		sGrille += "\n";
-		++ligne;
-	
-		// il faut d'abord parcourir les reference de ligne de jeton pour acceder aux
-		// jetons
-		for (Jeton[] ligneJeton : getGrille()) {
-			if (ligne<10) {
-				sGrille += " " + ligne;
-			}
-			else
-				sGrille += ligne;
-			for (int i = 0; i < ligneJeton.length; i++) {
-				sGrille += " " + getSymboleJetonOF(ligne-1,i);//-1 car il y a un decalage de ligne
-			}
-			sGrille += "\n";
-			++ligne;
-		}
-		return sGrille;
-	}
-	
-	/**
-	 * renvoie l equivalent d un jeton ferme dans la grille pour le jeton donne
-	 */
-	public String toStringJetonFerme(Jeton jeton) {
-		return "" + '[' + getSymboleJetonFerme(jeton) + ']' ;
-	}
-	
-	/**
-	 * renvoie l equivalent du symbole ferme pour le jeton donne
-	 */
-	public Character getSymboleJetonFerme(Jeton jeton) {
-		Character jetonFerme ;
-		if (jeton.estEgal(Jeton.JETON_X)){
-			jetonFerme = 'x';
-		}
-		else
-			jetonFerme = 'o';
-		return jetonFerme ;
-	}
-	
-	/**
-	 * renvoie le symbole d un jeton ouvert ou ferme en fonction de la table grilleOuvertureJetons
-	 * qui comprend tous les jetons fermes
-	 * @param ligne
-	 * @param colonne
-	 * @return
-	 */
-	public Character getSymboleJetonOF(int ligne, int colonne) {
-		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); //la cellule doit être dans la grille
-		
-		if (estOuvert(ligne, colonne)) {
-			return getCellule(ligne, colonne).getSymbole();
-		}
-		else
-			return getSymboleJetonFerme(getCellule(ligne, colonne));
 		
 	}
+	
 }

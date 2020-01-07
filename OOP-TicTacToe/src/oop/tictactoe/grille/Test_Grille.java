@@ -7,8 +7,8 @@ import java.util.EnumSet;
 
 import org.junit.jupiter.api.Test;
 
-import oop.tictactoe.appli.CA_PartieGrille;
-import oop.tictactoe.appli.PartieMorpion;
+import oop.tictactoe.appli.CA_Grille;
+import oop.tictactoe.appli.CA_Grille_Partie_alignement_fermeture;
 import oop.tictactoe.appli.PartiePermutation;
 import oop.tictactoe.appli.PartieTicTacToe;
 import oop.tictactoe.jouer.Joueur;
@@ -103,7 +103,7 @@ class Test_Grille {
 	
 	@Test
 	void testGrilleAdjacent() {
-		PartieMorpion grille = new PartieMorpion(6,7);
+		CA_Grille_Partie_alignement_fermeture grille = new CA_Grille_Partie_alignement_fermeture(6,7);
 		TourMorpion tour = new TourMorpion(grille, new Joueur());
 		assertFalse(grille.estPleineGrille());
 		
@@ -143,7 +143,7 @@ class Test_Grille {
 		
 		System.out.println("Test avec un jeton X.");
 		
-		grille = new PartieMorpion(6,7);
+		grille = new CA_Grille_Partie_alignement_fermeture(6,7);
 		assertFalse(grille.estPleineGrille());
 		
 		Jeton jx = Jeton.JETON_X;
@@ -170,7 +170,7 @@ class Test_Grille {
 		}
 		
 		System.out.println("Test avec deux jetons.");
-		grille = new PartieMorpion(6,6);
+		grille = new CA_Grille_Partie_alignement_fermeture(6,6);
 		grille.placerJeton(jo, 0, 0);
 		grille.placerJeton(jx, 2, 2);
 		assertTrue(tour.existeAdjacent(1, 1));
@@ -214,9 +214,9 @@ class Test_Grille {
 	void testGrilleRemplissageAleatoire() {
 		System.out.println("Test remplissage aleatoire.");
 		System.out.println("remplissage aleatoire 1");
-		CA_PartieGrille grille1 = new PartiePermutation(6,7);
-		CA_PartieGrille grille2 = new PartiePermutation(6,7);
-		CA_PartieGrille grille3 = new PartiePermutation(6,7);
+		CA_Grille grille1 = new PartiePermutation(6,7);
+		CA_Grille grille2 = new PartiePermutation(6,7);
+		CA_Grille grille3 = new PartiePermutation(6,7);
 //		grille1.afficherGrille();
 		System.out.println("remplissage aleatoire 2");
 //		grille2.afficherGrille();
@@ -302,7 +302,7 @@ private Joueur Joueur(Jeton jx) {
 	
 	@Test
 	void testGrille() {
-		CA_PartieGrille grille = new PartieTicTacToe(4,4);
+		CA_Grille grille = new PartieTicTacToe(4,4);
 
 		Jeton jx = Jeton.JETON_X ;
 		Jeton jo = Jeton.JETON_O ;
@@ -333,7 +333,7 @@ private Joueur Joueur(Jeton jx) {
 		Jeton jx = Jeton.JETON_X ;
 		Jeton jo = Jeton.JETON_O ;
 		
-		CA_PartieGrille grille = new PartieTicTacToe(4,4);
+		CA_Grille grille = new PartieTicTacToe(4,4);
 		
 		grille.placerJeton(jo, 0, 2);
 		grille.placerJeton(jx, 1, 0);
@@ -362,7 +362,7 @@ private Joueur Joueur(Jeton jx) {
 	
 	@Test
 	void testGrilleDeplacement(){
-		CA_PartieGrille grille = new PartieMorpion(5,5);
+		CA_Grille grille = new CA_Grille_Partie_alignement_fermeture(5,5);
 		grille.placerJeton(Jeton.JETON_X, 2, 2);
 //		grille.afficherGrille();
 		
