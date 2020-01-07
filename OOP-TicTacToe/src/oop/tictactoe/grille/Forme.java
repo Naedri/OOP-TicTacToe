@@ -2,62 +2,66 @@ package oop.tictactoe.grille;
 
 import oop.tictactoe.appli.PartieTicTacToe;
 
-public class Forme {
+public enum Forme {
+	
+	CARRE("carre",  new int[]{1,1,1,1} ,  new int[]{2,4,6,0} ,  new int[][]{{0,1,2,1,1},{1,2,1,0,1}},  new int[][]{{1,2},{1,4},{1,6},{1,0}} ),	
+	LOSANGE("losange",  new int[]{1,1,1,1} ,  new int[]{1,3,5,7} ,  new int[][]{{0,1,2,1},{1,2,1,0}},  new int[][]{{1,1},{1,3},{1,5},{1,7}} ),
+	CROIX("croix",  new int[]{1,1,1,1,1} ,  new int[]{1,3,5,7,6} ,  new int[][]{{0,1,2,1,1},{1,2,1,0,1}},  new int[][]{{1,1},{1,3},{1,5},{1,7},{1,6}} );
 
-	//il ne sera dessine que des formes symetriques multiaxes
+	private String formeStr ;
 	private int[] distance;
 	private int[] orientation;
-	private int[][] chemin;
-	private int formeNum ;
-	private String formeStr ;
 	private int[][] tabGrilleModele ;
+	private int[][] chemin;
 	private static String[] listFormesDispo = new String[] {"carre","losange","croix"};
 	
 	/**
 	 * choixForme 1 pour Carre - 2 pour losange - 3 pour croix
 	 * @param choixForme 1 pour Carre - 2 pour losange - 3 pour croix
 	 */
-	public Forme(int choixForme) {
-		assert(choixForme != 0 && choixForme <=3 );		
-		switch (choixForme) {
-		//niveau de complexite croissant
-			case 1:
-				//carre
-				formeNum=1;
-				formeStr = "carre";
-				distance = new int[] {1,1,1,1} ;
-				orientation = new int[] {2,4,6,0};
-				//{Direction.EST,Direction.SUD,Direction.OUEST,Direction.NORD}) ;
-				tabGrilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
-				break ;
-				
-			case 2 :
-				//losange
-				formeNum=2;
-				formeStr = "losange";
-				distance = new int[]{1,1,1,1};
-				orientation = new int[]{1,3,5,7};
-				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD_OUEST}) ;
-				tabGrilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
-				break;
-	
-			case 3 :
-				//croix
-				formeNum = 3;
-				formeStr = "croix";
-				distance = new int[]{1,1,1,1,1} ;
-				orientation = new int[]{1,3,5,7,6};
-				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD,Direction.OUEST}),
-				tabGrilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
-				break ;
-		}
-		//creation de la table chemin avec une profondeur et une direction par ligne
-		assert (orientation.length == distance.length);
-		chemin = new int[orientation.length][2];
-		for (int i = 0; i < orientation.length; ++i) {
-			chemin[i][0] = distance[i];
-			chemin[i][1] = orientation[i];
-		}
+	private Forme(String formeStr, int[] distance, int[]orientation, int[][]tabGrilleModele, int[][]chemin ) {
+		this.formeStr = formeStr ;
+		this.distance = distance ;
+		this.orientation = orientation;
+		this.tabGrilleModele = tabGrilleModele;
+		this.chemin = chemin;
+//		switch (choixForme) {
+//		//niveau de complexite croissant
+//			case 1:
+//				//carre
+//				formeStr = "carre";
+//				distance = new int[] {1,1,1,1} ;
+//				orientation = new int[] {2,4,6,0};
+//				//{Direction.EST,Direction.SUD,Direction.OUEST,Direction.NORD}) ;
+//				tabGrilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
+//				break ;
+//				
+//			case 2 :
+//				//losange
+//				formeStr = "losange";
+//				distance = new int[]{1,1,1,1};
+//				orientation = new int[]{1,3,5,7};
+//				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD_OUEST}) ;
+//				tabGrilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
+//				break;
+//	
+//			case 3 :
+//				//croix
+//				formeNum = 3;
+//				formeStr = "croix";
+//				distance = new int[]{1,1,1,1,1} ;
+//				orientation = new int[]{1,3,5,7,6};
+//				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD,Direction.OUEST}),
+//				tabGrilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
+//				break ;
+//		}
+//		//creation de la table chemin avec une profondeur et une direction par ligne
+//		assert (orientation.length == distance.length);
+//		chemin = new int[orientation.length][2];
+//		for (int i = 0; i < orientation.length; ++i) {
+//			chemin[i][0] = distance[i];
+//			chemin[i][1] = orientation[i];
+//		}
 	}
 
 	/**
@@ -66,7 +70,7 @@ public class Forme {
 	 * @return
 	 */
 	public Forme transForme (int decalageIndice) {
-		Forme formeTrans = new Forme(getFormeNum());
+		Forme formeTrans = this ;
 		
 		decalageIndice %= getNbrPoint();
 		
@@ -121,25 +125,26 @@ public class Forme {
 		String formeMenu = "";
 		formeMenu += toStringFormeDispo();
 		
-		for (int i = 1 ; i <= listFormesDispo.length ; ++i) {
-			Forme formeExemple = new Forme(i);
+	    for (Forme formeExemple : Forme.values())
 			formeMenu += formeExemple.toStringConsigne();
-		}		
 		return formeMenu ;
-		
 	}
 	
 	public String toStringFormeChoisie() {
 		String determinantForme ;
-		if (formeNum == 1) {
+		if (this == CARRE) {
 			determinantForme = "le";
 		}
 		else {
 			determinantForme = "la";
 		}
 		String sChoisie ="";
-		sChoisie += "La forme choisie du numero "+ formeNum +" est " + determinantForme +  " " + formeStr + ".\n" ;
+		sChoisie += "La forme choisie est " + determinantForme +  " " + formeStr + ".\n" ;
 		return sChoisie;
+	}
+	
+	public int[][] getTabGrilleModele() {
+		return tabGrilleModele;
 	}
 	
 	public int[] getDistance() {
@@ -150,9 +155,6 @@ public class Forme {
 	}
 	public int[][] getChemin(){
 		return chemin;
-	}
-	public int getFormeNum() {
-		return formeNum;
 	}
 	public String getFormeStr() {
 		return formeStr;
