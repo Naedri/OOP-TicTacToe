@@ -4,17 +4,20 @@ import oop.tictactoe.grille.Forme;
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.*;
 
-public class PartieForme extends CA_Grille_Partie_forme {
-	
+public class PartieForme extends CA_Grille_Partie implements In_Grille_Evaluation_Forme {
+
+	private Forme forme ;
 	private int[] saisieCellule ;
 	
 	public PartieForme() {
-		super(Forme.CARRE);
+		super(12, 12, 1, 0);
+		this.forme = Forme.CARRE;
 		this.saisieCellule = new int[2];
 	}
 	
 	public PartieForme(Forme forme) {
-		super(forme);
+		super(12, 12, 1, 0);
+		this.forme = forme;
 		this.saisieCellule = new int[2];
 	}
 	
@@ -35,11 +38,10 @@ public class PartieForme extends CA_Grille_Partie_forme {
 		
 	}
 
-
 	@Override
 	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
-		if (estCompleteForme(saisieCellule[0], saisieCellule[1])) {
+		if (In_Grille_Evaluation_Forme.estCompleteForme(saisieCellule[0], saisieCellule[1], this, forme)) {
 			// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
 			Jeton jetonEvalue = getCellule(saisieCellule[0],  saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())){

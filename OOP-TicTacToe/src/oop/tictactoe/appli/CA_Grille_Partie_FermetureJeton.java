@@ -3,19 +3,16 @@ package oop.tictactoe.appli;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 
-public abstract class CA_Grille_Partie_alignement_fermeture extends CA_Grille_Partie_alignement {
+public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 	
-	public CA_Grille_Partie_alignement_fermeture(int nbrLignes, int nbrColonnes, 
+	private boolean[][] grilleOuvertureJetons ;
+	
+	public CA_Grille_Partie_FermetureJeton(int nbrLignes, int nbrColonnes, 
 			int nombrePointMax, int nombreTourMax) {
 		super(nbrLignes, nbrColonnes, nombrePointMax, nombreTourMax);
 		grilleOuvertureJetons = new boolean[nbrLignes][nbrColonnes];
 		iniGrilleFermeture();
-}
-
-	private boolean[][] grilleOuvertureJetons ;
-	
-	
-	
+		}	
 	
 	// ******* METHODE GRILLE *******
 	// ******* METHODE GRILLE Fermeture *******
@@ -173,79 +170,7 @@ public abstract class CA_Grille_Partie_alignement_fermeture extends CA_Grille_Pa
 		
 		//************ EN AVAL DU COUP ******************
 		
-		// ******* METHODE EVALUATION *******
-
-		/**
-		 * alignement pour UNE Direction donnee ET son Inversee
-		 * sachant que les jetons fermes ne sont pas comptabilises
-		 * 
-		 * @param ligne      de la cellule observée
-		 * @param colonne    de la cellule observée
-		 * @param profondeur est le nombre de cellule observées au max qui sont alignées
-		 *                   dans grille 
-		 *                   doit etre >=2
-		 * @param direction  et direction opposée vers laquelle observer un alignement
-		 * @return si un alignement a été trouvé
-		 */
-		public boolean isAlignement1D1DI(int ligne, int colonne, int profondeur, Direction direction) {
-
-			assert (ligne <  getLignes() && ligne >= 0); //la cellule doit être dans la grille
-			assert (colonne <  getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-			assert (! estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-			assert (profondeur >= 2);
-			assert ( estOuvert(ligne,colonne));
-			
-			// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
-		
-			/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
-			/// jetonEvalue
-			String aligneEvalue = "";
-			for (int i = 1; i <= profondeur; ++i) {
-				// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
-				// jetonEvalue
-				aligneEvalue +=  getSymboleJetonOF(ligne, colonne);
-			}
-
-			// aligneCible ligne de jeton observé dans la direction donnée
-			String aligneCible = "";
-			int colonneCible = 0;
-			int ligneCible = 0;
-
-			// direction donnee
-			int coeffProfondeur = 0;
-			do {
-				// jetonCible jeton que l on ajoute à cibleLigne
-				colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
-				ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-				if (ligneCible <  getLignes() && colonneCible <  getColonnes() 
-						&& ligneCible >= 0 && colonneCible >= 0) {
-					aligneCible +=  getSymboleJetonOF(ligneCible, colonneCible);
-				}
-				++coeffProfondeur;
-			} while (coeffProfondeur < profondeur 
-					&& ligneCible <  getLignes() && colonneCible <  getColonnes()
-					&& ligneCible >= 0 && colonneCible >= 0);
-
-			// direction oppposee
-			direction = direction.inverser();
-			coeffProfondeur = 1; // on ne souhaite pas rajouter le jeton central
-			do {
-				// jetonCible jeton que l on ajoute à cibleLigne
-				colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
-				ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-				if (ligneCible <  getLignes() && colonneCible <  getColonnes() 
-						&& ligneCible >= 0 && colonneCible >= 0) {
-					aligneCible +=  getSymboleJetonOF(ligneCible, colonneCible) ;
-				}
-				++coeffProfondeur;
-			} while (coeffProfondeur < profondeur 
-					&& ligneCible <  getLignes() && colonneCible <  getColonnes()
-					&& ligneCible >= 0 && colonneCible >= 0);
-
-			// comparaison des chaines
-			return (aligneCible.contains(aligneEvalue));
-		}
-		
+		// ******* METHODE EVALUATION *******	
 		/**
 		 * ferme des jetons après ils ont ete trouves dans un alignement
 		 * ferme d abord dans une direction (nord au sud sens horaire)

@@ -7,7 +7,7 @@ import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.*;
 
 
-public class PartiePermutation extends CA_Grille_Partie_alignement_fermeture {
+public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 		
 	private int nbrAlign ;
 	private int[] saisieCellule ;

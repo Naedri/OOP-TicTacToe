@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
 
 import oop.tictactoe.appli.CA_Grille;
-import oop.tictactoe.appli.CA_Grille_Partie_alignement_fermeture;
+import oop.tictactoe.appli.CA_Grille_Partie_FermetureJeton;
 import oop.tictactoe.appli.PartiePermutation;
 import oop.tictactoe.appli.PartieTicTacToe;
 import oop.tictactoe.jouer.Joueur;
@@ -103,7 +103,7 @@ class Test_Grille {
 	
 	@Test
 	void testGrilleAdjacent() {
-		CA_Grille_Partie_alignement_fermeture grille = new CA_Grille_Partie_alignement_fermeture(6,7);
+		CA_Grille_Partie_FermetureJeton grille = new CA_Grille_Partie_FermetureJeton(6,7);
 		TourMorpion tour = new TourMorpion(grille, new Joueur());
 		assertFalse(grille.estPleineGrille());
 		
@@ -143,7 +143,7 @@ class Test_Grille {
 		
 		System.out.println("Test avec un jeton X.");
 		
-		grille = new CA_Grille_Partie_alignement_fermeture(6,7);
+		grille = new CA_Grille_Partie_FermetureJeton(6,7);
 		assertFalse(grille.estPleineGrille());
 		
 		Jeton jx = Jeton.JETON_X;
@@ -170,7 +170,7 @@ class Test_Grille {
 		}
 		
 		System.out.println("Test avec deux jetons.");
-		grille = new CA_Grille_Partie_alignement_fermeture(6,6);
+		grille = new CA_Grille_Partie_FermetureJeton(6,6);
 		grille.placerJeton(jo, 0, 0);
 		grille.placerJeton(jx, 2, 2);
 		assertTrue(tour.existeAdjacent(1, 1));
@@ -362,7 +362,7 @@ private Joueur Joueur(Jeton jx) {
 	
 	@Test
 	void testGrilleDeplacement(){
-		CA_Grille grille = new CA_Grille_Partie_alignement_fermeture(5,5);
+		CA_Grille grille = new CA_Grille_Partie_FermetureJeton(5,5);
 		grille.placerJeton(Jeton.JETON_X, 2, 2);
 //		grille.afficherGrille();
 		

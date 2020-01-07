@@ -5,7 +5,7 @@ import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
 
-public class PartieMorpion extends CA_Grille_Partie_alignement_fermeture {
+public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 	private int nbrAlign ;
 	private int[] saisieCellule ;

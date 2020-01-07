@@ -5,39 +5,8 @@ import java.util.EnumSet;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 
-public abstract class CA_Grille_Partie_alignement extends CA_Grille_Partie {
-
-	public CA_Grille_Partie_alignement(int nbrLignes, int nbrColonnes, int nombrePointMax, int nombreTourMax) {
-		super(nbrLignes, nbrColonnes, nombrePointMax, nombreTourMax);
-		// TODO Auto-generated constructor stub
-	}
+public interface In_Grille_Evaluation_Alignement {
 	
-	/**
-	 * il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
-	 * renvoie la PREMIERE direction trouvée pour laquel un alignement a ete trouve
-	 * @param ligne
-	 * @param colonne
-	 * @param profondeur
-	 * @return PREMIERE direction trouvée pour laquel un alignement a ete trouve
-	 */
-	public Direction directionAlignementXD(int ligne, int colonne, int profondeur) {
-		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
-		assert (profondeur >= 2);
-		assert (nbrDirectAvecAlign(ligne, colonne, profondeur) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
-		
-		Direction oneDirection = null ;
-		
-		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
-			if (isAlignement1D1DI(ligne, colonne, profondeur, direction)) {
-				oneDirection = direction ;
-				return oneDirection ;
-			}
-		
-		return oneDirection ;
-	}
-
 	/**
 	 * alignement pour UNE Direction donnee ET son Inversee
 	 * 
@@ -49,14 +18,14 @@ public abstract class CA_Grille_Partie_alignement extends CA_Grille_Partie {
 	 * @param direction  et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
-	public boolean isAlignement1D1DI(int ligne, int colonne, int profondeur, Direction direction) {
-		assert (ligne < getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne < getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+	public static boolean isAlignement1D1DI(int ligne, int colonne, int profondeur, Direction direction, CA_Grille grille) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
 		
 		// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
-		Jeton jetonEvalue = getCellule(ligne, colonne);
+		Jeton jetonEvalue = grille.getCellule(ligne, colonne);
 		
 		/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
 		/// jetonEvalue
@@ -78,14 +47,14 @@ public abstract class CA_Grille_Partie_alignement extends CA_Grille_Partie {
 			// jetonCible jeton que l on ajoute à cibleLigne
 			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-			if (ligneCible < getLignes() && colonneCible < getColonnes() 
+			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton jetonCible = getCellule(ligneCible, colonneCible);
+				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
 				aligneCible += jetonCible.getSymbole();
 			}
 			++coeffProfondeur;
 		} while (coeffProfondeur < profondeur 
-				&& ligneCible < getLignes() && colonneCible < getColonnes()
+				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
 				&& ligneCible >= 0 && colonneCible >= 0);
 	
 		// direction oppposee
@@ -95,20 +64,20 @@ public abstract class CA_Grille_Partie_alignement extends CA_Grille_Partie {
 			// jetonCible jeton que l on ajoute à cibleLigne
 			colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
-			if (ligneCible < getLignes() && colonneCible < getColonnes() 
+			if (ligneCible < grille.getLignes() && colonneCible < grille.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton jetonCible = getCellule(ligneCible, colonneCible);
+				Jeton jetonCible = grille.getCellule(ligneCible, colonneCible);
 				aligneCible = jetonCible.getSymbole() + aligneCible;
 			}
 			++coeffProfondeur;
 		} while (coeffProfondeur < profondeur 
-				&& ligneCible < getLignes() && colonneCible < getColonnes()
+				&& ligneCible < grille.getLignes() && colonneCible < grille.getColonnes()
 				&& ligneCible >= 0 && colonneCible >= 0);
 	
 		// comparaison des chaines
 		return aligneCible.contains(aligneEvalue);
 	}
-
+	
 	/**
 	 * alignement pour TOUTES les Directions disponibles
 	 * le nombre de direction pour laquelle un alignement a ete trouvé
@@ -118,20 +87,46 @@ public abstract class CA_Grille_Partie_alignement extends CA_Grille_Partie {
 	 * @return le nombre de direction/orientation qui ont été trouvés avec alignementCellule
 	 *         dans toutes les directions
 	 */
-	public int nbrDirectAvecAlign(int ligne, int colonne, int profondeur) {
-		assert (ligne <  getLignes() && ligne >= 0); //la cellule doit être dans la grille
-		assert (colonne <  getColonnes() && colonne >= 0); //la cellule doit être dans la grille
-		assert (! estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+	public static int nbrDirectAvecAlign(int ligne, int colonne, int profondeur, CA_Grille grille) {
+		assert (ligne <  grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne <  grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (! grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
 		
 		int alignement = 0;
 	
 		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
-			if (isAlignement1D1DI(ligne, colonne, profondeur, oneDirection)) {
+			if (isAlignement1D1DI(ligne, colonne, profondeur, oneDirection, grille)) {
 				++alignement;
 			}
 		}
 		return alignement;
 	}
-	
+
+	/**
+	 * il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+	 * renvoie la PREMIERE direction trouvée pour laquel un alignement a ete trouve
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @return PREMIERE direction trouvée pour laquel un alignement a ete trouve
+	 */
+	public static Direction directionAlignementXD(int ligne, int colonne, int profondeur, CA_Grille grille) {
+		assert (ligne < grille.getLignes() && ligne >= 0); //la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
+		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+		assert (nbrDirectAvecAlign(ligne, colonne, profondeur, grille) >=1); //il faut qu avant l appel de cette fonction il ai ete verifie qu il y avait bel et bien un alignement
+		
+		Direction oneDirection = null ;
+		
+		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
+			if (isAlignement1D1DI(ligne, colonne, profondeur, direction, grille)) {
+				oneDirection = direction ;
+				return oneDirection ;
+			}
+		
+		return oneDirection ;
+	}
+
 }
