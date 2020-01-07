@@ -15,15 +15,15 @@ public class TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	protected int[] saisieCellule ;
 	protected int nbrAlign ;
 	
-	public TourTicTacToe(CA_PartieGrille partie, Joueur joueurActuel) {
-		this.partie = (PartieTicTacToe) partie ;
+	public TourTicTacToe(PartieTicTacToe partieTicTacToe, Joueur joueurActuel) {
+		this.partie = partieTicTacToe ;
 		this.joueur = joueurActuel;
 		this.saisieCellule = new int[2];
 		this.nbrAlign = 3;	
 	}
 
-	public TourTicTacToe(CA_PartieGrille partie, Joueur joueurActuel, int nbrAlign) {
-		this.partie = (PartieTicTacToe) partie ;
+	public TourTicTacToe(PartieTicTacToe partieTicTacToe, Joueur joueurActuel, int nbrAlign) {
+		this.partie = partieTicTacToe ;
 		this.joueur = joueurActuel;
 		this.saisieCellule = new int[2];
 		this.nbrAlign = nbrAlign;	

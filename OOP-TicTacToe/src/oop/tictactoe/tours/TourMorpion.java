@@ -1,7 +1,5 @@
 package oop.tictactoe.tours;
 
-import java.util.EnumSet;
-
 import oop.tictactoe.appli.PartieMorpion;
 import oop.tictactoe.grille.*;
 import oop.tictactoe.jouer.In_Interaction;
@@ -10,14 +8,12 @@ import oop.tictactoe.jouer.Joueur;
 
 public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPlacement {
 	
-	public TourMorpion(PartieMorpion partie, Joueur joueurActuel) {
-		super(partie, joueurActuel);
-		this.partie = (PartieMorpion) partie ;
+	public TourMorpion(PartieMorpion partieMorpion, Joueur joueurActuel) {
+		super(partieMorpion, joueurActuel);
 	}
 	
-	public TourMorpion(PartieMorpion partie, Joueur joueurActuel, int nbrAlign) {
-		super(partie, joueurActuel, nbrAlign);
-		this.partie = (PartieMorpion) partie ;
+	public TourMorpion(PartieMorpion partieMorpion, Joueur joueurActuel, int nbrAlign) {
+		super(partieMorpion, joueurActuel, nbrAlign);
 	}
 
 	//************ EN AMONT DU COUP ******************
@@ -35,6 +31,8 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 	 */
 	@Override
 	public boolean isAlignement1D1DI(int ligne, int colonne, int profondeur, Direction direction) {
+		PartieMorpion partie = (PartieMorpion) this.partie;
+
 		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!partie.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -42,8 +40,7 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 		assert (partie.estOuvert(ligne,colonne));
 		
 		// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
-		Jeton jetonEvalue = partie.getCellule(ligne, colonne);
-		
+	
 		/// aligneEvalue ligne de jeton que le joueur souhaiterait avoir à partir de
 		/// jetonEvalue
 		String aligneEvalue = "";
@@ -66,7 +63,6 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
 			if (ligneCible < partie.getLignes() && colonneCible < partie.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton jetonCible = partie.getCellule(ligneCible, colonneCible);
 				aligneCible += partie.getSymboleJetonOF(ligneCible, colonneCible);
 			}
 			++coeffProfondeur;
@@ -83,8 +79,7 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 			ligneCible = coeffProfondeur * direction.getDligne() + ligne;
 			if (ligneCible < partie.getLignes() && colonneCible < partie.getColonnes() 
 					&& ligneCible >= 0 && colonneCible >= 0) {
-				Jeton jetonCible = partie.getCellule(ligneCible, colonneCible);
-				aligneCible = partie.getSymboleJetonOF(ligneCible, colonneCible) + aligneCible;
+				aligneCible += partie.getSymboleJetonOF(ligneCible, colonneCible) ;
 			}
 			++coeffProfondeur;
 		} while (coeffProfondeur < profondeur 
@@ -164,6 +159,8 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 	 * @param profondeur nombre de jetons que l on souhaite fermer (qui sont impliques dans un alignement)
 	 */
 	public void fermeAlignementXD(int ligne, int colonne, int profondeur) {
+		PartieMorpion partie = (PartieMorpion) this.partie;
+
 		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		assert (!partie.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -236,6 +233,8 @@ public class TourMorpion extends TourTicTacToe implements In_Tour, In_MessagesPl
 	 * @param oneDirection orientation de l axe de fermeture des jetons
 	 */
 	public void fermerAxeJetons1D(int ligne, int colonne, int profondeur, Direction oneDirection) {
+		PartieMorpion partie = (PartieMorpion) this.partie;
+
 		assert (ligne < partie.getLignes() && ligne >= 0); //la cellule doit être dans la grille
 		assert (colonne < partie.getColonnes() && colonne >= 0); //la cellule doit être dans la grille
 		

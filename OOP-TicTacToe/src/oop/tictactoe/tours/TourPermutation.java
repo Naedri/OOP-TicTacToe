@@ -1,6 +1,6 @@
 package oop.tictactoe.tours;
 
-import oop.tictactoe.appli.CA_PartieGrille;
+import oop.tictactoe.appli.PartieMorpion;
 import oop.tictactoe.appli.PartiePermutation;
 import oop.tictactoe.grille.*;
 import oop.tictactoe.jouer.In_Interaction;
@@ -12,16 +12,16 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 	protected int[] saisieCellule2 ; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 	protected Joueur joueurAutre; //necessaire car une même permutation peut conduire à augmenter le score des deux joueurs.
 
-	public TourPermutation(PartiePermutation partie, Joueur joueurActuel, Joueur joueurAutre) {
-		super(partie,joueurActuel);
+	public TourPermutation(PartiePermutation partiePermutation, Joueur joueurActuel, Joueur joueurAutre) {
+		super(partiePermutation,joueurActuel);
 		assert(joueurActuel != joueurAutre);
 		assert(! joueurActuel.getJeton().estEgal(joueurAutre.getJeton()));
 		this.saisieCellule2 = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
 		this.joueurAutre = joueurAutre ; //necessaire car une même permutation peut conduire à augmenter le score des deux joueurs.
 	}
 	
-	public TourPermutation(PartiePermutation partie, Joueur joueurActuel, Joueur joueurAutre, int nbrAlign) {
-		super(partie,joueurActuel,nbrAlign);
+	public TourPermutation(PartiePermutation partiePermutation, Joueur joueurActuel, Joueur joueurAutre, int nbrAlign) {
+		super(partiePermutation,joueurActuel,nbrAlign);
 		assert(joueurActuel != joueurAutre);
 		assert(! joueurActuel.getJeton().estEgal(joueurAutre.getJeton()));
 		this.saisieCellule2 = new int[2]; //saisieCellule[0] = Ligne et saisieCellule[1] = Colonne
@@ -52,7 +52,7 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 				System.out.println("La case selectionnee est identique a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
 			
 		}
-		.permutationJeton(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]);
+		permutationJeton(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]);
 		System.out.println(In_MessagesPermutation.afficherMessageCoupJoue(joueur, saisieCellule, saisieCellule2));
 	}
 	
@@ -62,6 +62,8 @@ public class TourPermutation extends TourMorpion implements In_Tour, In_Messages
 	 */
 	@Override
 	public void evaluerCoup() {
+		PartieMorpion partie = (PartiePermutation) this.partie;
+
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		assert(saisieCellule2 != null);//on oblige le joueur a avoir jouer un coup
 

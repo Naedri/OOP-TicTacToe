@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
-import oop.tictactoe.grille.Grille;
 import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.Joueur;
 
@@ -16,7 +15,7 @@ class Test_Tours {
 	void testTourTicTacToe() {
 		System.out.println("testTourTicTacToe EN COURS \n");
 
-		Grille grille = new Grille();
+		TourTicTacToe grille = new TourTicTacToe();
 		Jeton jo =  Jeton.JETON_O ;
 		Joueur joueurO = new Joueur(jo);
 		TourTicTacToe tourO = new TourTicTacToe(grille, joueurO);

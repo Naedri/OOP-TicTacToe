@@ -4,7 +4,7 @@ import oop.tictactoe.grille.Jeton;
 import oop.tictactoe.jouer.In_Interaction;
 import oop.tictactoe.jouer.In_MessagesPlacement;
 import oop.tictactoe.jouer.Joueur;
-import oop.tictactoe.appli.CA_PartieGrille;
+import oop.tictactoe.appli.PartieTicTacToe;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
 
@@ -12,7 +12,7 @@ public class TourForme extends TourTicTacToe implements In_Tour, In_MessagesPlac
 
 	private Forme forme;
 	
-	public TourForme(CA_PartieGrille partie, Joueur joueurActuel, Forme forme) {
+	public TourForme(PartieTicTacToe partie, Joueur joueurActuel, Forme forme) {
 		super(partie, joueurActuel);
 		this.forme = forme ;
 	}

@@ -193,7 +193,7 @@ public class Menu {
 
 			}
 			
-			PartieTicTacToe partie = null ; 
+			CA_PartieGrille partie = null ; 
 			
 			switch (choixJeu) {
 				case 1 :
