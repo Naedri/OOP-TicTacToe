@@ -25,43 +25,7 @@ public enum Forme {
 		this.orientation = orientation;
 		this.tabGrilleModele = tabGrilleModele;
 		this.chemin = chemin;
-//		switch (choixForme) {
-//		//niveau de complexite croissant
-//			case 1:
-//				//carre
-//				formeStr = "carre";
-//				distance = new int[] {1,1,1,1} ;
-//				orientation = new int[] {2,4,6,0};
-//				//{Direction.EST,Direction.SUD,Direction.OUEST,Direction.NORD}) ;
-//				tabGrilleModele = new int[][]{{0,0,1,1},{0,1,1,0}}; // {ligne} {colonne}
-//				break ;
-//				
-//			case 2 :
-//				//losange
-//				formeStr = "losange";
-//				distance = new int[]{1,1,1,1};
-//				orientation = new int[]{1,3,5,7};
-//				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD_OUEST}) ;
-//				tabGrilleModele = new int[][]{{0,1,2,1},{1,2,1,0}}; // {ligne} {colonne}
-//				break;
-//	
-//			case 3 :
-//				//croix
-//				formeNum = 3;
-//				formeStr = "croix";
-//				distance = new int[]{1,1,1,1,1} ;
-//				orientation = new int[]{1,3,5,7,6};
-//				//{Direction.NORD_EST,Direction.SUD_EST,Direction.SUD_OUEST,Direction.NORD,Direction.OUEST}),
-//				tabGrilleModele = new int[][]{{0,1,2,1,1},{1,2,1,0,1}}; // {ligne} {colonne}
-//				break ;
-//		}
-//		//creation de la table chemin avec une profondeur et une direction par ligne
-//		assert (orientation.length == distance.length);
-//		chemin = new int[orientation.length][2];
-//		for (int i = 0; i < orientation.length; ++i) {
-//			chemin[i][0] = distance[i];
-//			chemin[i][1] = orientation[i];
-//		}
+
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class Appli {
 	public static void main(String[] args) {
 		
 		PartieTicTacToe partie = null ; 
-		
+
 	    for(String s : args){
 
 			int choixJeu = Integer.parseUnsignedInt(s);
@@ -46,10 +46,24 @@ public class Appli {
 				System.out.println(Forme.toStringFormeDispoConsigne());
 				System.out.println("Veuillez choisir une forme pas son indice, entre 1 et "+ Forme.getListFormesDispo().length + " compris.");
 				choixForme = Menu.setChoix(1, Forme.getListFormesDispo().length);
-				Forme formeChoisie = new Forme(choixForme);
+				Forme formeChoisie = null ;
+				switch (choixForme) {
+					case 1 :
+						//carre
+						formeChoisie = Forme.CARRE;
+						break ;
+					case 2 :
+						//losange
+						formeChoisie = Forme.LOSANGE;
+						break;
+					case 3 :
+						//croix
+						formeChoisie = Forme.CROIX;
+						break;
+				}
 				System.out.println(formeChoisie.toStringFormeChoisie());
 				System.out.println("La partie de TicTacToe Forme va commencer, preparez-vous !\n");
-				partie = new PartieForme(choixForme);
+				partie = new PartieForme(formeChoisie);
 				break;
 			case 4 :
 				choixGrilleLigne = 5;

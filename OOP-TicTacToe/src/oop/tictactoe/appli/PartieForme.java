@@ -11,12 +11,12 @@ public class PartieForme extends PartieTicTacToe implements In_Partie {
 	
 	public PartieForme() {
 		super(12,12);
-		forme = new Forme(1);
+		forme = Forme.CARRE;
 	}
 	
-	public PartieForme(int choixForme) {
+	public PartieForme(Forme forme) {
 		super(12,12);
-		forme = new Forme(choixForme);
+		this.forme = forme;
 	}
 	
 	@Override
