@@ -438,23 +438,23 @@ class Test_Coups {
 		tour.placerJeton(jo, 2, 2);
 
 		Joueur joueuro = new Joueur(jo);
-		Forme carre = Forme.CARRE;
-		Forme losange = Forme.LOSANGE;
-		Forme croix = Forme.CROIX;
+		Forme carre = new Forme(1);
+		Forme losange = new Forme(2);
+		Forme croix = new Forme(3);
 		assertEquals(4, carre.getNbrPoint());
 		assertEquals(4, losange.getNbrPoint());
 		assertEquals(5, croix.getNbrPoint());
 
-		tour.afficherGrille();
+		tour = new PartieForme();
 		
 		assertTrue(Utils_Grille_Evaluation_Forme.existeForme(0, 0, tour,carre));
 		assertTrue(Utils_Grille_Evaluation_Forme.existeForme(1, 1, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(0, 2, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 0, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(1, 2, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 1, tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(0, 2, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 0, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(1, 2, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 1, tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
 
 		// getCoordForme
 		int[][] coordTest = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 1 }, { 1, 0 } }; // tour du carre dans le sens des
@@ -512,18 +512,18 @@ class Test_Coups {
 		tour.placerJeton(jx, 1, 2);
 		tour.placerJeton(jo, 2, 2);
 		tour.afficherGrille();
-//
-//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 0,tour,carre));
-//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 1,tour,carre));
-//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 1,tour,carre));
-//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 0,tour,carre));
-//
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 2,tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 2,tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 0,tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 1,tour,carre));
-//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
+
+		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 0,tour,carre));
+		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 1,tour,carre));
+		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 1,tour,carre));
+		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 0,tour,carre));
+
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 2,tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 2,tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 0,tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 1,tour,carre));
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
 
 		System.out.println("testPartieForme FAIT \n");
 	}

@@ -30,12 +30,12 @@ class Test_Appli {
 //		partiePermutation.lancerPartie();
 //	}
 
-//	// statut ok
-//	@Test
-//	void testForme() {
-//		PartieForme partieForme= new PartieForme() ;
-//		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
-//		partieForme.lancerPartie() ;
-//	}
+	// statut ok
+	@Test
+	void testForme() {
+		PartieForme partieForme= new PartieForme() ;
+		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
+		partieForme.lancerPartie() ;
+	}
 
 }

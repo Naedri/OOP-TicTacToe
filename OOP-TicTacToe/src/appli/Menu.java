@@ -167,21 +167,7 @@ public class Menu {
 				System.out.println("Veuillez choisir une forme pas son indice, entre 1 et "
 						+ Forme.getListFormesDispo().length + " compris.");
 				choixForme = setChoix(1, Forme.getListFormesDispo().length);
-				switch (choixForme) {
-				case 1:
-					// carre
-					formeChoisie = Forme.CARRE;
-					break;
-				case 2:
-					// losange
-					formeChoisie = Forme.LOSANGE;
-					break;
-				case 3:
-					// croix
-					formeChoisie = Forme.CROIX;
-					break;
-				}
-
+				formeChoisie = new Forme(choixForme);
 				System.out.println(formeChoisie.toStringFormeChoisie());
 			} else {
 				// taille grille
@@ -223,7 +209,7 @@ public class Menu {
 				break;
 			case 3:
 				System.out.println("La partie de TicTacToe Forme va commencer, preparez-vous !\n");
-				partie = new PartieForme(formeChoisie);
+				partie = new PartieForme(choixForme);
 				break;
 			case 4:
 				System.out.println("La partie de TicTacToe Permutation va commencer, preparez-vous !\n");

@@ -12,14 +12,14 @@ public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 	private int[] saisieCellule;
 
 	public PartieForme() {
-		super(12, 12);
-		this.forme = Forme.CARRE;
+		super(7, 7);
+		this.forme = new Forme(1);
 		this.saisieCellule = new int[2];
 	}
 
-	public PartieForme(Forme forme) {
-		super(12, 12);
-		this.forme = forme;
+	public PartieForme(int choixForme) {
+		super(7, 7);
+		this.forme = new Forme(choixForme);
 		this.saisieCellule = new int[2];
 	}
 
@@ -54,16 +54,16 @@ public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 				joueur2.marquerPoint();
 				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur2));
 			}
-			int[][] coordAFermer = Utils_Grille_Evaluation_Forme.getCoordFormeComplete(saisieCellule[0], saisieCellule[1], this, forme);
-			ouvertsToFermesJetons(coordAFermer);
+//			int[][] coordAFermer = Utils_Grille_Evaluation_Forme.getCoordFormeComplete(saisieCellule[0], saisieCellule[1], this, forme);
+//			ouvertsToFermesJetons(coordAFermer);
 			afficherGrille();
-
 		}
 	}
 
 	@Override
 	public boolean estFinie() {
-		return (estPleineGrille());
+//		return (estPleineGrille());
+		return (getScoreJ1() >= 1 || getScoreJ2() >= 1 || estPleineGrille());
 	}
 
 }

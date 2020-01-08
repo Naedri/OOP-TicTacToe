@@ -15,7 +15,7 @@ class Test_Forme {
 		Forme forme;
 
 		// carre
-		forme = Forme.CARRE;
+		forme = new Forme(1);
 		distance = new int[] { 1, 1, 1, 1 };
 		orientation = new int[] { 2, 4, 6, 0 };
 		assertArrayEquals(distance, forme.transForme(0).getDistance());
