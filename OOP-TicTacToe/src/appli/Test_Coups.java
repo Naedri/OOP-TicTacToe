@@ -7,17 +7,18 @@ import org.junit.jupiter.api.Test;
 import grille.Direction;
 import grille.Forme;
 import grille.Jeton;
+import utilitaires.Utils_Grille_Evaluation_Alignement;
+import utilitaires.Utils_Grille_Evaluation_Forme;
 
 class Test_Coups {
 
 	@Test
-	void testTourTicTacToe() {
-		System.out.println("testTourTicTacToe EN COURS \n");
+	void testPartieTicTacToe() {
+		System.out.println("testPartieTicTacToe EN COURS \n");
 
-		TourTicTacToe grille = new TourTicTacToe();
+		PartieTicTacToe grille = new PartieTicTacToe();
 		Jeton jo = Jeton.JETON_O;
 		Joueur joueurO = new Joueur(jo);
-		TourTicTacToe tourO = new TourTicTacToe(grille, joueurO);
 
 		assertFalse(grille.estPleineGrille());
 		assertEquals(3, grille.getLignes());
@@ -30,16 +31,16 @@ class Test_Coups {
 		grille.placerJeton(jo, 2, 2); // on commence a 0
 
 		// jO sans autres jetons
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_EST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.EST));
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD_EST)); // attention c est true parce que la foncion
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_EST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.EST,grille));
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD_EST,grille)); // attention c est true parce que la foncion
 																			// regarde dans les deux sens
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.OUEST));
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_OUEST));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.OUEST,grille));
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_OUEST,grille));
 
 		// ajout autres jetons
 		Jeton jx = Jeton.JETON_X;
@@ -47,225 +48,255 @@ class Test_Coups {
 		grille.placerJeton(jx, 2, 1);
 
 		// jO avec autres jetons
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_EST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.EST));
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD_EST)); // attention c est true parce que la foncion
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_EST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.EST,grille));
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD_EST,grille)); // attention c est true parce que la foncion
 																			// regarde dans les deux sens
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.SUD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 2, 3, Direction.OUEST));
-		assertTrue(tourO.isAlignement1D1DI(2, 2, 3, Direction.NORD_OUEST));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.SUD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.OUEST,grille));
+		assertTrue(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 2, 3, Direction.NORD_OUEST,grille));
 
 		// jx avec jo mais ne marque pas de points
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.NORD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.NORD));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.NORD_EST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.EST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.SUD_EST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.SUD));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.SUD_OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.OUEST));
-		assertFalse(tourO.isAlignement1D1DI(2, 1, 3, Direction.NORD_OUEST));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.NORD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.NORD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.NORD_EST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.EST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.SUD_EST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.SUD,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.SUD_OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.OUEST,grille));
+		assertFalse(Utils_Grille_Evaluation_Alignement.appartientAlign(2, 1, 3, Direction.NORD_OUEST,grille));
 
 		// multiple alignements
 		// alignements en diagonal
-		assertEquals(0, tourO.nbrDirectAvecAlign(2, 0, 3));
-		assertEquals(1, tourO.nbrDirectAvecAlign(2, 2, 3));
+		assertEquals(0, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(2, 0, 3,grille));
+		assertEquals(1, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(2, 2, 3,grille));
 
 		// alignements horizontaux
 		grille.placerJeton(jo, 1, 2);
 		grille.placerJeton(jo, 1, 0);
-		assertEquals(0, tourO.nbrDirectAvecAlign(2, 0, 3));
-		assertEquals(0, tourO.nbrDirectAvecAlign(2, 1, 3));
-		assertEquals(1, tourO.nbrDirectAvecAlign(2, 2, 3));
-		assertEquals(1, tourO.nbrDirectAvecAlign(1, 2, 3));
+		assertEquals(0, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(2, 0, 3,grille));
+		assertEquals(0, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(2, 1, 3,grille));
+		assertEquals(1, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(2, 2, 3,grille));
+		assertEquals(1, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 3,grille));
 
-		System.out.println("testTourTicTacToe FAIT \n");
+		System.out.println("testPartieTicTacToe FAIT \n");
 	}
 
 	@Test
-	void testTourMorpion() {
-		System.out.println("testTourMorpion EN COURS \n");
+	void testPartieMorpion() {
+		System.out.println("testPartieMorpion EN COURS \n");
 
 		Jeton jx = Jeton.JETON_X;
 		Jeton jo = Jeton.JETON_O;
 
-		Grille grille = new Grille();
-		Joueur joueurO = new Joueur(jo);
-		TourMorpion tour = new TourMorpion(grille, joueurO);
+		PartieMorpion tour = new PartieMorpion();
 
 		// nbrAlignementXD
 
-		grille.placerJeton(jo, 1, 2);
-		grille.placerJeton(jo, 1, 0);
-		grille.placerJeton(jo, 0, 0);
-		grille.placerJeton(jo, 1, 1);
-		assertEquals(1, tour.nbrDirectAvecAlign(1, 2, 3));
-		assertEquals(1, tour.nbrDirectAvecAlign(1, 2, 2));
-		assertEquals(Direction.EST, tour.directionAlignementXD(1, 2, 3)); // pas ouest mais est car sens horaire et l
-																			// orientation obeserve est avec les
-																			// inverses
-		grille.placerJeton(jo, 2, 2);
-		assertEquals(Direction.NORD, tour.directionAlignementXD(1, 2, 2)); // pas sud mais nord et pas est car nord est
-																			// le premier a faire un alignement
+		tour.placerJeton(jo, 1, 2);
+		tour.placerJeton(jo, 1, 0);
+		tour.placerJeton(jo, 0, 0);
+		tour.placerJeton(jx, 1, 1);
+		
+		tour.afficherGrille();
+		String stro = tour.getLigneJetonOouF(1, 3, 3, Direction.OUEST);
+		System.out.println(stro);
+		assertEquals("OXO", stro);
+		assertEquals('X',tour.getSymboleJetonOouF(1,1));
 
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 2, 1);
+		tour.ouvertToFermeJeton(1, 1);
+		stro = tour.getLigneJetonOouF(1, 3, 3, Direction.OUEST);
+		assertEquals("OxO", stro);
+		assertEquals('x',tour.getSymboleJetonOouF(1,1));
+		
+		tour.placerJeton(jx, 3, 0);
+		assertEquals('X',tour.getSymboleJetonOouF(3,0));
+		tour.ouvertToFermeJeton(3, 0);
+		assertEquals('x',tour.getSymboleJetonOouF(3,0));
+		
+		tour.placerJeton(jo, 3, 1);
+		assertEquals('O',tour.getSymboleJetonOouF(3,1));
+		tour.ouvertToFermeJeton(3, 1);
+		assertEquals('o',tour.getSymboleJetonOouF(3,1));
 
-		assertEquals(1, tour.nbrDirectAvecAlign(1, 2, 3));
-		assertEquals(2, tour.nbrDirectAvecAlign(1, 2, 2));
 
-		assertEquals(Direction.EST, tour.directionAlignementXD(1, 2, 3)); // pas ouest mais est car sens horaire et l
-																			// orientation obeserve est avec les
-																			// inverses
-		assertEquals(Direction.NORD, tour.directionAlignementXD(1, 2, 2)); // pas sud mais nord et pas est car nord est
-																			// le premier a faire un alignement
+		tour.afficherGrille();
+		tour.placerJeton(jo, 0, 1);
+		tour.placerJeton(jo, 0, 2);
+		tour.afficherGrille();
+		assertEquals('O',tour.getSymboleJetonOouF(0,0));
 
-		// fermeAlignementXD
-		tour.fermeAlignementXD(1, 2, 3);
+		
+		tour.fermeAlignementXD(0, 2, 3);
 
-		Grille grilleFerme = new Grille();
-		grilleFerme.placerJeton(jo, 1, 2);
-		grilleFerme.placerJeton(jo, 1, 0);
-		grilleFerme.placerJeton(jo, 0, 0);
-		grilleFerme.placerJeton(jo, 1, 1);
-		grilleFerme.placerJeton(jo, 2, 2);
-		grilleFerme.placerJeton(jx, 2, 0);
-		grilleFerme.placerJeton(jx, 2, 1);
 
-		assertFalse(grille.estEgale(grilleFerme));
+//		assertEquals(1, tour.nbrDirectAvecAlign(1, 2, 2));
+//		assertEquals(Direction.EST, tour.directionAlignementXD(1, 2, 3)); // pas ouest mais est car sens horaire et l
+//																			// orientation obeserve est avec les
+//																			// inverses
+//		grille.placerJeton(jo, 2, 2);
+//		assertEquals(Direction.NORD, tour.directionAlignementXD(1, 2, 2)); // pas sud mais nord et pas est car nord est
+//																			// le premier a faire un alignement
+//
+//		grille.placerJeton(jx, 2, 0);
+//		grille.placerJeton(jx, 2, 1);
+//
+//		assertEquals(1, tour.nbrDirectAvecAlign(1, 2, 3));
+//		assertEquals(2, tour.nbrDirectAvecAlign(1, 2, 2));
+//
+//		assertEquals(Direction.EST, tour.directionAlignementXD(1, 2, 3)); // pas ouest mais est car sens horaire et l
+//																			// orientation obeserve est avec les
+//																			// inverses
+//		assertEquals(Direction.NORD, tour.directionAlignementXD(1, 2, 2)); // pas sud mais nord et pas est car nord est
+//																			// le premier a faire un alignement
 
-		grilleFerme.ouvertToFermeJeton(1, 0);
-		grilleFerme.ouvertToFermeJeton(1, 1);
-		grilleFerme.ouvertToFermeJeton(1, 2);
-
-		assertTrue(grille.estEgale(grilleFerme));
-
-		grille.placerJeton(jo, 0, 1);
-		grille.placerJeton(jo, 0, 2);
-		assertEquals(1, tour.nbrDirectAvecAlign(0, 2, 2));
-		assertEquals(1, tour.nbrDirectAvecAlign(0, 2, 3));
-		assertEquals(Direction.EST, tour.directionAlignementXD(0, 2, 3)); // pas ouest mais est car sens horaire et l
-																			// orientation obeserve est avec les
-																			// inverses
-		assertEquals(Direction.EST, tour.directionAlignementXD(0, 2, 2)); // pas ouest mais est car sens horaire et l
-																			// orientation obeserve est avec les
-																			// inverses
-
-		grilleFerme = new Grille(7, 7);
-		grille = new Grille(7, 7);
-
-		grille.placerJeton(jo, 0, 0);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jo, 2, 2);
-
-		for (int i = 0; i < 3; i++) {
-			grilleFerme.placerJeton(jo, i, i);
-			grilleFerme.ouvertToFermeJeton(i, i);
-		}
-
-		assertFalse(grille.estEgale(grilleFerme));
-		tour = new TourMorpion(grille, joueurO);
-		assertEquals(1, tour.nbrDirectAvecAlign(0, 0, 3));
-		assertEquals(1, tour.nbrDirectAvecAlign(1, 1, 3));
-		assertEquals(1, tour.nbrDirectAvecAlign(2, 2, 3));
-
-		assertEquals(1, tour.nbrDirectAvecAlign(1, 1, 2)); // ce n est pas le nombre d alignement mais le nombre de
-															// direction pour laquelle un alignement a ete trouvé
-
-		tour.fermeAlignementXD(2, 2, 3);
-
-		assertTrue(grille.estEgale(grilleFerme));
+//		// fermeAlignementXD
+//		tour.fermeAlignementXD(1, 2, 3);
+//
+//		PartieTicTacToe grilleFerme = new PartieTicTacToe();
+//		grilleFerme.placerJeton(jo, 1, 2);
+//		grilleFerme.placerJeton(jo, 1, 0);
+//		grilleFerme.placerJeton(jo, 0, 0);
+//		grilleFerme.placerJeton(jo, 1, 1);
+//		grilleFerme.placerJeton(jo, 2, 2);
+//		grilleFerme.placerJeton(jx, 2, 0);
+//		grilleFerme.placerJeton(jx, 2, 1);
+//
+//		assertFalse(grille.estEgale(grilleFerme));
+//
+//		grilleFerme.ouvertToFermeJeton(1, 0);
+//		grilleFerme.ouvertToFermeJeton(1, 1);
+//		grilleFerme.ouvertToFermeJeton(1, 2);
+//
+//		assertTrue(grille.estEgale(grilleFerme));
+//
+//		grille.placerJeton(jo, 0, 1);
+//		grille.placerJeton(jo, 0, 2);
+//		assertEquals(1, tour.nbrDirectAvecAlign(0, 2, 2));
+//		assertEquals(1, tour.nbrDirectAvecAlign(0, 2, 3));
+//		assertEquals(Direction.EST, tour.directionAlignementXD(0, 2, 3)); // pas ouest mais est car sens horaire et l
+//																			// orientation obeserve est avec les
+//																			// inverses
+//		assertEquals(Direction.EST, tour.directionAlignementXD(0, 2, 2)); // pas ouest mais est car sens horaire et l
+//																			// orientation obeserve est avec les
+//																			// inverses
+//
+//		grilleFerme = new PartieTicTacToe(7, 7);
+//		grille = new PartieTicTacToe(7, 7);
+//
+//		grille.placerJeton(jo, 0, 0);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jo, 2, 2);
+//
+//		for (int i = 0; i < 3; i++) {
+//			grilleFerme.placerJeton(jo, i, i);
+//			grilleFerme.ouvertToFermeJeton(i, i);
+//		}
+//
+//		assertFalse(grille.estEgale(grilleFerme));
+//		tour = new PartieMorpion(grille, joueurO);
+//		assertEquals(1, tour.nbrDirectAvecAlign(0, 0, 3));
+//		assertEquals(1, tour.nbrDirectAvecAlign(1, 1, 3));
+//		assertEquals(1, tour.nbrDirectAvecAlign(2, 2, 3));
+//
+//		assertEquals(1, tour.nbrDirectAvecAlign(1, 1, 2)); // ce n est pas le nombre d alignement mais le nombre de
+//															// direction pour laquelle un alignement a ete trouvé
+//
+//		tour.fermeAlignementXD(2, 2, 3);
+//
+//		assertTrue(grille.estEgale(grilleFerme));
 //		System.out.println("fermerAlignement XD");
 //		grille.afficherGrille();
 //		grilleFerme.afficherGrille();
 
 		// fermeAlignementXD avec 3
-		grille = new Grille(6, 6);
-		joueurO = new Joueur(Jeton.JETON_O);
-		grille.placerJeton(jx, 0, 1);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 0, 3);
-		grille.placerJeton(jx, 0, 4);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jx, 1, 2);
-		tour = new TourMorpion(grille, joueurO);
-		tour.fermeAlignementXD(0, 2, 3);
-
-		grilleFerme = new Grille(6, 6);
-		grilleFerme.placerJeton(jx, 0, 1);
-		grilleFerme.placerJeton(jo, 1, 1);
-		grilleFerme.placerJeton(jx, 1, 2);
-		Jeton jxmin = Jeton.JETON_X_MIN;
-		grilleFerme.placerJetonFerme(jxmin, 0, 2);
-		grilleFerme.placerJetonFerme(jxmin, 0, 3);
-		grilleFerme.placerJetonFerme(jxmin, 0, 4);
-
-		assertTrue(grille.estEgale(grilleFerme));
-		assertTrue(grilleFerme.estEgale(grille));
-//		
+//		grille = new PartieTicTacToe(6, 6);
+//		joueurO = new Joueur(Jeton.JETON_O);
+//		grille.placerJeton(jx, 0, 1);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 0, 3);
+//		grille.placerJeton(jx, 0, 4);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jx, 1, 2);
+//		tour = new PartieMorpion(grille, joueurO);
+//		tour.fermeAlignementXD(0, 2, 3);
+//
+//		grilleFerme = new PartieTicTacToe(6, 6);
+//		grilleFerme.placerJeton(jx, 0, 1);
+//		grilleFerme.placerJeton(jo, 1, 1);
+//		grilleFerme.placerJeton(jx, 1, 2);
+//		Jeton jxmin = Jeton.JETON_X;
+//		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+//		grilleFerme.placerJetonFerme(jxmin, 0, 3);
+//		grilleFerme.placerJetonFerme(jxmin, 0, 4);
+//
+//		assertTrue(grille.estEgale(grilleFerme));
+//		assertTrue(grilleFerme.estEgale(grille));
+////		
 //		System.out.println("fermerAlignement XD avec 3");
 //		grille.afficherGrille();
 //		grilleFerme.afficherGrille();
 //		
 		// fermeAlignementXD avec 4
-		grille = new Grille(6, 6);
-		joueurO = new Joueur(Jeton.JETON_O);
-		grille.placerJeton(jx, 0, 1);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 0, 3);
-		grille.placerJeton(jx, 0, 4);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jx, 1, 2);
-		tour = new TourMorpion(grille, joueurO);
-		tour.fermeAlignementXD(0, 2, 4);
-
-		grilleFerme = new Grille(6, 6);
-		grilleFerme.placerJeton(jo, 1, 1);
-		grilleFerme.placerJeton(jx, 1, 2);
-		jxmin = Jeton.JETON_X_MIN;
-		grilleFerme.placerJetonFerme(jxmin, 0, 1);
-		grilleFerme.placerJetonFerme(jxmin, 0, 2);
-		grilleFerme.placerJetonFerme(jxmin, 0, 3);
-		grilleFerme.placerJetonFerme(jxmin, 0, 4);
-
-		assertTrue(grille.estEgale(grilleFerme));
-		assertTrue(grilleFerme.estEgale(grille));
+//		grille = new PartieTicTacToe(6, 6);
+//		joueurO = new Joueur(Jeton.JETON_O);
+//		grille.placerJeton(jx, 0, 1);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 0, 3);
+//		grille.placerJeton(jx, 0, 4);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jx, 1, 2);
+//		tour = new PartieMorpion(grille, joueurO);
+//		tour.fermeAlignementXD(0, 2, 4);
+//
+//		grilleFerme = new PartieTicTacToe(6, 6);
+//		grilleFerme.placerJeton(jo, 1, 1);
+//		grilleFerme.placerJeton(jx, 1, 2);
+//		jxmin = Jeton.JETON_X;
+//		grilleFerme.placerJetonFerme(jxmin, 0, 1);
+//		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+//		grilleFerme.placerJetonFerme(jxmin, 0, 3);
+//		grilleFerme.placerJetonFerme(jxmin, 0, 4);
+//
+//		assertTrue(grille.estEgale(grilleFerme));
+//		assertTrue(grilleFerme.estEgale(grille));
 
 //		System.out.println("fermerAlignement XD avec 4");
 //		grille.afficherGrille();
 //		grilleFerme.afficherGrille();
 
 		// fermeAlignementXD avec 2
-		grille = new Grille(6, 6);
-		joueurO = new Joueur(Jeton.JETON_O);
-		grille.placerJeton(jx, 0, 1);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 0, 3);
-		grille.placerJeton(jx, 0, 4);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jx, 1, 2);
-		tour = new TourMorpion(grille, joueurO);
-		tour.fermeAlignementXD(0, 2, 2);
+//		grille = new PartieTicTacToe(6, 6);
+//		joueurO = new Joueur(Jeton.JETON_O);
+//		grille.placerJeton(jx, 0, 1);
+//		grille.placerJeton(jx, 0, 2);
+//		grille.placerJeton(jx, 0, 3);
+//		grille.placerJeton(jx, 0, 4);
+//		grille.placerJeton(jo, 1, 1);
+//		grille.placerJeton(jx, 1, 2);
+//		tour = new PartieMorpion(grille, joueurO);
+//		tour.fermeAlignementXD(0, 2, 2);
+//
+//		grilleFerme = new PartieTicTacToe(6, 6);
+//		grilleFerme.placerJeton(jo, 1, 1);
+//		grilleFerme.placerJeton(jx, 0, 1);
+//		grilleFerme.placerJeton(jx, 0, 3);
+//		grilleFerme.placerJeton(jx, 0, 4);
+//		jxmin = Jeton.JETON_X;
+//		grilleFerme.placerJetonFerme(jxmin, 0, 2);
+//		grilleFerme.placerJetonFerme(jxmin, 1, 2);
+//
+//		assertTrue(grille.estEgale(grilleFerme));
+//		assertTrue(grilleFerme.estEgale(grille));
+////		System.out.println("fermerAlignement XD avec 2");
+////		grille.afficherGrille();
+////		grilleFerme.afficherGrille();
 
-		grilleFerme = new Grille(6, 6);
-		grilleFerme.placerJeton(jo, 1, 1);
-		grilleFerme.placerJeton(jx, 0, 1);
-		grilleFerme.placerJeton(jx, 0, 3);
-		grilleFerme.placerJeton(jx, 0, 4);
-		jxmin = Jeton.JETON_X_MIN;
-		grilleFerme.placerJetonFerme(jxmin, 0, 2);
-		grilleFerme.placerJetonFerme(jxmin, 1, 2);
-
-		assertTrue(grille.estEgale(grilleFerme));
-		assertTrue(grilleFerme.estEgale(grille));
-//		System.out.println("fermerAlignement XD avec 2");
-//		grille.afficherGrille();
-//		grilleFerme.afficherGrille();
-
-		System.out.println("testTourMorpion FAIT \n");
+		System.out.println("testPartieMorpion FAIT \n");
 	}
 
 //	@Test
@@ -276,7 +307,7 @@ class Test_Coups {
 //		Jeton jo = Jeton.JETON_O;
 //		
 //		//tour avec deux joueurs DIFFERENTS AVEC s=coup gagnant
-//		Grille grille = new Grille();
+//		PartieTicTacToe grille = new PartieTicTacToe();
 //		grille.placerJeton(jx, 0, 0);
 //		grille.placerJeton(jx, 2, 0);
 //		grille.placerJeton(jx, 0, 2);
@@ -303,7 +334,7 @@ class Test_Coups {
 //		assertEquals(0, joueurx.getScore());
 //		
 //		//tour avec deux joueurs differents INVERSE AVEC coup gagnant
-//		grille = new Grille();
+//		grille = new PartieTicTacToe();
 //		grille.placerJeton(jx, 0, 0);
 //		grille.placerJeton(jx, 2, 0);
 //		grille.placerJeton(jx, 0, 2);
@@ -330,7 +361,7 @@ class Test_Coups {
 //		assertEquals(0, joueurx.getScore());		
 //		
 //		//tour avec deux joueurs DIFFERENT mais sans coup gagnant
-//		grille = new Grille();
+//		grille = new PartieTicTacToe();
 //		grille.placerJeton(jx, 0, 0);
 //		grille.placerJeton(jx, 2, 0);
 //		grille.placerJeton(jx, 0, 2);
@@ -357,7 +388,7 @@ class Test_Coups {
 //		assertEquals(0, joueurx.getScore());
 //		
 //		//tour avec deux joueurs DIFFERENT avec coup gagnant diagonal
-//		grille = new Grille();
+//		grille = new PartieTicTacToe();
 //		grille.placerJeton(jx, 0, 0);
 //		grille.placerJeton(jx, 2, 0);
 //		grille.placerJeton(jx, 0, 2);
@@ -390,115 +421,111 @@ class Test_Coups {
 //	}
 //	
 	@Test
-	void testTourForme() {
-		System.out.println("testTourForme EN COURS \n");
+	void testPartieForme() {
+		System.out.println("testPartieForme EN COURS \n");
 
-		Grille grille = new Grille();
+		PartieForme tour = new PartieForme();
 		Jeton jx = Jeton.JETON_X;
 		Jeton jo = Jeton.JETON_O;
-		grille.placerJeton(jo, 0, 0);
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 2, 1);
-		grille.placerJeton(jo, 0, 1);
-		grille.placerJeton(jo, 1, 0);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jx, 1, 2);
-		grille.placerJeton(jo, 2, 2);
+		tour.placerJeton(jo, 0, 0);
+		tour.placerJeton(jx, 2, 0);
+		tour.placerJeton(jx, 0, 2);
+		tour.placerJeton(jx, 2, 1);
+		tour.placerJeton(jo, 0, 1);
+		tour.placerJeton(jo, 1, 0);
+		tour.placerJeton(jo, 1, 1);
+		tour.placerJeton(jx, 1, 2);
+		tour.placerJeton(jo, 2, 2);
 
 		Joueur joueuro = new Joueur(jo);
-		Forme carre = new Forme(1);
-		Forme losange = new Forme(2);
-		Forme etoile = new Forme(3);
+		Forme carre = Forme.CARRE;
+		Forme losange = Forme.LOSANGE;
+		Forme croix = Forme.CROIX;
 		assertEquals(4, carre.getNbrPoint());
 		assertEquals(4, losange.getNbrPoint());
-		assertEquals(5, etoile.getNbrPoint());
+		assertEquals(5, croix.getNbrPoint());
 
-		TourForme tour;
-		tour = new TourForme(grille, joueuro, carre);
-
-		assertTrue(tour.existeForme(0, 0, carre));
-		assertTrue(tour.existeForme(1, 1, carre));
-		assertFalse(tour.existeForme(2, 2, carre));
-		assertFalse(tour.existeForme(0, 2, carre));
-		assertFalse(tour.existeForme(2, 0, carre));
-		assertFalse(tour.existeForme(1, 2, carre));
-		assertFalse(tour.existeForme(2, 1, carre));
-		assertFalse(tour.existeForme(2, 2, carre));
+		tour.afficherGrille();
+		
+		assertTrue(Utils_Grille_Evaluation_Forme.existeForme(0, 0, tour,carre));
+		assertTrue(Utils_Grille_Evaluation_Forme.existeForme(1, 1, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(0, 2, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 0, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(1, 2, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 1, tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.existeForme(2, 2, tour,carre));
 
 		// getCoordForme
 		int[][] coordTest = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 1 }, { 1, 0 } }; // tour du carre dans le sens des
 																					// aiguilles d une montre
 
 		int[][] coordTest1 = new int[carre.getNbrPoint()][2];
-		coordTest1 = tour.getCoordForme(0, 0, carre);
+		coordTest1 = Utils_Grille_Evaluation_Forme.getCoordForme(0, 0, tour, carre);
 
 		assertArrayEquals(coordTest, coordTest1);
 
 		// getJetonForme
-		String jetonCarre = tour.getJetonForme(0, 0, carre);
+		String jetonCarre = Utils_Grille_Evaluation_Forme.getJetonForme(0, 0,tour , carre);
 		String StrCarre = "OOOO";
+		
 		assertEquals(jetonCarre, StrCarre);
-
-		grille.permutationJeton(0, 2, 0, 1);
-		jetonCarre = tour.getJetonForme(0, 0, carre);
+		tour.afficherGrille();
+		tour.placerJeton(jo, 0, 2);
+		tour.placerJeton(jx, 0, 1);
+		jetonCarre = Utils_Grille_Evaluation_Forme.getJetonForme(0, 0,tour, carre);
 		StrCarre = "OXOO";
 		assertEquals(jetonCarre, StrCarre);
-		jetonCarre = tour.getJetonForme(0, 1, carre);
+		jetonCarre = Utils_Grille_Evaluation_Forme.getJetonForme(0, 1,tour, carre);
 		StrCarre = "XOXO";
 		assertEquals(jetonCarre, StrCarre);
 
-		grille.permutationJeton(0, 2, 0, 1);
-
 		// getJetonFormeAll
-		grille = new Grille();
-		grille.placerJeton(jo, 0, 0);
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 2, 1);
+		tour = new PartieForme();
+		tour.placerJeton(jo, 0, 0);
+		tour.placerJeton(jx, 2, 0);
+		tour.placerJeton(jx, 0, 2);
+		tour.placerJeton(jx, 2, 1);
 
-		tour = new TourForme(grille, joueuro, carre);
+		System.out.println(Utils_Grille_Evaluation_Forme.getJetonFormeAll(1, 1, tour,carre));
+		tour.afficherGrille();
 
-		System.out.println(tour.getJetonFormeAll(1, 1, carre));
-		grille.afficherGrille();
+		tour.placerJeton(jo, 2, 2);
 
-		grille.placerJeton(jo, 2, 2);
+		System.out.println(Utils_Grille_Evaluation_Forme.getJetonFormeAll(1, 1, tour,carre));
+		tour.afficherGrille();
 
-		System.out.println(tour.getJetonFormeAll(1, 1, carre));
-		grille.afficherGrille();
+		tour.placerJeton(jo, 1, 1);
 
-		grille.placerJeton(jo, 1, 1);
-
-		System.out.println(tour.getJetonFormeAll(1, 1, carre));
-		grille.afficherGrille();
+		System.out.println(Utils_Grille_Evaluation_Forme.getJetonFormeAll(1, 1, tour,carre));
+		tour.afficherGrille();
 
 		// estCompleteForme
-		grille = new Grille();
-		grille.placerJeton(jo, 0, 0);
-		grille.placerJeton(jx, 2, 0);
-		grille.placerJeton(jx, 0, 2);
-		grille.placerJeton(jx, 2, 1);
-		grille.placerJeton(jo, 0, 1);
-		grille.placerJeton(jo, 1, 0);
-		grille.placerJeton(jo, 1, 1);
-		grille.placerJeton(jx, 1, 2);
-		grille.placerJeton(jo, 2, 2);
-		grille.afficherGrille();
+		tour = new PartieForme();
+		tour.placerJeton(jo, 0, 0);
+		tour.placerJeton(jx, 2, 0);
+		tour.placerJeton(jx, 0, 2);
+		tour.placerJeton(jx, 2, 1);
+		tour.placerJeton(jo, 0, 1);
+		tour.placerJeton(jo, 1, 0);
+		tour.placerJeton(jo, 1, 1);
+		tour.placerJeton(jx, 1, 2);
+		tour.placerJeton(jo, 2, 2);
+		tour.afficherGrille();
+//
+//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 0,tour,carre));
+//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 1,tour,carre));
+//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 1,tour,carre));
+//		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 0,tour,carre));
+//
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 2,tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 2,tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 0,tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 1,tour,carre));
+//		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2,tour,carre));
 
-		tour = new TourForme(grille, joueuro, carre);
-		assertTrue(tour.estCompleteForme(0, 0));
-		assertTrue(tour.estCompleteForme(1, 1));
-		assertTrue(tour.estCompleteForme(0, 1));
-		assertTrue(tour.estCompleteForme(1, 0));
-
-		assertFalse(tour.estCompleteForme(0, 2));
-		assertFalse(tour.estCompleteForme(1, 2));
-		assertFalse(tour.estCompleteForme(2, 2));
-		assertFalse(tour.estCompleteForme(2, 0));
-		assertFalse(tour.estCompleteForme(2, 1));
-		assertFalse(tour.estCompleteForme(2, 2));
-
-		System.out.println("testTourForme FAIT \n");
+		System.out.println("testPartieForme FAIT \n");
 	}
 
 }

@@ -1,5 +1,7 @@
 package appli;
 
+import java.util.EnumSet;
+
 import grille.Direction;
 import grille.Jeton;
 import interaction.MessagePlacement;
@@ -66,28 +68,74 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
-		if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign,
-				this) >= 1) {
+		if (Utils_Grille_Evaluation_Alignement.appartientAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
+			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 
-			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
-			if (jetonEvalue.estEgal(joueur1.getJeton())) {
-				joueur1.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
-			}
-			if (jetonEvalue.estEgal(joueur2.getJeton())) {
-				joueur2.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
-			}
+				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
+				if (jetonEvalue.estEgal(joueur1.getJeton())) {
+					joueur1.marquerPoint();
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				}
+				if (jetonEvalue.estEgal(joueur2.getJeton())) {
+					joueur2.marquerPoint();
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				}
 
-			fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
-			afficherGrille();
+				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
+				afficherGrille();
+			}
 		}
 
 	}
 
+	@Override
+	public boolean estFinie() {
+		return estPleineGrille();
+	}
+
 	// ************ EN AVAL DU COUP GAGNANT ******************
+
 	/**
-	 * ferme des jetons après ils ont ete trouves dans un alignement ferme d abord
+	 * fermer les jeton selon un axe (continue) de longueur profondeur d orientation
+	 * suivant oneDirection mais ne ferme pas le jeton de depart (coord
+	 * ligne,colonne) Ne continue de fermer que si les jetons evalue ne sont pas
+	 * vide ne sont pas deja ferme sont les memes (axe continue) et renvoie le
+	 * nombre de fermeture de jetons realisees
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur si egale a 0 la cellule fermee sera uniquement la
+	 *                   cellule[ligne][colonne]
+	 * @param direction  orientation de l axe de fermeture des jetons
+	 * @return renvoie le nombre de jetons ferme
+	 */
+	public int fermerAxeJetons1D(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (profondeur >= 1);
+
+		int nbrJetonFermes = 0;
+		int coeffProfondeur = 1;
+		boolean valide = true;
+		while (coeffProfondeur <= profondeur && this.existeNextCellule(ligne, colonne, coeffProfondeur, direction)
+				&& valide) {
+			int[] coordCible = coordNextJeton(ligne, colonne, coeffProfondeur, direction);
+			int ligneCible = coordCible[0];
+			int colonneCible = coordCible[1];
+			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
+				ouvertToFermeJeton(ligneCible, colonneCible);
+				++nbrJetonFermes;
+			} 
+			else {
+				valide = false;
+			}
+			++coeffProfondeur;
+		}
+		return nbrJetonFermes;
+	}
+
+	/**
+	 * ferme des jetons après ils ont ete trouves dans un alignement, ferme d abord
 	 * dans une direction (nord au sud sens horaire) puis si le nombre de jeton a
 	 * fermer n a pas ete atteint ferme des jetons dans la direction opposée (nord
 	 * au sud sens anti horaire) il faut que le jeton evalue soit ouvert
@@ -102,93 +150,166 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
 		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
-		assert (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(ligne, colonne, profondeur, this) >= 1);
-		Jeton jetonModel = getCellule(ligne, colonne); // dernier jeton que l on va fermer et qui nous servera de modele
-		// pour la fermeture des autres jetons
-		assert (estOuvert(ligne, colonne));// il faut que le jeton evalue soit ouvert
 
-		Direction direction = Utils_Grille_Evaluation_Alignement.directionAlignementXD(ligne, colonne, profondeur,
-				this); // axe dans lequel la fermeture va se realiser
+		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));// on s assure qu il y ait deja un alignement
+		assert (estOuvert(ligne, colonne));// il faut que le jeton evalue soit ouvert sinon on va tenter de fermer des
+											// jetons qui le sont deja
 
-		boolean aligne = true;// permet de controler que les jetons fermer sont bien alignes
-		int indice = 1; // permet de progresser le long de l alignements
-		int resteJeton = profondeur; // compte le nombre de jetons qu il reste a fermer
+		Direction direction = getAllDirectAlignOouF(ligne, colonne, profondeur)[0]; // axe dans lequel la fermeture va
+																					// se realiser
+		assert (direction != null);
 
-		while (aligne && indice < profondeur && resteJeton > 1) {
-			if (existeNextCellule(ligne, colonne, indice, direction)) {
-				int[] coordCibleD = coordNextJeton(ligne, colonne, indice, direction);
-				Jeton jetonCibleD = getCellule(coordCibleD[0], coordCibleD[1]);
-				if (jetonModel.estEgal(jetonCibleD) && estOuvert(coordCibleD[0], coordCibleD[1])) {
-					ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
-					--resteJeton;
-				} else {
-					aligne = false;
-				}
-				++indice;
-			} else {
-				aligne = false;
-			}
-		}
+		int resteJeton = profondeur - 1; // compte le nombre de jetons qu il reste a fermer il faut que le dernier jeton
 
-		// si le nombre de jeton a ferme n est toujours pas atteint
-		// ils doivent etre dans l autre direction
-		if (resteJeton >= 1) {
-			aligne = true;
-			indice = 1;
-			direction = direction.inverser();
-			while (aligne && indice < profondeur && resteJeton > 1) {
-				if (existeNextCellule(ligne, colonne, indice, direction)) {
-					int[] coordCibleD = coordNextJeton(ligne, colonne, indice, direction);
-					Jeton jetonCibleD = getCellule(coordCibleD[0], coordCibleD[1]);
-					if (jetonModel.estEgal(jetonCibleD) && estOuvert(coordCibleD[0], coordCibleD[1])) {
-						ouvertToFermeJeton(coordCibleD[0], coordCibleD[1]);
-						--resteJeton;
-					} else {
-						aligne = false;
-					}
-					++indice;
-				} else {
-					aligne = false;
-				}
-			}
-		}
-		// fermeture du jeton model
-		assert (resteJeton == 1);
+		// fermeture d un premier sens de la direction
+		resteJeton -= fermerAxeJetons1D(ligne, colonne, profondeur, direction);
+		// fermeture du sens oppose de la direction
+		resteJeton -= fermerAxeJetons1D(ligne, colonne, resteJeton, direction.inverser());
+		assert (resteJeton == 0);
+
+		// fermeture du premier jeton en dernier car il sert de modele a
+		// fermerAxeJetons1D
 		ouvertToFermeJeton(ligne, colonne);
 	}
 
+	// ************ EVALUATION ALIGNEMENT OUVERT OU FERME ******************
+
 	/**
-	 * fermer les jeton selon un axe de longueur profondeur d orientation suivant
-	 * oneDirection
+	 * renvoie une chaine de symbole de jetons OUVERT OU FERME obtenus dans une
+	 * direction donnee de taille inferieure ou egale a la profondeur (tant que la
+	 * projection est dans la grille) a partir d une case de la grille (ligne,
+	 * colonne) 
+	 * Attention la case de depart n est pas comprise dans la chaine
 	 * 
 	 * @param ligne
 	 * @param colonne
-	 * @param profondeur   si egale a 0 la cellule fermee sera uniquement la
-	 *                     cellule[ligne][colonne]
-	 * @param oneDirection orientation de l axe de fermeture des jetons
+	 * @param profondeur
+	 * @param direction
+	 * @param grille
+	 * @return
 	 */
-	public void fermerAxeJetons1D(int ligne, int colonne, int profondeur, Direction oneDirection) {
-		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
-		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+	public String getLigneJetonOouF(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < this.getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < this.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (profondeur > 0);
 
-		for (int i = 0; i <= profondeur; ++i) {
-			if (existeNextCellule(ligne, colonne, profondeur, oneDirection)) {
-				int[] coordCible = coordNextJeton(ligne, colonne, profondeur, oneDirection);
-				int ligneCible = coordCible[0];
-				int colonneCible = coordCible[1];
-				if (!getCellule(ligneCible, colonneCible).estVideJeton()) {
-					if (estOuvert(ligneCible, colonneCible)) {
-						ouvertToFermeJeton(ligneCible, colonneCible);
-					}
-				}
-			}
+		String aligneCible = "";
+		int coeffProfondeur = 1;
+
+		while (coeffProfondeur <= profondeur && this.existeNextCellule(ligne, colonne, coeffProfondeur, direction)) {
+			int colonneCible = coeffProfondeur * direction.getDcolonne()+colonne;
+			int ligneCible = coeffProfondeur * direction.getDligne()+ligne;
+			aligneCible += getSymboleJetonOouF(ligneCible, colonneCible);
+			++coeffProfondeur;
 		}
-
+		return aligneCible;
 	}
 
-	@Override
-	public boolean estFinie() {
-		return estPleineGrille();
+	/**
+	 * alignement OUVERT OU FERME pour UNE Direction donnee ET son Inversee
+	 * 
+	 * @param ligne      de la cellule observée
+	 * @param colonne    de la cellule observée
+	 * @param profondeur est le nombre de cellule observées au max qui sont alignées
+	 *                   dans grille doit etre >=2
+	 * @param direction  et direction opposée vers laquelle observer un alignement
+	 * @return si un alignement a été trouvé
+	 */
+	public boolean appartientAlignOouF(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+
+		String aligneEvalue = "";
+		for (int i = 1; i <= profondeur; ++i) {
+			aligneEvalue += getSymboleJetonOouF(ligne, colonne);
+		}
+
+		String aligneCible = "";
+		aligneCible += getLigneJetonOouF(ligne, colonne, profondeur, direction.inverser());
+		aligneCible += getSymboleJetonOouF(ligne, colonne);
+		aligneCible += getLigneJetonOouF(ligne, colonne, profondeur, direction);
+
+		return aligneCible.contains(aligneEvalue);
+	}
+
+	/**
+	 * alignement OUVERT OU FERME pour TOUTES les Directions disponibles le nombre
+	 * de direction pour laquelle un alignement a ete trouvé
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @return le nombre de direction/orientation qui ont été trouvés avec
+	 *         alignementCellule dans toutes les directions
+	 */
+	public int nbrDirectAvecAlignOouF(int ligne, int colonne, int profondeur) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+
+		int alignement = 0;
+
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
+			if (appartientAlignOouF(ligne, colonne, profondeur, oneDirection)) {
+				++alignement;
+			}
+		}
+		return alignement;
+	}
+
+	/**
+	 * existe t il une direction pour laquelle un alignement OUVERT OU FERME de
+	 * taille profondeur a ete trouve ?
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param grille
+	 * @return
+	 */
+	public boolean isDirectAvecAlignOouF(int ligne, int colonne, int profondeur) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+
+		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
+			if (appartientAlignOouF(ligne, colonne, profondeur, oneDirection)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * AVANT appel de cette fonction il devra avoir ete verifie qu il avait des
+	 * alignements renvoie les directions (droites et inverses) pour lesquelles un
+	 * alignement OUVERT a ete trouve
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @return table des directions pour lesquelles un alignement a ete trouve
+	 */
+	public Direction[] getAllDirectAlignOouF(int ligne, int colonne, int profondeur) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (!estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
+		assert (profondeur >= 2);
+		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));
+
+		Direction[] tableDirect = new Direction[nbrDirectAvecAlignOouF(ligne, colonne, profondeur)];
+		int indice = 0;
+		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
+			if (appartientAlignOouF(ligne, colonne, profondeur, direction)) {
+				tableDirect[indice] = direction;
+				++indice;
+			}
+
+		return tableDirect;
 	}
 
 }

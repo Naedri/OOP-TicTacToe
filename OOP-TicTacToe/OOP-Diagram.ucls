@@ -101,11 +101,11 @@
     </display>  
   </enumeration>  
   <association id="12">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="13" name="jeton">        
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="13" name="grille">        
         <position height="0" width="0" x="-446" y="-666"/>      
       </attribute>      
-      <multiplicity id="14" minimum="0" maximum="1">        
+      <multiplicity id="14" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="-446" y="-666"/>      
       </multiplicity>    
     </end>    
@@ -117,11 +117,11 @@
     <end type="TARGET" refId="7"/>  
   </realization>  
   <association id="16">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="17" name="grille">        
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="17" name="jeton">        
         <position height="0" width="0" x="-446" y="-666"/>      
       </attribute>      
-      <multiplicity id="18" minimum="0" maximum="2147483647">        
+      <multiplicity id="18" minimum="0" maximum="1">        
         <position height="0" width="0" x="-446" y="-666"/>      
       </multiplicity>    
     </end>    

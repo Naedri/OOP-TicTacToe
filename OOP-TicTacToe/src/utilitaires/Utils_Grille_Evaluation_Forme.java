@@ -20,7 +20,8 @@ public interface Utils_Grille_Evaluation_Forme {
 	 * @return
 	 */
 	public static boolean existeForme(int ligne, int colonne, CA_Grille grille, Forme forme) {
-		boolean existe = true;
+		assert (ligne < grille.getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
 		// le premier point de la forme est evalue en coordonne [ligne,colonne]
 
 		for (int i = 0; i < forme.getNbrPoint(); ++i) {
@@ -40,7 +41,7 @@ public interface Utils_Grille_Evaluation_Forme {
 				colonne = coordCible[1];
 			}
 		}
-		return existe;
+		return true;
 	}
 
 	/**

@@ -140,6 +140,7 @@ public class PartiePermutation extends PartieMorpion {
 			Joueur joueurMarquant = null;
 			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign,
 					this) >= 1) {
+				if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 				if (getCellule(saisieCellule[0], saisieCellule[1]).estEgal(joueur1.getJeton())) {
 					joueurMarquant = joueur1;
 				} else {
@@ -150,11 +151,13 @@ public class PartiePermutation extends PartieMorpion {
 				afficherGrille();
 				joueurMarquant.marquerPoint();
 			}
+			}
 		}
 		if (estOuvert(saisieCellule2[0], saisieCellule2[1])) {
 			Joueur joueurMarquant = null;
 			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], nbrAlign,
 					this) >= 1) {
+				if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 				if (getCellule(saisieCellule2[0], saisieCellule2[1]).estEgal(joueur1.getJeton())) {
 					joueurMarquant = joueur1;
 				} else {
@@ -164,6 +167,7 @@ public class PartiePermutation extends PartieMorpion {
 				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueurMarquant));
 				afficherGrille();
 				joueurMarquant.marquerPoint();
+			}
 			}
 		}
 

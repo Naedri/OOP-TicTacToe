@@ -1,5 +1,6 @@
 package appli;
 
+
 import grille.Jeton;
 
 public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
@@ -10,6 +11,24 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 		super(nbrLignes, nbrColonnes);
 		grilleOuvertureJetons = new boolean[nbrLignes][nbrColonnes];
 		iniGrilleFermeture();
+	}
+	
+	// ******* GETTEURS ********
+	
+	/**
+	 * Compte le nombre de jeton ouvert
+	 * @return
+	 */
+	public int getNbrOuvert() {
+		int cpt = 0 ;
+		for (int i = 0; i < grilleOuvertureJetons.length; i++) {
+			for (int j = 0; j < grilleOuvertureJetons[0].length; j++) {
+				if (grilleOuvertureJetons[i][j]) {
+					++cpt;
+				}
+			}
+		}
+		return cpt ;
 	}
 
 	// ******* METHODE GRILLE *******
@@ -23,11 +42,30 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 		}
 	}
 
+	/**
+	 * ferme le jeton (ligne, colonne) fournie 
+	 * @param ligne
+	 * @param colonne
+	 */
 	public void ouvertToFermeJeton(int ligne, int colonne) {
 		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); // la cellule doit être dans la grille
 		assert (grilleOuvertureJetons[ligne][colonne]); // le jeton doit etre initialement ouvert
+		assert (! estVideCellule(ligne, colonne));
 		grilleOuvertureJetons[ligne][colonne] = false;
+	}
+	
+	/**
+	 * ferme la table de jeton (ligne, colonne) fournie
+	 * @param coordCible
+	 */
+	public void ouvertsToFermesJetons (int[][] coordCible) {
+		assert (coordCible != null);
+		for (int i = 0; i < coordCible.length; i++) {
+			for (int j = 0; j < coordCible[0].length; j++) {
+				ouvertToFermeJeton(i, j);
+			}
+		}
 	}
 
 	public boolean estOuvert(int ligne, int colonne) {

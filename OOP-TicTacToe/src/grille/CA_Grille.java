@@ -169,7 +169,7 @@ public abstract class CA_Grille implements In_Grille {
 	 */
 	public boolean estEgaleGrille(Jeton[][] grille2) {
 		// comparaison de taille
-		if ((this.grille.length != grille2.length) || (this.grille[0].length != grille2[0].length)) {
+		if ((this.grille.length != grille.length) || (this.grille[0].length != grille2[0].length)) {
 			return false;
 		}
 		// comparaison des cellules
