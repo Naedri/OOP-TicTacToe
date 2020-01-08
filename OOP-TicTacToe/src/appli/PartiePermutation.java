@@ -8,7 +8,6 @@ import grille.Jeton;
 import interaction.MessagePermutation;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
-import utilitaires.Utils_Grille_Evaluation_Alignement;
 
 public class PartiePermutation extends PartieMorpion {
 
@@ -27,8 +26,9 @@ public class PartiePermutation extends PartieMorpion {
 
 		this.nbrAlign = nbrAlign;
 		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
-		assert (nbrAlign <= choixNbrAlignMax); // ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
-												// lignes de votre grille
+		assert (nbrAlign <= choixNbrAlignMax); 
+		// ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
+		// lignes de votre grille
 	}
 
 	public PartiePermutation(int nbrLignes, int nbrColonnes) {
@@ -39,8 +39,9 @@ public class PartiePermutation extends PartieMorpion {
 
 		this.nbrAlign = 3;
 		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
-		assert (nbrAlign <= choixNbrAlignMax); // ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
-												// lignes de votre grille
+		assert (nbrAlign <= choixNbrAlignMax); 
+		// ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
+		// lignes de votre grille
 	}
 
 	public PartiePermutation() {
@@ -62,11 +63,9 @@ public class PartiePermutation extends PartieMorpion {
 	private void remplirAleaGrille() {
 		assert (this.estVideGrille());
 		// initialisation de la liste des jetons
-		LinkedList<Jeton> listeJetons = new LinkedList<Jeton>(); // Linked list car acces terminaux constant
-//		//initialisation de la liste des jetons si le nombre de jeton est impair il y aura un jeton O de plus
-//		for (int i = 0; i < getNbrCellules(); ++i) {
-//			listeJetons.addLast(Jeton.values()[(i+1) %2 +1]);
-//		}
+		LinkedList<Jeton> listeJetons = new LinkedList<Jeton>(); 
+		// Linked list car acces terminaux constant
+
 		// initialisation de la liste des jetons
 		if (getNbrCellules() % 2 == 0) {
 			for (int i = 0; i < getNbrCellules(); ++i) {
@@ -136,43 +135,26 @@ public class PartiePermutation extends PartieMorpion {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
 		assert (saisieCellule2 != null);// on oblige le joueur a avoir jouer un coup
 
-		if (estOuvert(saisieCellule[0], saisieCellule[1])) {
-			Joueur joueurMarquant = null;
-			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign,
-					this) >= 1) {
-				if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
-				if (getCellule(saisieCellule[0], saisieCellule[1]).estEgal(joueur1.getJeton())) {
-					joueurMarquant = joueur1;
-				} else {
-					joueurMarquant = joueur2;
-				}
-				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueurMarquant));
-				afficherGrille();
-				joueurMarquant.marquerPoint();
-			}
-			}
+		evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule);
+		if ( estOuvert(saisieCellule2[0], saisieCellule2[1])) {
+			evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule2);
 		}
-		if (estOuvert(saisieCellule2[0], saisieCellule2[1])) {
-			Joueur joueurMarquant = null;
-			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], nbrAlign,
-					this) >= 1) {
-				if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
-				if (getCellule(saisieCellule2[0], saisieCellule2[1]).estEgal(joueur1.getJeton())) {
-					joueurMarquant = joueur1;
-				} else {
-					joueurMarquant = joueur2;
-				}
-				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], nbrAlign);
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueurMarquant));
-				afficherGrille();
-				joueurMarquant.marquerPoint();
-			}
-			}
-		}
-
 	}
 
+	@Override
+	public boolean estFinie() {
+		return (getScoreJ1() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign) || getScoreJ2() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign));
+	}
+
+	public static int pointMaxPermut(int ligne, int colonne, int align) {
+		assert (ligne > 0 && colonne > 0 && align > 0);
+		int pointMax = (ligne * colonne) - ((ligne * colonne) % 2);
+		pointMax /= 2;
+		pointMax /= align;
+		return pointMax;
+
+	}
+	
 	// ******* METHODE GRILLE PERMUTATION *******
 	/**
 	 * permute deux jetons de la grille verifie que les deux jetons electionnes sont
@@ -195,30 +177,24 @@ public class PartiePermutation extends PartieMorpion {
 		assert (!estVideCellule(ligne1, colonne1)); // la cellule ne doit pas etre vide
 		assert (!estVideCellule(ligne2, colonne2)); // la cellule ne doit pas etre vide
 
-		assert (Utils_Grille_Evaluation_Adjacent.sontAdjacents(ligne1, colonne1, ligne2, colonne2, this)); // les jetons
-																											// doivent
-																											// etre
-																											// adjacents
-
-		// si les jetons sont differents
-		if (!getCellule(ligne1, colonne1).estEgal(getCellule(ligne2, colonne2))) {
+		assert (Utils_Grille_Evaluation_Adjacent.sontAdjacents(ligne1, colonne1, ligne2, colonne2, this)); 
+		
+		//permutation jeton
+		if ( (!getCellule(ligne1, colonne1).estEgal(getCellule(ligne2, colonne2))) ) {
 			Jeton jtemp = getCellule(ligne1, colonne1);
 			placerJeton(getCellule(ligne2, colonne2), ligne1, colonne1);
 			placerJeton(jtemp, ligne2, colonne2);
 		}
-	}
-
-	@Override
-	public boolean estFinie() {
-		return (getScoreJ1() >= pointMaxPermut(5, 6, 3) || getScoreJ2() >= pointMaxPermut(5, 6, 3));
-	}
-
-	public static int pointMaxPermut(int ligne, int colonne, int align) {
-		assert (ligne > 0 && colonne > 0 && align > 0);
-		int pointMax = (ligne * colonne) - ((ligne * colonne) % 2);
-		pointMax /= 2;
-		pointMax /= align;
-		return pointMax;
-
+		//permutation ouverture
+		if ((estOuvert(ligne1, colonne1) && !estOuvert(ligne2, colonne2) ) || (!estOuvert(ligne1, colonne1) && estOuvert(ligne2, colonne2) ) ) {
+			if (estOuvert(ligne1, colonne1)) {
+				ouvertToFermeJeton(ligne1, colonne1);
+				fermeToOuvertJeton(ligne2, colonne2);
+			}
+			else {
+				fermeToOuvertJeton(ligne1, colonne1);
+				ouvertToFermeJeton(ligne2, colonne2);
+			}
+		}
 	}
 }

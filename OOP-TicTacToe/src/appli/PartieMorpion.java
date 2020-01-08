@@ -67,25 +67,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
-		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
-		if (Utils_Grille_Evaluation_Alignement.appartientAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
-			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
-
-				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
-				if (jetonEvalue.estEgal(joueur1.getJeton())) {
-					joueur1.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
-				}
-				if (jetonEvalue.estEgal(joueur2.getJeton())) {
-					joueur2.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
-				}
-
-				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
-				afficherGrille();
-			}
-		}
-
+		evaluerCoupAlignOuvert(joueur1,joueur2, this.saisieCellule);
 	}
 
 	@Override
@@ -164,7 +146,9 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		// fermeture d un premier sens de la direction
 		resteJeton -= fermerAxeJetons1D(ligne, colonne, profondeur, direction);
 		// fermeture du sens oppose de la direction
-		resteJeton -= fermerAxeJetons1D(ligne, colonne, resteJeton, direction.inverser());
+		if (resteJeton >=1) {
+			resteJeton -= fermerAxeJetons1D(ligne, colonne, resteJeton, direction.inverser());
+		}
 		assert (resteJeton == 0);
 
 		// fermeture du premier jeton en dernier car il sert de modele a
@@ -310,6 +294,28 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 			}
 
 		return tableDirect;
+	}
+	
+	// ************ EVALUATION ALIGNEMENT OUVERT ******************
+
+	public void evaluerCoupAlignOuvert (Joueur joueur1, Joueur joueur2, int[] saisieCellule) {
+		assert ( joueur1 != null && joueur2 != null && saisieCellule != null && joueur1 != joueur2);
+		if (Utils_Grille_Evaluation_Alignement.appartientAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
+			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
+
+				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
+				if (jetonEvalue.estEgal(joueur1.getJeton())) {
+					joueur1.marquerPoint();
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				}
+				if (jetonEvalue.estEgal(joueur2.getJeton())) {
+					joueur2.marquerPoint();
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				}
+				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
+				afficherGrille();
+			}
+		}
 	}
 
 }

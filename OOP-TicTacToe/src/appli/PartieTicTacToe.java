@@ -51,11 +51,11 @@ public class PartieTicTacToe extends CA_Grille_Partie {
 			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())) {
 				joueur1.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+//				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
 			if (jetonEvalue.estEgal(joueur2.getJeton())) {
 				joueur2.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+//				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
 		}
 	}

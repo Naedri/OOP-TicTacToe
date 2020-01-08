@@ -13,6 +13,7 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 		iniGrilleFermeture();
 	}
 	
+	
 	// ******* GETTEURS ********
 	
 	/**
@@ -53,6 +54,19 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 		assert (grilleOuvertureJetons[ligne][colonne]); // le jeton doit etre initialement ouvert
 		assert (! estVideCellule(ligne, colonne));
 		grilleOuvertureJetons[ligne][colonne] = false;
+	}
+	
+	/**
+	 * ouvre le jeton (ligne, colonne) fournie 
+	 * @param ligne
+	 * @param colonne
+	 */
+	public void fermeToOuvertJeton(int ligne, int colonne) {
+		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); // la cellule doit être dans la grille
+		assert (!grilleOuvertureJetons[ligne][colonne]); // le jeton doit etre initialement ferme
+		assert (! estVideCellule(ligne, colonne));
+		grilleOuvertureJetons[ligne][colonne] = true;
 	}
 	
 	/**

@@ -12,14 +12,14 @@ class Test_Appli {
 //		partieTicTacToe.lancerPartie() ;
 //	}
 
-	// statut ok
-	@Test
-	void testMorpion() {
-		int ligneGrille = 3, colonneGrille = 5;
-		PartieMorpion partieMorpion = new PartieMorpion(ligneGrille, colonneGrille) ;
-		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
-		partieMorpion.lancerPartie() ;
-	}
+//	// statut ok
+//	@Test
+//	void testMorpion() {
+//		int ligneGrille = 3, colonneGrille = 5;
+//		PartieMorpion partieMorpion = new PartieMorpion(ligneGrille, colonneGrille) ;
+//		System.out.println("La partie de Morpion va commencer, preparez-vous !\n");
+//		partieMorpion.lancerPartie() ;
+//	}
 
 //	// statut ok
 //	@Test

@@ -105,7 +105,7 @@ public interface Utils_Grille_Evaluation_Forme {
 	}
 
 	/**
-	 * permet de renvoyer le contenue des cellules (cad jetons) (dans une chaine de
+	 * permet de renvoyer le contenue des cellules (cad JETONS) (dans une chaine de
 	 * caractere) appartenant à plusieurs formes derivees d une seule (forme donnee)
 	 * les formes sont derivees à partir de forme.transForme() qui renvoie une forme
 	 * dont les indices sont decale de int decalageIndice permettant ainsi les
@@ -157,11 +157,54 @@ public interface Utils_Grille_Evaluation_Forme {
 
 		// quelle sont les formes derivees dans lesquelles sont impliques la
 		// cellule[ligne,colonne] observe
-		// pou le template donnee (forme)
+		// pour le template donnee (forme)
 		String formeEvaluee = getJetonFormeAll(ligne, colonne, grille, forme);
 
 		// comparaison des chaines
 		return formeEvaluee.contains(formeCible);
 	}
+	
+	
+	/**
+	 * si un point complete une forme
+	 * permet d obtenir les coordonnees des jetons
+	 * emme si le jeton complete plusieurs forme a la fois
+	 * il n y aura qu une seule forme complete renvoye
+	 * 
+	 * @param ligne   du point d ancarge de la forme
+	 * @param colonne du point d ancrage de la forme
+	 * @param forme   evaluee d origine
+	 * @return table 
+	 */
+	public static int[][] getCoordFormeComplete(int ligne, int colonne, CA_Grille grille, Forme forme) {
+		assert (ligne < grille.getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < grille.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (estCompleteForme(ligne, colonne, grille, forme));
 
+		
+		// quelle chaine devrait on avoir pour que la forme soit complete
+		Jeton jetonCible = grille.getCellule(ligne, colonne);
+		String formeCible = "";
+		for (int i = 1; i <= forme.getNbrPoint(); ++i) {
+			formeCible += jetonCible.getSymbole();
+		}
+		
+		int[][] coordFormeComplete = new int[forme.getNbrPoint()][2];
+		
+		// quelle sont les formes derivees dans lesquelles sont impliques la
+		// cellule[ligne,colonne] observe
+		// pour le template donnee (formeCible)
+		for (int i = 0; i < forme.getNbrPoint(); ++i) {
+			Forme formeTemp = forme.transForme(i);
+			if (existeForme(ligne, colonne, grille, formeTemp)) {
+				String sFormeTemp = getJetonForme(ligne, colonne, grille, formeTemp);
+				if (formeCible.equals(sFormeTemp)) {
+					coordFormeComplete = getCoordForme(ligne, colonne, grille, formeTemp);
+					 return coordFormeComplete ; 
+				}
+			}
+		}
+		
+		return coordFormeComplete;
+	}
 }

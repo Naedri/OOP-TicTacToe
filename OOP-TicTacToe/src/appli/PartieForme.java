@@ -6,7 +6,7 @@ import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Forme;
 
-public class PartieForme extends CA_Grille_Partie {
+public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 
 	private Forme forme;
 	private int[] saisieCellule;
@@ -48,10 +48,15 @@ public class PartieForme extends CA_Grille_Partie {
 			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())) {
 				joueur1.marquerPoint();
+				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
 			if (jetonEvalue.estEgal(joueur2.getJeton())) {
 				joueur2.marquerPoint();
+				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur2));
 			}
+			int[][] coordAFermer = Utils_Grille_Evaluation_Forme.getCoordFormeComplete(saisieCellule[0], saisieCellule[1], this, forme);
+			ouvertsToFermesJetons(coordAFermer);
+			afficherGrille();
 
 		}
 	}
