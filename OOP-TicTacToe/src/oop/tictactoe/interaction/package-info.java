@@ -1,4 +1,4 @@
-package oop.tictactoe.jouer;
+package oop.tictactoe.interaction;
 
 /*
  * package contenant les élements 

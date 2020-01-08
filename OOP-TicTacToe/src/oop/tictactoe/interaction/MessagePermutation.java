@@ -1,8 +1,8 @@
-package oop.tictactoe.jouer;
+package oop.tictactoe.interaction;
 
-import oop.tictactoe.jouer.Joueur;
+import oop.tictactoe.appli.Joueur;
 
-public interface In_MessagesPermutation extends In_Interaction {
+public class MessagePermutation {
 
 	/**
 	 * Message indiquant que

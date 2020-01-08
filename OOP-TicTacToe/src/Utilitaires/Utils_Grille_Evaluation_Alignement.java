@@ -1,6 +1,8 @@
-package oop.tictactoe.appli;
+package Utilitaires;
 
 import java.util.EnumSet;
+
+import oop.tictactoe.grille.CA_Grille;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 

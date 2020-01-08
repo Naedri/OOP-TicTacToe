@@ -48,3 +48,5 @@ aurait il fallu changer directement les jetons en creant une méthode
 18.doit on avoir une classe joueur, on pourrait avoir une table de score ? mais le si on veut plusieurs joueurs, cela securise d avoir des jetons differents.
 
 19. il ne semble pas pertinent de faire heriter le morpion du tic tac toe car pour definir la classe abstraite jeu grille il faut definir un nombre de tour max et nombre de point max, ils different du tic tac toe et du morpion
+
+20. il y a des angles mort pour nos methodes forme 

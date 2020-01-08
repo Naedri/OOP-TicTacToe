@@ -1,48 +1,57 @@
 package oop.tictactoe.appli;
 
-import oop.tictactoe.jouer.In_Interaction;
-import oop.tictactoe.jouer.Joueur;
-import oop.tictactoe.jouer.Match;
+import oop.tictactoe.grille.CA_Grille;
+import oop.tictactoe.interaction.Messages_Saisie;
 
 public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie{
 	
 	private Joueur joueur1 ;
 	private Joueur joueur2 ;
-	private Match match ;
+	private int tour ;
 	
-	public CA_Grille_Partie(int nbrLignes, int nbrColonnes, int nombrePointMax, int nombreTourMax) {
+	public CA_Grille_Partie(int nbrLignes, int nbrColonnes) {
 		super(nbrLignes, nbrColonnes);
 		joueur1 = new Joueur();
 		joueur2 = new Joueur();
-		match = new Match(nombrePointMax, nombreTourMax);
+		tour = 0 ;
 	}
 	
 	public void lancerPartie() {
 		afficherGrille();
 		//on fait des tours
-		while(!(match.estTourMax() || match.getVictoire())) {
-			match.tourDebut();
-			
-			Joueur joueurActuel = ( match.getTour()%2 == 0 ) ? joueur2 : joueur1 ;
+		while(!(estFinie())) {
+			++tour ;
+			Joueur joueurActuel = ( tour %2 == 0 ) ? joueur2 : joueur1 ;
 
-			System.out.println(In_Interaction.afficherMessageDebutTour(joueurActuel));
-
+			System.out.println(Messages_Saisie.afficherMessageDebutTour(joueurActuel));			
 			jouerCoup(joueurActuel);
 			afficherGrille();
 			evaluerCoup(joueur1, joueur2);
 			
-			match.evalVictoireParPointMax (joueurActuel);
-
-			System.out.println(In_Interaction.afficherMessageFinTour(joueurActuel));
+			System.out.println(Messages_Saisie.afficherMessageFinTour(joueurActuel));
 		}
 		//on compte les points
-		System.out.println(In_Interaction.afficherMessageResultat(match, joueur1, joueur2));
+		System.out.println(Messages_Saisie.afficherMessageResultat(joueur1, joueur2));
 
 	}
 
-	protected abstract void jouerCoup(Joueur joueurActuel);
+	public abstract boolean estFinie();
 
-	protected abstract void evaluerCoup(Joueur joueur1, Joueur joueur2);
+	public abstract void jouerCoup(Joueur joueurActuel);
+
+	public abstract void evaluerCoup(Joueur joueur1, Joueur joueur2);
+	
+	
+	// ************ getteurs **********
+	public int getTour() {
+		return tour;
+	}
+	public int getScoreJ1() {
+		return joueur1.getScore();
+	}
+	public int getScoreJ2() {
+		return joueur2.getScore();
+	}
 
 
 }

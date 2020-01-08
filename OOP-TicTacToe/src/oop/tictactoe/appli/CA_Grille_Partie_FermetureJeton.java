@@ -6,9 +6,8 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 	
 	private boolean[][] grilleOuvertureJetons ;
 	
-	public CA_Grille_Partie_FermetureJeton(int nbrLignes, int nbrColonnes, 
-			int nombrePointMax, int nombreTourMax) {
-		super(nbrLignes, nbrColonnes, nombrePointMax, nombreTourMax);
+	public CA_Grille_Partie_FermetureJeton(int nbrLignes, int nbrColonnes) {
+		super(nbrLignes, nbrColonnes);
 		grilleOuvertureJetons = new boolean[nbrLignes][nbrColonnes];
 		iniGrilleFermeture();
 		}	

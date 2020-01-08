@@ -1,9 +1,11 @@
-package oop.tictactoe.jouer;
+package oop.tictactoe.interaction;
 
 import java.util.Scanner;
+
+import oop.tictactoe.appli.Joueur;
 import oop.tictactoe.grille.Jeton;
 
-public interface In_Interaction {
+public class Messages_Saisie {
 	
 	/**
 	 * saisieCellule input du joueur sous format de table à 1 colonne 2 lignes
@@ -129,29 +131,24 @@ public interface In_Interaction {
 	 * @param joueurActuel joueur qui vient de jouer
 	 * @return
 	 */
-	public static String afficherMessageResultat(Match m, Joueur joueurActuel, Joueur joueurAutre) {
-		assert(joueurActuel != null && joueurAutre != null && m != null);
+	public static String afficherMessageResultat(Joueur joueurActuel, Joueur joueurAutre) {
+		assert(joueurActuel != null && joueurAutre != null);
+		assert (joueurActuel != joueurAutre) ;
 		String messageResultat = "" ;
-		m.evalVictoireParPointMax(joueurActuel); //mise a jour
 		
-		if (m.estTermine(joueurActuel)) {
-				if (joueurActuel.getScore() == joueurAutre.getScore()) {
-					messageResultat = "C est un match nul.\n" ;
-				}
-				else {
-					if (joueurActuel.getScore() > joueurAutre.getScore()) {
-						messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
-					}
-					if (joueurActuel.getScore() < joueurAutre.getScore()) {
-						messageResultat = "C est un match victorieux pour le joueur "+joueurAutre.getJeton().getSymbole()+".\n";
-					}
-				}
-				messageResultat += "Le joueur "+joueurActuel.getJeton().getSymbole()+" a marque " + joueurActuel.getScore() + " points.\n";
-				messageResultat += "Le joueur "+joueurAutre.getJeton().getSymbole()+" a marque " + joueurAutre.getScore() + " points.\n";
+		if (joueurActuel.getScore() == joueurAutre.getScore()) {
+			messageResultat = "C est un match nul.\n" ;
 		}
 		else {
-			messageResultat = "Le match n est pas termine.\n";
+			if (joueurActuel.getScore() > joueurAutre.getScore()) {
+				messageResultat = "C est un match victorieux pour le joueur "+joueurActuel.getJeton().getSymbole()+".\n";
+			}
+			if (joueurActuel.getScore() < joueurAutre.getScore()) {
+				messageResultat = "C est un match victorieux pour le joueur "+joueurAutre.getJeton().getSymbole()+".\n";
+			}
 		}
+		messageResultat += "Le joueur "+joueurActuel.getJeton().getSymbole()+" a marque " + joueurActuel.getScore() + " points.\n";
+		messageResultat += "Le joueur "+joueurAutre.getJeton().getSymbole()+" a marque " + joueurAutre.getScore() + " points.\n";
 
 		return messageResultat;
 	}

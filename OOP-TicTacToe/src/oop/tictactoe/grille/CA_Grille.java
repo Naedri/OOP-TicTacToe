@@ -1,7 +1,4 @@
-package oop.tictactoe.appli;
-
-import oop.tictactoe.grille.Direction;
-import oop.tictactoe.grille.Jeton;
+package oop.tictactoe.grille;
 
 public abstract class CA_Grille implements In_Grille {
 

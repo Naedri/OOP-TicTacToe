@@ -1,5 +1,6 @@
-package oop.tictactoe.appli;
+package Utilitaires;
 
+import oop.tictactoe.grille.CA_Grille;
 import oop.tictactoe.grille.Direction;
 
 public interface Utils_Grille_Evaluation_Adjacent {

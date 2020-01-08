@@ -11,4 +11,8 @@ public interface In_Partie {
 	 */
 	public void lancerPartie();
 	
+	public void jouerCoup(Joueur joueurActuel);
+
+	public void evaluerCoup(Joueur joueur1, Joueur joueur2);
+	
 }

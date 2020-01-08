@@ -1,6 +1,4 @@
-package oop.tictactoe.appli;
-
-import oop.tictactoe.grille.Jeton;
+package oop.tictactoe.grille;
 
 public interface In_Grille {
 	

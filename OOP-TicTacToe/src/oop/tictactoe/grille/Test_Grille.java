@@ -7,13 +7,10 @@ import java.util.EnumSet;
 
 import org.junit.jupiter.api.Test;
 
-import oop.tictactoe.appli.CA_Grille;
 import oop.tictactoe.appli.CA_Grille_Partie_FermetureJeton;
+import oop.tictactoe.appli.Joueur;
 import oop.tictactoe.appli.PartiePermutation;
 import oop.tictactoe.appli.PartieTicTacToe;
-import oop.tictactoe.jouer.Joueur;
-import oop.tictactoe.tours.TourMorpion;
-import oop.tictactoe.tours.TourPermutation;
 
 class Test_Grille {
 
@@ -104,7 +101,6 @@ class Test_Grille {
 	@Test
 	void testGrilleAdjacent() {
 		CA_Grille_Partie_FermetureJeton grille = new CA_Grille_Partie_FermetureJeton(6,7);
-		TourMorpion tour = new TourMorpion(grille, new Joueur());
 		assertFalse(grille.estPleineGrille());
 		
 		System.out.println("Test sans jeton.");

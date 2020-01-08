@@ -1,5 +1,6 @@
-package oop.tictactoe.appli;
+package Utilitaires;
 
+import oop.tictactoe.grille.CA_Grille;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
 import oop.tictactoe.grille.Jeton;

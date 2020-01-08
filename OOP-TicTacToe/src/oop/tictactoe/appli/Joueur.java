@@ -1,4 +1,4 @@
-package oop.tictactoe.jouer;
+package oop.tictactoe.appli;
 
 import oop.tictactoe.grille.Jeton;
 

@@ -1,4 +1,4 @@
-package oop.tictactoe.tours;
+package oop.tictactoe.appli;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
 import oop.tictactoe.grille.Jeton;
-import oop.tictactoe.jouer.Joueur;
 
-class Test_Tours {
+class Test_Coups {
 
 	@Test
 	void testTourTicTacToe() {

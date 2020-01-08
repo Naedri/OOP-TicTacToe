@@ -4,14 +4,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
+import Utilitaires.Utils_Grille_Evaluation_Adjacent;
+import Utilitaires.Utils_Grille_Evaluation_Alignement;
 import oop.tictactoe.grille.Jeton;
-import oop.tictactoe.jouer.Joueur;
-
-import oop.tictactoe.jouer.In_Interaction;
-import oop.tictactoe.jouer.In_MessagesPermutation;
-
-import oop.tictactoe.appli.Utils_Grille_Evaluation_Alignement;
-import oop.tictactoe.appli.Utils_Grille_Evaluation_Adjacent;
+import oop.tictactoe.interaction.Messages_Saisie;
+import oop.tictactoe.interaction.MessagePermutation;
 
 public class PartiePermutation extends PartieMorpion {
 		
@@ -22,7 +19,7 @@ public class PartiePermutation extends PartieMorpion {
 	//la partie durera tant qu il y aura des jetons a ligner pour un des deux joueurs
 	
 	public PartiePermutation(int nbrLignes, int nbrColonnes, int nbrAlign) {
-		super(nbrLignes, nbrColonnes,  permutMax(nbrLignes, nbrColonnes, nbrAlign), 0);
+		super(nbrLignes, nbrColonnes);
 		remplirAleaGrille();
 		this.saisieCellule = new int[2];
 		this.saisieCellule2 = new int[2];
@@ -33,7 +30,7 @@ public class PartiePermutation extends PartieMorpion {
 		}
 	
 	public PartiePermutation(int nbrLignes, int nbrColonnes) {
-		super(nbrLignes, nbrColonnes,  permutMax(nbrLignes, nbrColonnes, 3), 0);
+		super(nbrLignes, nbrColonnes);
 		remplirAleaGrille();
 		this.saisieCellule = new int[2];
 		this.saisieCellule2 = new int[2];
@@ -44,23 +41,11 @@ public class PartiePermutation extends PartieMorpion {
 	}
 		
 	public PartiePermutation() {
-		super(5,6,permutMax(5,6,3),0);
+		super(5,6);
 		remplirAleaGrille();
 		this.saisieCellule = new int[2];
 		this.saisieCellule2 = new int[2];
 	}
-	
-	protected
-	
-	static int permutMax(int ligne, int colonne, int align) {
-		assert(ligne>0 && colonne >0 && align >0);
-		int pointMax = (ligne*colonne) - ((ligne*colonne)%2) ;
-		pointMax /= 2 ;
-		pointMax /= align;
-		return pointMax;
-		
-	}
-	
 	
 	// ******* METHODE GRILLE *******
 	// ******* METHODE GRILLE REMPLISSAGE ALEATOIRE *******
@@ -109,15 +94,15 @@ public class PartiePermutation extends PartieMorpion {
 	}
 
 	@Override
-	protected void jouerCoup(Joueur joueurActuel) {
+	public void jouerCoup(Joueur joueurActuel) {
 		boolean saisieCorrectejouerCoup = false;
 
 		while (!saisieCorrectejouerCoup) {
 			System.out.println("Vous allez choisir les deux cases pour permutation.\n");
-			saisieCellule = In_Interaction.saisirCellule( getGrille());
-			System.out.println(In_Interaction.afficherMessageCellule(joueurActuel, saisieCellule));
-			saisieCellule2 = In_Interaction.saisirCellule( getGrille());
-			System.out.println(In_Interaction.afficherMessageCellule(joueurActuel, saisieCellule2));
+			saisieCellule = Messages_Saisie.saisirCellule( getGrille());
+			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
+			saisieCellule2 = Messages_Saisie.saisirCellule( getGrille());
+			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule2));
 			
 			//les jetons doivent etre de cases differentes
 			if(  sontDifferentes(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) {
@@ -133,7 +118,7 @@ public class PartiePermutation extends PartieMorpion {
 			
 		}
 		permutationJeton(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]);
-		System.out.println(In_MessagesPermutation.afficherMessageCoupJoue(joueurActuel, saisieCellule, saisieCellule2));
+		System.out.println(MessagePermutation.afficherMessageCoupJoue(joueurActuel, saisieCellule, saisieCellule2));
 	}
 	
 	/**
@@ -141,7 +126,7 @@ public class PartiePermutation extends PartieMorpion {
 	 * comme on peut modifier les jetons fermes il faut limiter les jetons evalues au jeton ouverts
 	 */
 	@Override
-	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
 		assert(saisieCellule2 != null);//on oblige le joueur a avoir jouer un coup
@@ -156,7 +141,7 @@ public class PartiePermutation extends PartieMorpion {
 					joueurMarquant = joueur2;
 				}
 				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
-				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
+				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueurMarquant));
 				 afficherGrille();
 				joueurMarquant.marquerPoint();
 			}
@@ -171,7 +156,7 @@ public class PartiePermutation extends PartieMorpion {
 					joueurMarquant = joueur2;
 				}
 				fermeAlignementXD(saisieCellule2[0], saisieCellule2[1], nbrAlign);
-				System.out.println(In_Interaction.afficherMessageCoupMarquant(joueurMarquant));
+				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueurMarquant));
 				 afficherGrille();
 				joueurMarquant.marquerPoint();
 			}
@@ -209,6 +194,19 @@ public class PartiePermutation extends PartieMorpion {
 			  placerJeton(  getCellule(ligne2,colonne2), ligne1, colonne1);
 			  placerJeton(jtemp, ligne2, colonne2);
 		}
+	}
+	
+	@Override
+	public boolean estFinie() {
+		return (getScoreJ1() >= pointMaxPermut(5,6,3) || getScoreJ2() >= pointMaxPermut(5,6,3));
+	}
+	public static int pointMaxPermut(int ligne, int colonne, int align) {
+		assert(ligne>0 && colonne >0 && align >0);
+		int pointMax = (ligne*colonne) - ((ligne*colonne)%2) ;
+		pointMax /= 2 ;
+		pointMax /= align;
+		return pointMax;
+		
 	}
 }
 
