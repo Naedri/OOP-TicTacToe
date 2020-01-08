@@ -1,11 +1,10 @@
 package oop.tictactoe.appli;
 
 import java.util.EnumSet;
-
 import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Jeton;
 
-public interface In_Grille_Evaluation_Alignement {
+public interface Utils_Grille_Evaluation_Alignement {
 	
 	/**
 	 * alignement pour UNE Direction donnee ET son Inversee

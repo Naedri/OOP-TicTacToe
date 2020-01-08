@@ -4,7 +4,7 @@ import oop.tictactoe.grille.Direction;
 import oop.tictactoe.grille.Forme;
 import oop.tictactoe.grille.Jeton;
 
-public interface In_Grille_Evaluation_Forme {
+public interface Utils_Grille_Evaluation_Forme {
 	
 	/**
 	 * existeForme permet de savoir 

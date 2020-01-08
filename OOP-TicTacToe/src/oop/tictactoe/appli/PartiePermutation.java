@@ -3,11 +3,17 @@ package oop.tictactoe.appli;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
+
 import oop.tictactoe.grille.Jeton;
-import oop.tictactoe.jouer.*;
+import oop.tictactoe.jouer.Joueur;
 
+import oop.tictactoe.jouer.In_Interaction;
+import oop.tictactoe.jouer.In_MessagesPermutation;
 
-public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
+import oop.tictactoe.appli.Utils_Grille_Evaluation_Alignement;
+import oop.tictactoe.appli.Utils_Grille_Evaluation_Adjacent;
+
+public class PartiePermutation extends PartieMorpion {
 		
 	private int nbrAlign ;
 	private int[] saisieCellule ;
@@ -43,6 +49,8 @@ public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 		this.saisieCellule = new int[2];
 		this.saisieCellule2 = new int[2];
 	}
+	
+	protected
 	
 	static int permutMax(int ligne, int colonne, int align) {
 		assert(ligne>0 && colonne >0 && align >0);
@@ -114,7 +122,7 @@ public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 			//les jetons doivent etre de cases differentes
 			if(  sontDifferentes(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) {
 				// les jetons doivent etre adjacents
-				if (sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1]) ) {
+				if (Utils_Grille_Evaluation_Adjacent.sontAdjacents(saisieCellule[0], saisieCellule[1],saisieCellule2[0], saisieCellule2[1], this) ) {
 					saisieCorrectejouerCoup = true ;
 				}
 				else
@@ -140,7 +148,7 @@ public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 
 		if ( estOuvert(saisieCellule[0], saisieCellule[1])) {
 			Joueur joueurMarquant = null ;
-			if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
+			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this) >=1 ) {
 				if ( getCellule(saisieCellule[0], saisieCellule[1]).estEgal(joueur1.getJeton() ) ) {
 					joueurMarquant = joueur1;
 				}
@@ -155,7 +163,7 @@ public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 		}
 		if ( estOuvert(saisieCellule2[0], saisieCellule2[1])) {
 			Joueur joueurMarquant = null ;
-			if (nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], nbrAlign) >=1 ) {
+			if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule2[0], saisieCellule2[1], nbrAlign, this) >=1 ) {
 				if ( getCellule(saisieCellule2[0], saisieCellule2[1]).estEgal(joueur1.getJeton() ) ) {
 					joueurMarquant = joueur1;
 				}
@@ -193,7 +201,7 @@ public class PartiePermutation extends CA_Grille_Partie_FermetureJeton {
 		assert (!  estVideCellule(ligne1, colonne1)); // la cellule ne doit pas etre vide		
 		assert (!  estVideCellule(ligne2, colonne2)); // la cellule ne doit pas etre vide
 
-		assert(sontAdjacents(ligne1, colonne1, ligne2, colonne2)); //les jetons doivent etre adjacents
+		assert(Utils_Grille_Evaluation_Adjacent.sontAdjacents(ligne1, colonne1, ligne2, colonne2, this)); //les jetons doivent etre adjacents
 
 		//si les jetons sont differents
 		if (!   getCellule(ligne1,colonne1).estEgal(  getCellule(ligne2,colonne2)) ) {

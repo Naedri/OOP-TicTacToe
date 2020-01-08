@@ -1,10 +1,12 @@
 package oop.tictactoe.appli;
 
 import oop.tictactoe.grille.Jeton;
-import oop.tictactoe.jouer.*;
+import oop.tictactoe.jouer.Joueur;
+import oop.tictactoe.jouer.In_Interaction;
+import oop.tictactoe.jouer.In_MessagesPlacement;
+import oop.tictactoe.appli.Utils_Grille_Evaluation_Alignement;
 
-
-public class PartieTicTacToe extends CA_Grille_Partie_alignement {
+public class PartieTicTacToe extends CA_Grille_Partie {
 	
 	private int nbrAlign ; //nombre de jetons a aligner
 	private int[] saisieCellule ;
@@ -45,7 +47,7 @@ public class PartieTicTacToe extends CA_Grille_Partie_alignement {
 	@Override
 	protected void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert(saisieCellule != null);//on oblige le joueur a avoir jouer un coup
-		if (nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign) >=1 ) {
+		if (Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this) >=1 ) {
 			// jetonEvalue dont on evalue l implication dans un alignement avec d'autres
 			Jeton jetonEvalue = getCellule(saisieCellule[0],  saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())){
@@ -56,6 +58,12 @@ public class PartieTicTacToe extends CA_Grille_Partie_alignement {
 			}
 				
 		}		
+	}
+
+	@Override
+	protected boolean estFinie() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

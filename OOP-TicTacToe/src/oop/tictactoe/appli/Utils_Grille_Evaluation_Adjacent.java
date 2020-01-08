@@ -2,7 +2,11 @@ package oop.tictactoe.appli;
 
 import oop.tictactoe.grille.Direction;
 
-public interface In_Grille_Evaluation_Adjacent {
+public interface Utils_Grille_Evaluation_Adjacent {
+	
+	// ******* METHODE GRILLE *******
+	// ******* METHODE GRILLE ADJACENT JETON *******
+	
 	
 	/**
 	 * existe il dans les cellules voisines de la cellule donnee [ligne,colonne]
