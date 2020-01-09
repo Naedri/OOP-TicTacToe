@@ -155,6 +155,8 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		// fermerAxeJetons1D
 		ouvertToFermeJeton(ligne, colonne);
 	}
+	
+	
 
 	// ************ EVALUATION ALIGNEMENT OUVERT OU FERME ******************
 
@@ -296,6 +298,141 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 			}
 
 		return tableDirect;
+	}
+	
+	// *************** COORDONNEES A FERMEES ******************
+	
+	/**
+	 * donne la longueur de l axe (continue) de longueur <= profondeur d orientation
+	 * suivant oneDirection mais NE FERME AUCUN JETON
+	 * Ne continue d evaluer que si les jetons ne sont pas
+	 * vide ne sont pas deja ferme sont les memes (axe continue)
+	 * sans prendre en compte le jeton de depart(ligne,colonne)
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur si egale a 0 la cellule fermee sera uniquement la
+	 *                   cellule[ligne][colonne]
+	 * @param direction  orientation de l axe de fermeture des jetons
+	 * @return renvoie le nombre de jetons appartenant a un axe pour une direcion donne sans prendre en compte le jeton de depart
+	 */
+	public int getLongueurAxeJetons1D(int ligne, int colonne, int profondeur, Direction direction) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (profondeur >= 1);
+
+		int nbrJetonFermes = 0;
+		int coeffProfondeur = 1;
+		boolean valide = true;
+		while (coeffProfondeur <= profondeur && this.existeNextCellule(ligne, colonne, coeffProfondeur, direction)
+				&& valide) {
+			int[] coordCible = coordNextJeton(ligne, colonne, coeffProfondeur, direction);
+			int ligneCible = coordCible[0];
+			int colonneCible = coordCible[1];
+			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
+				++nbrJetonFermes;
+			} 
+			else {
+				valide = false;
+			}
+			++coeffProfondeur;
+		}
+		return nbrJetonFermes;
+	}
+	
+	/**
+	 * getLongueurAxeJetons1D
+	 * donne les coord des jeton ouvert a ferme 
+	 * pour direction donner 
+	 * selon un axe (continue) de longueur profondeur d orientation
+	 * suivant oneDirection 
+	 * mais ne prend pas en compte le jeton de depart (coord
+	 * ligne,colonne) Ne continue de fermer que si les jetons evalue ne sont pas
+	 * vide ne sont pas deja ferme sont les memes (axe continue) 
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction  orientation de l axe de fermeture des jetons
+	 * @return renvoie les coordonnees
+	 */
+	public int[][] getCoordAlignJetons1DOouF(int ligne, int colonne, int profondeur, Direction direction ) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (profondeur >= 2);
+		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));
+		
+		int[][] coordJetonContinu = new int [getLongueurAxeJetons1D(ligne, colonne, profondeur, direction)][2];
+
+		//coord des jetons dans une direction
+		int nbrJetonFermes = 0;
+		int coeffProfondeur = 1;
+		boolean valide = true;
+		while (coeffProfondeur <= profondeur && this.existeNextCellule(ligne, colonne, coeffProfondeur, direction)
+				&& valide) {
+			int[] coordCible = coordNextJeton(ligne, colonne, coeffProfondeur, direction);
+			int ligneCible = coordCible[0];
+			int colonneCible = coordCible[1];
+			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
+				coordJetonContinu[nbrJetonFermes][0]=ligneCible;
+				coordJetonContinu[nbrJetonFermes][1]=colonneCible;		
+				++nbrJetonFermes;
+			} 
+			else {
+				valide = false;
+			}
+			++coeffProfondeur;
+		}
+		
+		return coordJetonContinu;
+	}
+	
+	
+	/**
+	 * donne les coord des jeton ouvert a fermer 
+	 * pour la premiere direction ou un alignemet a ete trouver 
+	 * selon un axe (continue) de longueur profondeur d orientation
+	 * suivant oneDirection mais ne prend pas en compte le jeton de depart (coord
+	 * ligne,colonne) Ne continue de fermer que si les jetons evalue ne sont pas
+	 * vide ne sont pas deja ferme sont les memes (axe continue)
+	 * 
+	 * @param ligne
+	 * @param colonne
+	 * @param profondeur
+	 * @param direction  orientation de l axe d observation des jetons
+	 * @return renvoie les coordonnees
+	 */
+	public int[][] getCoordAlignJetonsXDOouF(int ligne, int colonne, int profondeur) {
+		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
+		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
+		assert (profondeur >= 2);
+		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));
+
+		Direction direction = getAllDirectAlignOouF(ligne, colonne, profondeur)[0];		
+		
+		int[][] coordJetonContinu = new int [profondeur][2];
+
+		//coord des jetons dans une direction
+		int[][] coordJetonAferme1D =  getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction);
+
+		for (int i = 0; i < coordJetonAferme1D.length; i++) {
+			coordJetonContinu[i][0] = coordJetonAferme1D[i][0];
+			coordJetonContinu[i][1] = coordJetonAferme1D[i][1];
+		}
+		//coord du jeton central
+		coordJetonContinu[coordJetonAferme1D.length][0] = ligne;
+		coordJetonContinu[coordJetonAferme1D.length][1] = colonne;
+		
+		//coord des jetons dans une direction inverse si besoin
+		if  (coordJetonAferme1D.length < profondeur-1) {
+			int[][] coordJetonAferme1DI =  getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction.inverser());
+			for (int i = coordJetonAferme1D.length + 1 ; i < coordJetonContinu.length; i++) {
+				coordJetonContinu[i][0] = coordJetonAferme1DI[i- coordJetonAferme1D.length-1][0];
+				coordJetonContinu[i][1] = coordJetonAferme1DI[i- coordJetonAferme1D.length-1][1];
+			}
+		}
+		
+		return coordJetonContinu;
 	}
 	
 	// ************ EVALUATION ALIGNEMENT OUVERT ******************

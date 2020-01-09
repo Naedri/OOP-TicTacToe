@@ -2,11 +2,10 @@ package appli;
 
 import grille.Forme;
 import grille.Jeton;
-import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Forme;
 
-public class PartieForme extends CA_Grille_Partie_FermetureJeton {
+public class PartieForme extends PartieTicTacToe{
 
 	private Forme forme;
 	private int[] saisieCellule;
@@ -29,24 +28,7 @@ public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 		this.forme = new Forme(1);
 		this.saisieCellule = new int[2];
 	}
-
-	@Override
-	public void jouerCoup(Joueur joueurActuel) {
-		boolean saisieCorrecte = false;
-
-		while (!saisieCorrecte) {
-			saisieCellule = Messages_Saisie.saisirCellule(getGrille());
-			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
-			if (estVideCellule(saisieCellule[0], saisieCellule[1]))
-				saisieCorrecte = true;
-			else
-				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
-		}
-		placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
-		System.out.println(MessagePlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
-
-	}
-
+	
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
@@ -65,12 +47,6 @@ public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 //			ouvertsToFermesJetons(coordAFermer);
 			afficherGrille();
 		}
-	}
-
-	@Override
-	public boolean estFinie() {
-//		return (estPleineGrille());
-		return (getScoreJ1() >= 1 || getScoreJ2() >= 1 || estPleineGrille());
 	}
 
 }

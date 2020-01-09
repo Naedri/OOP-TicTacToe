@@ -2,6 +2,7 @@ package appli;
 
 
 import grille.Jeton;
+import utilitaires.Utils_Grille_Evaluation_Adjacent;
 
 public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 
@@ -33,6 +34,50 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 	}
 
 	// ******* METHODE GRILLE *******
+	
+	// ******* METHODE GRILLE PERMUTATION *******
+		/**
+		 * permute deux jetons de la grille verifie que les deux jetons electionnes sont
+		 * dans la grille verifie que les deux jetons sont adjacents verifie que les les
+		 * cellules sont rempli de JETON Il n est PAS verifie que les deux JETONS a
+		 * permuter soient ouverts
+		 * 
+		 * @param ligne1
+		 * @param colonne1
+		 * @param colonne1
+		 * @param ligne2
+		 */
+		public void permutationJeton(int ligne1, int colonne1, int ligne2, int colonne2) {
+			assert (sontDifferentes(ligne1, colonne1, ligne2, colonne2)); // les jetons doivent etre differents
+			assert (ligne1 < getLignes() && ligne1 >= 0); // la cellule doit être dans la grille
+			assert (colonne1 < getColonnes() && colonne1 >= 0); // la cellule doit être dans la grille
+			assert (ligne2 < getLignes() && ligne2 >= 0); // la cellule doit être dans la grille
+			assert (colonne2 < getColonnes() && colonne2 >= 0); // la cellule doit être dans la grille
+
+			assert (!estVideCellule(ligne1, colonne1)); // la cellule ne doit pas etre vide
+			assert (!estVideCellule(ligne2, colonne2)); // la cellule ne doit pas etre vide
+
+			assert (Utils_Grille_Evaluation_Adjacent.sontAdjacents(ligne1, colonne1, ligne2, colonne2, this)); 
+			
+			//permutation jeton
+			if ( (!getCellule(ligne1, colonne1).estEgal(getCellule(ligne2, colonne2))) ) {
+				Jeton jtemp = getCellule(ligne1, colonne1);
+				placerJeton(getCellule(ligne2, colonne2), ligne1, colonne1);
+				placerJeton(jtemp, ligne2, colonne2);
+			}
+			//permutation ouverture
+			if ((estOuvert(ligne1, colonne1) && !estOuvert(ligne2, colonne2) ) || (!estOuvert(ligne1, colonne1) && estOuvert(ligne2, colonne2) ) ) {
+				if (estOuvert(ligne1, colonne1)) {
+					ouvertToFermeJeton(ligne1, colonne1);
+					fermeToOuvertJeton(ligne2, colonne2);
+				}
+				else {
+					fermeToOuvertJeton(ligne1, colonne1);
+					ouvertToFermeJeton(ligne2, colonne2);
+				}
+			}
+		}
+	
 	// ******* METHODE GRILLE Fermeture *******
 	// les jetons sont au depart ouvert (true)
 	private void iniGrilleFermeture() {
@@ -61,7 +106,7 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 	 * @param ligne
 	 * @param colonne
 	 */
-	public void fermeToOuvertJeton(int ligne, int colonne) {
+	private void fermeToOuvertJeton(int ligne, int colonne) {
 		assert (ligne < this.grilleOuvertureJetons.length && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < this.grilleOuvertureJetons[0].length && colonne >= 0); // la cellule doit être dans la grille
 		assert (!grilleOuvertureJetons[ligne][colonne]); // le jeton doit etre initialement ferme
@@ -76,9 +121,7 @@ public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {
 	public void ouvertsToFermesJetons (int[][] coordCible) {
 		assert (coordCible != null);
 		for (int i = 0; i < coordCible.length; i++) {
-			for (int j = 0; j < coordCible[0].length; j++) {
-				ouvertToFermeJeton(i, j);
-			}
+			ouvertToFermeJeton(coordCible[i][0], coordCible[i][1]);
 		}
 	}
 
