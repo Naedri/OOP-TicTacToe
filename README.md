@@ -1,4 +1,5 @@
 # OOP-TicTacToe
+
 IUT Paris Descartes - 2019 - Enseignant : POITRENAUD Denis.
 
 ## Algorithme et Programmation en JAVA.
@@ -11,8 +12,9 @@ JALLAIS Adrien : <adrien.jallais@protonmail.com>
 
 ## Utilisation
 
-La fonction **main** se trouve dans le fichier *Appli.java* du package *oop.tictactoe.appli*.
-Au chemin suivant : < OOP-TicTacToe/src/oop/tictactoe/appli >.
+La fonction ***main*** se trouve dans le fichier **Appli.java** du package **appli**.
+
+Au chemin suivant : [OOP-TicTacToe/src/appli](#OOP-TicTacToe/src/appli/Appli.java).
 
 Veuillez tapez dans les argurments des paramètres du lancement de l’application :
 
@@ -20,4 +22,12 @@ Veuillez tapez dans les argurments des paramètres du lancement de l’applicati
 + < 1 > Pour jouer au TicTacToe.
 + < 2 > Pour jouer au Morpion.
 + < 3 > Pour jouer au TicTacToe extension Forme.
-+ < 4 > Pour jouer au TicTacToe extension Permutation.
++ < 4 > Pour jouer au Morpion extension Permutation.
+
+## Diagramme de classe
+
+Un diagramme de classe representant les relations entre ces applications est accessible au chemin suivant :
+*OOP-TicTacToe/OOP-Diagram.png*.
+
+
+![Diagram](OOP-TicTacToe/OOP-Diagram.png)
