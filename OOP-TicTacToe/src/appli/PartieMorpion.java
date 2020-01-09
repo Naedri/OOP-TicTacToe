@@ -211,7 +211,9 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		}
 
 		String aligneCible = "";
-		aligneCible += getLigneJetonOouF(ligne, colonne, profondeur, direction.inverser());
+		String inverse = getLigneJetonOouF(ligne, colonne, profondeur, direction.inverser());
+		inverse = new StringBuilder(inverse).reverse().toString() ;
+		aligneCible += inverse ;
 		aligneCible += getSymboleJetonOouF(ligne, colonne);
 		aligneCible += getLigneJetonOouF(ligne, colonne, profondeur, direction);
 
@@ -300,7 +302,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 	public void evaluerCoupAlignOuvert (Joueur joueur1, Joueur joueur2, int[] saisieCellule) {
 		assert ( joueur1 != null && joueur2 != null && saisieCellule != null && joueur1 != joueur2);
-		if (Utils_Grille_Evaluation_Alignement.appartientAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
+		if (Utils_Grille_Evaluation_Alignement.isAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
 			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 
 				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);

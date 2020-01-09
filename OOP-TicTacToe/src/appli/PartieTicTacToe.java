@@ -46,7 +46,7 @@ public class PartieTicTacToe extends CA_Grille_Partie {
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
-		if (Utils_Grille_Evaluation_Alignement.appartientAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
+		if (Utils_Grille_Evaluation_Alignement.isAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
 
 			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())) {

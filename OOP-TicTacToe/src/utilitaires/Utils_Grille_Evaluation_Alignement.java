@@ -49,7 +49,7 @@ public interface Utils_Grille_Evaluation_Alignement {
 	 * @param direction  et direction opposée vers laquelle observer un alignement
 	 * @return si un alignement a été trouvé
 	 */
-	public static boolean appartientAlign(int ligne, int colonne, int profondeur, Direction direction,
+	public static boolean isDirectInAlign(int ligne, int colonne, int profondeur, Direction direction,
 			CA_Grille grille) {
 		assert (ligne < grille.getLignes() && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
@@ -70,9 +70,11 @@ public interface Utils_Grille_Evaluation_Alignement {
 
 		// aligneCible ligne de jeton observé dans les directions données
 		String aligneCible = "";
-		aligneCible += getLigneJeton(ligne, colonne, profondeur, direction.inverser(), grille);
+		String inverse = getLigneJeton(ligne, colonne, profondeur, direction.inverser(), grille);
+		inverse = new StringBuilder(inverse).reverse().toString() ;
+		aligneCible += inverse ;
 		aligneCible += jetonEvalue.getSymbole() ;
-		aligneCible += getLigneJeton(ligne, colonne, profondeur, direction, grille) ;
+		aligneCible += getLigneJeton(ligne, colonne, profondeur, direction, grille);
 		
 		// comparaison des chaines
 		return aligneCible.contains(aligneEvalue);
@@ -97,7 +99,7 @@ public interface Utils_Grille_Evaluation_Alignement {
 		int alignement = 0;
 
 		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
-			if (appartientAlign(ligne, colonne, profondeur, oneDirection, grille)) {
+			if (isDirectInAlign(ligne, colonne, profondeur, oneDirection, grille)) {
 				++alignement;
 			}
 		}
@@ -112,7 +114,7 @@ public interface Utils_Grille_Evaluation_Alignement {
 	 * @param grille
 	 * @return
 	 */
-	public static boolean appartientAlign (int ligne, int colonne, int profondeur, CA_Grille grille) {
+	public static boolean isAlign (int ligne, int colonne, int profondeur, CA_Grille grille) {
 		assert (ligne < grille.getLignes() && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
@@ -120,7 +122,7 @@ public interface Utils_Grille_Evaluation_Alignement {
 		
 
 		for (Direction oneDirection : EnumSet.range(Direction.NORD, Direction.SUD_EST)) {
-			if (appartientAlign(ligne, colonne, profondeur, oneDirection, grille)) {
+			if (isDirectInAlign(ligne, colonne, profondeur, oneDirection, grille)) {
 				return true ;
 			}
 		}
@@ -138,17 +140,17 @@ public interface Utils_Grille_Evaluation_Alignement {
 	 * @param profondeur
 	 * @return table des directions  pour lesquelles un alignement a ete trouve
 	 */
-	public static Direction[] getAllDirectAlign(int ligne, int colonne, int profondeur, CA_Grille grille) {
+	public static Direction[] getDirectAlign(int ligne, int colonne, int profondeur, CA_Grille grille) {
 		assert (ligne < grille.getLignes() && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < grille.getColonnes() && colonne >= 0); // la cellule doit être dans la grille
 		assert (!grille.estVideCellule(ligne, colonne)); // la cellule evaluée ne doit pas etre vide
 		assert (profondeur >= 2);
-		assert (appartientAlign(ligne, colonne, profondeur, grille));
+		assert (isAlign(ligne, colonne, profondeur, grille));
 
 		Direction[] tableDirect = new Direction[nbrDirectAvecAlign (ligne,colonne,profondeur, grille)];
 		int indice = 0 ;
 		for (Direction direction : EnumSet.range(Direction.NORD, Direction.SUD_EST))
-			if (appartientAlign(ligne, colonne, profondeur, direction, grille)) {
+			if (isDirectInAlign(ligne, colonne, profondeur, direction, grille)) {
 				tableDirect [indice] = direction;
 				++indice ;
 			}

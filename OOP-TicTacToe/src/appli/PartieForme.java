@@ -22,6 +22,13 @@ public class PartieForme extends CA_Grille_Partie_FermetureJeton {
 		this.forme = new Forme(choixForme);
 		this.saisieCellule = new int[2];
 	}
+	
+	public PartieForme(int lignes, int colonnes) {
+		super(lignes, colonnes);
+		assert(lignes >= 3 && colonnes >= 3);
+		this.forme = new Forme(1);
+		this.saisieCellule = new int[2];
+	}
 
 	@Override
 	public void jouerCoup(Joueur joueurActuel) {
