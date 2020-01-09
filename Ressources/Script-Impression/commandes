@@ -1,0 +1,5 @@
+enscript -r -2 --file-align=2 --highlight="java" --no-header -o - `find . -name '*.java'` | ps2pdf - OOP-TicTacToe-Script2.pdf
+
+enscript -r -2 --highlight="java" --no-header -o - `find . -name '*.java'` | ps2pdf - OOP-TicTacToe-Script.pdf
+
+
