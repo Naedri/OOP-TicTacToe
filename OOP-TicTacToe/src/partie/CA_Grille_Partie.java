@@ -1,6 +1,5 @@
 package partie;
 
-import composant_independant.Joueur;
 import interaction.Messages_Saisie;
 
 public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {

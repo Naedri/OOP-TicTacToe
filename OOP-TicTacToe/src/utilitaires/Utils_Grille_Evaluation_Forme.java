@@ -1,7 +1,7 @@
 package utilitaires;
 
-import composant_independant.Jeton;
 import direction.Direction;
+import jeton.Jeton;
 import partie.*;
 
 public class Utils_Grille_Evaluation_Forme {

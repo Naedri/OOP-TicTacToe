@@ -1,7 +1,7 @@
 package partie;
 
-import composant_independant.*;
 import interaction.Messages_Saisie;
+import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Forme;
 
 public class PartieForme extends PartieTicTacToe {

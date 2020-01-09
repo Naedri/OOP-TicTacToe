@@ -2,7 +2,8 @@ package interaction;
 
 import java.util.Scanner;
 
-import composant_independant.*;
+import jeton.*;
+import partie.Joueur;
 
 public class Messages_Saisie {
 

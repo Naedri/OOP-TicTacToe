@@ -2,10 +2,10 @@ package partie;
 
 import java.util.EnumSet;
 
-import composant_independant.*;
 import direction.Direction;
 import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
+import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
 import utilitaires.Utils_Grille_Evaluation_Alignement;
 

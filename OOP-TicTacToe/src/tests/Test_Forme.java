@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import composant_independant.Jeton;
+import jeton.Jeton;
 import partie.Forme;
 import partie.PartieForme;
 import utilitaires.Utils_Grille_Evaluation_Forme;

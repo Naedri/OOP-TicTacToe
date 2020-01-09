@@ -1,4 +1,6 @@
-package composant_independant;
+package partie;
+
+import jeton.Jeton;
 
 public class Joueur {
 

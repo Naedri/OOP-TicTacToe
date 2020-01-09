@@ -1,6 +1,7 @@
 package interaction;
 
-import composant_independant.*;
+import jeton.*;
+import partie.Joueur;
 
 public class MessagePermutation {
 

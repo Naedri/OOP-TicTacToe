@@ -1,6 +1,6 @@
 package partie;
 
-import composant_independant.*;
+import jeton.*;
 
 public interface In_Partie {
 

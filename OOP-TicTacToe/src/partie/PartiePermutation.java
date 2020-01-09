@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
-import composant_independant.*;
 import interaction.MessagePermutation;
 import interaction.Messages_Saisie;
+import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
 
 public class PartiePermutation extends PartieMorpion {

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import composant_independant.Jeton;
+import jeton.Jeton;
 import partie.PartieMorpion;
 
 class Test_Permutation {

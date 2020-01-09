@@ -1,6 +1,6 @@
 package partie;
 
-import composant_independant.*;
+import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
 
 public abstract class CA_Grille_Partie_FermetureJeton extends CA_Grille_Partie {

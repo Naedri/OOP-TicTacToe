@@ -1,7 +1,7 @@
 package partie;
 
-import composant_independant.Jeton;
 import direction.Direction;
+import jeton.Jeton;
 
 public abstract class CA_Grille implements In_Grille {
 	

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import composant_independant.Jeton;
 import direction.Direction;
+import jeton.Jeton;
 import partie.PartieMorpion;
 import utilitaires.Utils_Grille_Evaluation_Alignement;
 

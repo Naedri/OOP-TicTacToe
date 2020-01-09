@@ -1,4 +1,4 @@
-package composant_independant;
+package jeton;
 
 public enum Jeton {
 

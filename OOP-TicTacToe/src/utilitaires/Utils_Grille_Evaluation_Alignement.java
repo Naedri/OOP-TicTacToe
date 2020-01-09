@@ -2,8 +2,8 @@ package utilitaires;
 
 import java.util.EnumSet;
 
-import composant_independant.Jeton;
 import direction.Direction;
+import jeton.Jeton;
 import partie.CA_Grille;
 
 public class Utils_Grille_Evaluation_Alignement {

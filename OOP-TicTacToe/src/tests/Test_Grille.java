@@ -6,8 +6,8 @@ import java.util.EnumSet;
 
 import org.junit.jupiter.api.Test;
 
-import composant_independant.Jeton;
 import direction.Direction;
+import jeton.Jeton;
 import partie.CA_Grille;
 import partie.CA_Grille_Partie;
 import partie.CA_Grille_Partie_FermetureJeton;

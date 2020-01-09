@@ -1,6 +1,6 @@
 package partie;
 
-import composant_independant.Jeton;
+import jeton.Jeton;
 
 public class Forme {
 
