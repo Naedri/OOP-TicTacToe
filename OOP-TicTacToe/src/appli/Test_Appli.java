@@ -1,7 +1,5 @@
 package appli;
 
-import org.junit.jupiter.api.Test;
-
 class Test_Appli {
 
 //	// statut ok
@@ -30,12 +28,12 @@ class Test_Appli {
 //		partiePermutation.lancerPartie();
 //	}
 
-	// statut ok
-	@Test
-	void testForme() {
-		PartieForme partieForme= new PartieForme(3,3) ;
-		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
-		partieForme.lancerPartie() ;
-	}
+//	// statut ok
+//	@Test
+//	void testForme() {
+//		PartieForme partieForme= new PartieForme(3,3) ;
+//		System.out.println("La partie de Forme va commencer, preparez-vous !\n");
+//		partieForme.lancerPartie() ;
+//	}
 
 }

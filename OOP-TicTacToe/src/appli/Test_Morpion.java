@@ -59,9 +59,9 @@ class Test_Morpion {
 
 		tour.afficherGrille();
 
-		assertEquals(3, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 2, tour));
+		assertEquals(2, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 2, tour));
 //		// pas ouest mais est car sens horaire et l orientation obeserve est avec les inverses
-		Direction[] directions = new Direction[]{Direction.NORD, Direction.EST,Direction.SUD_EST};
+		Direction[] directions = new Direction[]{Direction.NORD, Direction.SUD_EST};
 		assertArrayEquals(directions,Utils_Grille_Evaluation_Alignement.getDirectAlign(1, 2, 2, tour)); 
 		grille.placerJeton(jo, 2, 2);
 		assertEquals(Direction.NORD, Utils_Grille_Evaluation_Alignement.getDirectAlign(1, 2, 2, tour)[0]); // pas sud mais nord et pas est car nord est
@@ -70,8 +70,8 @@ class Test_Morpion {
 		grille.placerJeton(jx, 2, 0);
 		grille.placerJeton(jx, 2, 1);
 
-		assertEquals(0, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 3, tour));
-		assertEquals(3, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 2, tour));
+		assertEquals(1, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 3, tour));
+		assertEquals(2, Utils_Grille_Evaluation_Alignement.nbrDirectAvecAlign(1, 2, 2, tour));
 		assertEquals(Direction.NORD, Utils_Grille_Evaluation_Alignement.getDirectAlign(1, 2, 2, tour)[0]); // pas sud mais nord et pas est car nord est
 																			// le premier a faire un alignement
 
