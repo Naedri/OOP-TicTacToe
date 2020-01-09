@@ -1,6 +1,9 @@
+//****************************************************************
+//MessagePlacement.java
+//****************************************************************
+
 package interaction;
 
-import jeton.*;
 import partie.Joueur;
 
 public class MessagePlacement {

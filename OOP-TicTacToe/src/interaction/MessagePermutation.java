@@ -1,6 +1,8 @@
+//****************************************************************
+//MessagePermutation.java
+//****************************************************************
 package interaction;
 
-import jeton.*;
 import partie.Joueur;
 
 public class MessagePermutation {

@@ -1,9 +1,12 @@
+//****************************************************************
+//CA_Grille_Partie.java
+//****************************************************************
 package partie;
 
 import interaction.Messages_Saisie;
 
 public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
-	
+
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private int tour;

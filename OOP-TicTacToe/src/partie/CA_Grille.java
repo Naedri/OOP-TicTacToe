@@ -1,10 +1,13 @@
+//****************************************************************
+//CA_Grille.java
+//****************************************************************
 package partie;
 
 import direction.Direction;
 import jeton.Jeton;
 
 public abstract class CA_Grille implements In_Grille {
-	
+
 	private Jeton[][] grille;
 
 	// ******* METHODE GRILLE *******
