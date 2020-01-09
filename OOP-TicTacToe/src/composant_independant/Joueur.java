@@ -1,6 +1,4 @@
-package appli;
-
-import grille.Jeton;
+package composant_independant;
 
 public class Joueur {
 
@@ -35,5 +33,4 @@ public class Joueur {
 	public void marquerPoint() {
 		++this.score;
 	}
-
 }

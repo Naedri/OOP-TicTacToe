@@ -1,6 +1,6 @@
 package interaction;
 
-import appli.Joueur;
+import composant_independant.*;
 
 public class MessagePlacement {
 

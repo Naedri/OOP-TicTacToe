@@ -1,10 +1,10 @@
-package appli;
+package partie;
 
-import grille.CA_Grille;
+import composant_independant.Joueur;
 import interaction.Messages_Saisie;
 
 public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
-
+	
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private int tour;

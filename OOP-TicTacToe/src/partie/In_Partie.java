@@ -1,4 +1,6 @@
-package appli;
+package partie;
+
+import composant_independant.*;
 
 public interface In_Partie {
 

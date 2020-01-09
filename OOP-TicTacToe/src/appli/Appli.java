@@ -1,6 +1,6 @@
 package appli;
 
-import grille.Forme;
+import partie.*;
 
 public class Appli {
 

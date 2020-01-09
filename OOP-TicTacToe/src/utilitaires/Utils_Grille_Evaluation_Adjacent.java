@@ -1,9 +1,9 @@
 package utilitaires;
 
-import grille.CA_Grille;
-import grille.Direction;
+import partie.*;
+import direction.Direction;
 
-public interface Utils_Grille_Evaluation_Adjacent {
+public class Utils_Grille_Evaluation_Adjacent {
 
 	// ******* METHODE GRILLE *******
 	// ******* METHODE GRILLE ADJACENT JETON *******

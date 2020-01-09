@@ -1,4 +1,4 @@
-package grille;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,18 +6,20 @@ import java.util.EnumSet;
 
 import org.junit.jupiter.api.Test;
 
-import appli.CA_Grille_Partie;
-import appli.CA_Grille_Partie_FermetureJeton;
-import appli.PartieMorpion;
-import appli.PartiePermutation;
-import appli.PartieTicTacToe;
+import composant_independant.Jeton;
+import direction.Direction;
+import partie.CA_Grille;
+import partie.CA_Grille_Partie;
+import partie.CA_Grille_Partie_FermetureJeton;
+import partie.PartieMorpion;
+import partie.PartiePermutation;
+import partie.PartieTicTacToe;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
 
 class Test_Grille {
-	
-	CA_Grille_Partie_FermetureJeton grilleMorpion = new PartieMorpion() ;
-	CA_Grille_Partie grilleTicTacToe = new PartieTicTacToe() ;
 
+	CA_Grille_Partie_FermetureJeton grilleMorpion = new PartieMorpion();
+	CA_Grille_Partie grilleTicTacToe = new PartieTicTacToe();
 
 	@Test
 	void testJeton() {
@@ -25,9 +27,9 @@ class Test_Grille {
 		Jeton jo = Jeton.JETON_O;
 		Jeton jo2 = Jeton.JETON_O;
 		Jeton jo3 = Jeton.JETON_O;
-		grilleMorpion.placerJeton(jo,0,0);
-		grilleMorpion.placerJeton(jo,1,1);
-		grilleMorpion.placerJeton(jo,2,2);
+		grilleMorpion.placerJeton(jo, 0, 0);
+		grilleMorpion.placerJeton(jo, 1, 1);
+		grilleMorpion.placerJeton(jo, 2, 2);
 
 		Jeton jx = Jeton.JETON_X;
 		assertTrue(jo.estEgal(jo2));
@@ -39,7 +41,7 @@ class Test_Grille {
 		assertEquals('X', jx.getSymbole());
 
 		assertFalse(jo.estVideJeton());
-		
+
 		assertEquals('o', jo2.getSymbole());
 		assertTrue(jo2.estEgal(jo3));
 	}
@@ -114,7 +116,7 @@ class Test_Grille {
 
 		for (int i = 0; i < grille.getLignes(); ++i) {
 			for (int j = 0; j < grille.getColonnes(); ++j) {
-				assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j,grille));
+				assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j, grille));
 //				System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 			}
 		}
@@ -124,19 +126,19 @@ class Test_Grille {
 		Jeton jo = Jeton.JETON_O;
 
 		grille.placerJeton(jo, 0, 0);
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(0, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 0,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(0, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 0, grille));
 
 		// (i==0 && j==0)
 		for (int i = 0; i < grille.getLignes(); ++i) {
 			for (int j = 0; j < grille.getColonnes(); ++j) {
 				if ((i == 0 && j == 1) || (i == 1 && j == 1) || (i == 1 && j == 0)) {
-					assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j,grille));
+					assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j, grille));
 //					System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 
 				} else {
-					assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j,grille));
+					assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, j, grille));
 //					System.out.println("Il n existe pas de cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+(j+1)+"colonne.");
 
 				}
@@ -151,9 +153,9 @@ class Test_Grille {
 		Jeton jx = Jeton.JETON_X;
 
 		grille.placerJeton(jx, 0, 0);
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(0, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 0,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(0, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 0, grille));
 
 		// (i==0 && j==0)
 		for (int i = 0; i < grille.getLignes(); ++i) {
@@ -174,14 +176,14 @@ class Test_Grille {
 		grille = new PartieMorpion(6, 6);
 		grille.placerJeton(jo, 0, 0);
 		grille.placerJeton(jx, 2, 2);
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 2,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 3,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(2, 3,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 3,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 2,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 1,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(2, 1,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 2, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(1, 3, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(2, 3, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 3, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 2, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(3, 1, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.existeAdjacent(2, 1, grille));
 
 		for (int i = 0; i < grille.getLignes(); ++i) {
 //			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ (i+1)+"ligne "+5+"colonne.");
@@ -189,23 +191,23 @@ class Test_Grille {
 //			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 5+"ligne "+(i+1)+"colonne.");
 //			System.out.println("Il existe une cellule non vide adjacente pour la cellule "+ 6+"ligne "+(i+1)+"colonne.");
 
-			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(4, i,grille));
-			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(5, i,grille));
-			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, 4,grille));
-			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, 5,grille));
+			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(4, i, grille));
+			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(5, i, grille));
+			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, 4, grille));
+			assertFalse(Utils_Grille_Evaluation_Adjacent.existeAdjacent(i, 5, grille));
 		}
 
-		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(0, 0, 1, 1,grille));
-		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(0, 0, 2, 2,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 1, 0, 0,grille));
-		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 0, 0,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(0, 0, 1, 1, grille));
+		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(0, 0, 2, 2, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 1, 0, 0, grille));
+		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 0, 0, grille));
 
-		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 1, 2, 2,grille));
-		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 1, 1,grille));
-		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 0, 0,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 1, 2, 2, grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 1, 1, grille));
+		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(2, 2, 0, 0, grille));
 
-		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 2, 1, 1,grille));
-		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 3, 1, 1,grille));
+		assertTrue(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 2, 1, 1, grille));
+		assertFalse(Utils_Grille_Evaluation_Adjacent.sontAdjacents(1, 3, 1, 1, grille));
 
 	}
 

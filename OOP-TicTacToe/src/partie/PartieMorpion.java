@@ -1,9 +1,9 @@
-package appli;
+package partie;
 
 import java.util.EnumSet;
 
-import grille.Direction;
-import grille.Jeton;
+import composant_independant.*;
+import direction.Direction;
 import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
@@ -67,7 +67,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
-		evaluerCoupAlignOuvert(joueur1,joueur2, this.saisieCellule);
+		evaluerCoupAlignOuvert(joueur1, joueur2, this.saisieCellule);
 	}
 
 	@Override
@@ -107,8 +107,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
 				ouvertToFermeJeton(ligneCible, colonneCible);
 				++nbrJetonFermes;
-			} 
-			else {
+			} else {
 				valide = false;
 			}
 			++coeffProfondeur;
@@ -146,7 +145,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		// fermeture d un premier sens de la direction
 		resteJeton -= fermerAxeJetons1D(ligne, colonne, profondeur, direction);
 		// fermeture du sens oppose de la direction
-		if (resteJeton >=1) {
+		if (resteJeton >= 1) {
 			resteJeton -= fermerAxeJetons1D(ligne, colonne, resteJeton, direction.inverser());
 		}
 		assert (resteJeton == 0);
@@ -155,8 +154,6 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		// fermerAxeJetons1D
 		ouvertToFermeJeton(ligne, colonne);
 	}
-	
-	
 
 	// ************ EVALUATION ALIGNEMENT OUVERT OU FERME ******************
 
@@ -164,8 +161,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 	 * renvoie une chaine de symbole de jetons OUVERT OU FERME obtenus dans une
 	 * direction donnee de taille inferieure ou egale a la profondeur (tant que la
 	 * projection est dans la grille) a partir d une case de la grille (ligne,
-	 * colonne) 
-	 * Attention la case de depart n est pas comprise dans la chaine
+	 * colonne) Attention la case de depart n est pas comprise dans la chaine
 	 * 
 	 * @param ligne
 	 * @param colonne
@@ -183,8 +179,8 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		int coeffProfondeur = 1;
 
 		while (coeffProfondeur <= profondeur && this.existeNextCellule(ligne, colonne, coeffProfondeur, direction)) {
-			int colonneCible = coeffProfondeur * direction.getDcolonne()+colonne;
-			int ligneCible = coeffProfondeur * direction.getDligne()+ligne;
+			int colonneCible = coeffProfondeur * direction.getDcolonne() + colonne;
+			int ligneCible = coeffProfondeur * direction.getDligne() + ligne;
 			aligneCible += getSymboleJetonOouF(ligneCible, colonneCible);
 			++coeffProfondeur;
 		}
@@ -214,8 +210,8 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 		String aligneCible = "";
 		String inverse = getLigneJetonOouF(ligne, colonne, profondeur, direction.inverser());
-		inverse = new StringBuilder(inverse).reverse().toString() ;
-		aligneCible += inverse ;
+		inverse = new StringBuilder(inverse).reverse().toString();
+		aligneCible += inverse;
 		aligneCible += getSymboleJetonOouF(ligne, colonne);
 		aligneCible += getLigneJetonOouF(ligne, colonne, profondeur, direction);
 
@@ -299,22 +295,22 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 		return tableDirect;
 	}
-	
+
 	// *************** COORDONNEES A FERMEES ******************
-	
+
 	/**
 	 * donne la longueur de l axe (continue) de longueur <= profondeur d orientation
-	 * suivant oneDirection mais NE FERME AUCUN JETON
-	 * Ne continue d evaluer que si les jetons ne sont pas
-	 * vide ne sont pas deja ferme sont les memes (axe continue)
-	 * sans prendre en compte le jeton de depart(ligne,colonne)
+	 * suivant oneDirection mais NE FERME AUCUN JETON Ne continue d evaluer que si
+	 * les jetons ne sont pas vide ne sont pas deja ferme sont les memes (axe
+	 * continue) sans prendre en compte le jeton de depart(ligne,colonne)
 	 * 
 	 * @param ligne
 	 * @param colonne
 	 * @param profondeur si egale a 0 la cellule fermee sera uniquement la
 	 *                   cellule[ligne][colonne]
 	 * @param direction  orientation de l axe de fermeture des jetons
-	 * @return renvoie le nombre de jetons appartenant a un axe pour une direcion donne sans prendre en compte le jeton de depart
+	 * @return renvoie le nombre de jetons appartenant a un axe pour une direcion
+	 *         donne sans prendre en compte le jeton de depart
 	 */
 	public int getLongueurAxeJetons1D(int ligne, int colonne, int profondeur, Direction direction) {
 		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
@@ -331,24 +327,20 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 			int colonneCible = coordCible[1];
 			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
 				++nbrJetonFermes;
-			} 
-			else {
+			} else {
 				valide = false;
 			}
 			++coeffProfondeur;
 		}
 		return nbrJetonFermes;
 	}
-	
+
 	/**
-	 * getLongueurAxeJetons1D
-	 * donne les coord des jeton ouvert a ferme 
-	 * pour direction donner 
-	 * selon un axe (continue) de longueur profondeur d orientation
-	 * suivant oneDirection 
-	 * mais ne prend pas en compte le jeton de depart (coord
+	 * getLongueurAxeJetons1D donne les coord des jeton ouvert a ferme pour
+	 * direction donner selon un axe (continue) de longueur profondeur d orientation
+	 * suivant oneDirection mais ne prend pas en compte le jeton de depart (coord
 	 * ligne,colonne) Ne continue de fermer que si les jetons evalue ne sont pas
-	 * vide ne sont pas deja ferme sont les memes (axe continue) 
+	 * vide ne sont pas deja ferme sont les memes (axe continue)
 	 * 
 	 * @param ligne
 	 * @param colonne
@@ -356,15 +348,15 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 	 * @param direction  orientation de l axe de fermeture des jetons
 	 * @return renvoie les coordonnees
 	 */
-	public int[][] getCoordAlignJetons1DOouF(int ligne, int colonne, int profondeur, Direction direction ) {
+	public int[][] getCoordAlignJetons1DOouF(int ligne, int colonne, int profondeur, Direction direction) {
 		assert (ligne < getLignes() && ligne >= 0); // la cellule doit être dans la grille
 		assert (colonne < getColonnes() && colonne >= 0); // la cellule doit être dans la grille
 		assert (profondeur >= 2);
 		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));
-		
-		int[][] coordJetonContinu = new int [getLongueurAxeJetons1D(ligne, colonne, profondeur, direction)][2];
 
-		//coord des jetons dans une direction
+		int[][] coordJetonContinu = new int[getLongueurAxeJetons1D(ligne, colonne, profondeur, direction)][2];
+
+		// coord des jetons dans une direction
 		int nbrJetonFermes = 0;
 		int coeffProfondeur = 1;
 		boolean valide = true;
@@ -374,27 +366,24 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 			int ligneCible = coordCible[0];
 			int colonneCible = coordCible[1];
 			if (getSymboleJetonOouF(ligneCible, colonneCible) == getSymboleJetonOouF(ligne, colonne)) {
-				coordJetonContinu[nbrJetonFermes][0]=ligneCible;
-				coordJetonContinu[nbrJetonFermes][1]=colonneCible;		
+				coordJetonContinu[nbrJetonFermes][0] = ligneCible;
+				coordJetonContinu[nbrJetonFermes][1] = colonneCible;
 				++nbrJetonFermes;
-			} 
-			else {
+			} else {
 				valide = false;
 			}
 			++coeffProfondeur;
 		}
-		
+
 		return coordJetonContinu;
 	}
-	
-	
+
 	/**
-	 * donne les coord des jeton ouvert a fermer 
-	 * pour la premiere direction ou un alignemet a ete trouver 
-	 * selon un axe (continue) de longueur profondeur d orientation
-	 * suivant oneDirection mais ne prend pas en compte le jeton de depart (coord
-	 * ligne,colonne) Ne continue de fermer que si les jetons evalue ne sont pas
-	 * vide ne sont pas deja ferme sont les memes (axe continue)
+	 * donne les coord des jeton ouvert a fermer pour la premiere direction ou un
+	 * alignemet a ete trouver selon un axe (continue) de longueur profondeur d
+	 * orientation suivant oneDirection mais ne prend pas en compte le jeton de
+	 * depart (coord ligne,colonne) Ne continue de fermer que si les jetons evalue
+	 * ne sont pas vide ne sont pas deja ferme sont les memes (axe continue)
 	 * 
 	 * @param ligne
 	 * @param colonne
@@ -408,37 +397,37 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 		assert (profondeur >= 2);
 		assert (isDirectAvecAlignOouF(ligne, colonne, profondeur));
 
-		Direction direction = getAllDirectAlignOouF(ligne, colonne, profondeur)[0];		
-		
-		int[][] coordJetonContinu = new int [profondeur][2];
+		Direction direction = getAllDirectAlignOouF(ligne, colonne, profondeur)[0];
 
-		//coord des jetons dans une direction
-		int[][] coordJetonAferme1D =  getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction);
+		int[][] coordJetonContinu = new int[profondeur][2];
+
+		// coord des jetons dans une direction
+		int[][] coordJetonAferme1D = getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction);
 
 		for (int i = 0; i < coordJetonAferme1D.length; i++) {
 			coordJetonContinu[i][0] = coordJetonAferme1D[i][0];
 			coordJetonContinu[i][1] = coordJetonAferme1D[i][1];
 		}
-		//coord du jeton central
+		// coord du jeton central
 		coordJetonContinu[coordJetonAferme1D.length][0] = ligne;
 		coordJetonContinu[coordJetonAferme1D.length][1] = colonne;
-		
-		//coord des jetons dans une direction inverse si besoin
-		if  (coordJetonAferme1D.length < profondeur-1) {
-			int[][] coordJetonAferme1DI =  getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction.inverser());
-			for (int i = coordJetonAferme1D.length + 1 ; i < coordJetonContinu.length; i++) {
-				coordJetonContinu[i][0] = coordJetonAferme1DI[i- coordJetonAferme1D.length-1][0];
-				coordJetonContinu[i][1] = coordJetonAferme1DI[i- coordJetonAferme1D.length-1][1];
+
+		// coord des jetons dans une direction inverse si besoin
+		if (coordJetonAferme1D.length < profondeur - 1) {
+			int[][] coordJetonAferme1DI = getCoordAlignJetons1DOouF(ligne, colonne, profondeur, direction.inverser());
+			for (int i = coordJetonAferme1D.length + 1; i < coordJetonContinu.length; i++) {
+				coordJetonContinu[i][0] = coordJetonAferme1DI[i - coordJetonAferme1D.length - 1][0];
+				coordJetonContinu[i][1] = coordJetonAferme1DI[i - coordJetonAferme1D.length - 1][1];
 			}
 		}
-		
+
 		return coordJetonContinu;
 	}
-	
+
 	// ************ EVALUATION ALIGNEMENT OUVERT ******************
 
-	public void evaluerCoupAlignOuvert (Joueur joueur1, Joueur joueur2, int[] saisieCellule) {
-		assert ( joueur1 != null && joueur2 != null && saisieCellule != null && joueur1 != joueur2);
+	public void evaluerCoupAlignOuvert(Joueur joueur1, Joueur joueur2, int[] saisieCellule) {
+		assert (joueur1 != null && joueur2 != null && saisieCellule != null && joueur1 != joueur2);
 		if (Utils_Grille_Evaluation_Alignement.isAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
 			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 

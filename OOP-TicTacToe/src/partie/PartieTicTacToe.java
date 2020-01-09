@@ -1,6 +1,6 @@
-package appli;
+package partie;
 
-import grille.Jeton;
+import composant_independant.*;
 import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Alignement;

@@ -1,11 +1,10 @@
-package appli;
+package partie;
 
-import grille.Forme;
-import grille.Jeton;
+import composant_independant.*;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Forme;
 
-public class PartieForme extends PartieTicTacToe{
+public class PartieForme extends PartieTicTacToe {
 
 	private Forme forme;
 	private int[] saisieCellule;
@@ -21,14 +20,14 @@ public class PartieForme extends PartieTicTacToe{
 		this.forme = new Forme(choixForme);
 		this.saisieCellule = new int[2];
 	}
-	
+
 	public PartieForme(int lignes, int colonnes) {
 		super(lignes, colonnes);
-		assert(lignes >= 3 && colonnes >= 3);
+		assert (lignes >= 3 && colonnes >= 3);
 		this.forme = new Forme(1);
 		this.saisieCellule = new int[2];
 	}
-	
+
 	@Override
 	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup

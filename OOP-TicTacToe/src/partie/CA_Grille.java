@@ -1,7 +1,10 @@
-package grille;
+package partie;
+
+import composant_independant.Jeton;
+import direction.Direction;
 
 public abstract class CA_Grille implements In_Grille {
-
+	
 	private Jeton[][] grille;
 
 	// ******* METHODE GRILLE *******
@@ -201,19 +204,19 @@ public abstract class CA_Grille implements In_Grille {
 
 		// il faut d'abord parcourir les reference de ligne de jeton pour acceder aux
 		// jetons
-		for (int ligne = 1; ligne <= getLignes(); ++ligne ) {
+		for (int ligne = 1; ligne <= getLignes(); ++ligne) {
 			if (ligne < 10) {
 				sGrille += " " + ligne;
 			} else
 				sGrille += ligne;
 			for (int colonne = 0; colonne < getColonnes(); ++colonne) {
-				sGrille += " " + getCellule((ligne-1), colonne).toString();
+				sGrille += " " + getCellule((ligne - 1), colonne).toString();
 			}
 			sGrille += "\n";
 		}
 		return sGrille;
 	}
-	
+
 //	public String toStringGrille() {
 //		String sGrille = " "; // decalage pour les noms de lignes en dizaines
 //		int ligne = 0;

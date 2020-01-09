@@ -1,8 +1,10 @@
-package interaction;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import interaction.Messages_Saisie;
 
 class Test_Saisie {
 

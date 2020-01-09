@@ -1,4 +1,6 @@
-package grille;
+package partie;
+
+import composant_independant.Jeton;
 
 public interface In_Grille {
 

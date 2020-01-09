@@ -2,16 +2,14 @@ package appli;
 
 import java.util.Scanner;
 
-import grille.Forme;
+import partie.CA_Grille_Partie;
+import partie.Forme;
+import partie.PartieForme;
+import partie.PartieMorpion;
+import partie.PartiePermutation;
+import partie.PartieTicTacToe;
 
 public class Menu {
-
-//	public int choixREADME = 0 ;
-//	private PartieTicTacToe partie ;
-//	private PartieMorpion appliMorpion ;
-//	private PartieXAlignements appliXAlignement ;
-//	private PartieForme appliForme ;
-//	private PartiePermutation appliPermutation ;
 
 	/**
 	 * Securise la selection du choix de la partie ou Securise la selection de la

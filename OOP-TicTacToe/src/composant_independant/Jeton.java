@@ -1,4 +1,4 @@
-package grille;
+package composant_independant;
 
 public enum Jeton {
 

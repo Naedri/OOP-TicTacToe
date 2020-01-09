@@ -1,10 +1,10 @@
-package appli;
+package partie;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
-import grille.Jeton;
+import composant_independant.*;
 import interaction.MessagePermutation;
 import interaction.Messages_Saisie;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
@@ -26,7 +26,7 @@ public class PartiePermutation extends PartieMorpion {
 
 		this.nbrAlign = nbrAlign;
 		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
-		assert (nbrAlign <= choixNbrAlignMax); 
+		assert (nbrAlign <= choixNbrAlignMax);
 		// ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
 		// lignes de votre grille
 	}
@@ -39,7 +39,7 @@ public class PartiePermutation extends PartieMorpion {
 
 		this.nbrAlign = 3;
 		int choixNbrAlignMax = (nbrColonnes >= nbrLignes) ? nbrLignes : nbrColonnes;
-		assert (nbrAlign <= choixNbrAlignMax); 
+		assert (nbrAlign <= choixNbrAlignMax);
 		// ce nombre ne doit pas être plus grand que le nombre de colonnes ou de
 		// lignes de votre grille
 	}
@@ -63,7 +63,7 @@ public class PartiePermutation extends PartieMorpion {
 	private void remplirAleaGrille() {
 		assert (this.estVideGrille());
 		// initialisation de la liste des jetons
-		LinkedList<Jeton> listeJetons = new LinkedList<Jeton>(); 
+		LinkedList<Jeton> listeJetons = new LinkedList<Jeton>();
 		// Linked list car acces terminaux constant
 
 		// initialisation de la liste des jetons
@@ -136,14 +136,15 @@ public class PartiePermutation extends PartieMorpion {
 		assert (saisieCellule2 != null);// on oblige le joueur a avoir jouer un coup
 
 		evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule);
-		if ( estOuvert(saisieCellule2[0], saisieCellule2[1])) {
+		if (estOuvert(saisieCellule2[0], saisieCellule2[1])) {
 			evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule2);
 		}
 	}
 
 	@Override
 	public boolean estFinie() {
-		return (getScoreJ1() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign) || getScoreJ2() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign));
+		return (getScoreJ1() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign)
+				|| getScoreJ2() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign));
 	}
 
 	public static int pointMaxPermut(int ligne, int colonne, int align) {

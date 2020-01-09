@@ -1,10 +1,12 @@
-package grille;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class Test_Forme {
+import partie.Forme;
+
+class Test_forme {
 
 	@Test
 	void test() {
