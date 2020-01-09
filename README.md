@@ -14,7 +14,7 @@ JALLAIS Adrien : <adrien.jallais@protonmail.com>
 
 La fonction ***main*** se trouve dans le fichier **Appli.java** du package **appli**.
 
-Au chemin suivant : [OOP-TicTacToe/src/appli](#OOP-TicTacToe/src/appli/Appli.java).
+Au chemin suivant : [OOP-TicTacToe/src/appli](/OOP-TicTacToe/src/appli/Appli.java).
 
 Veuillez tapez dans les argurments des paramètres du lancement de l’application :
 
