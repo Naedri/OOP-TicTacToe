@@ -30,7 +30,7 @@ public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
 			afficherGrille();
 			evaluerCoup(joueur1, joueur2);
 
-			System.out.println(Messages_Saisie.afficherMessageFinTour(joueurActuel));
+//			System.out.println(Messages_Saisie.afficherMessageFinTour(joueurActuel));
 		}
 		// on compte les points
 		System.out.println(Messages_Saisie.afficherMessageResultat(joueur1, joueur2));

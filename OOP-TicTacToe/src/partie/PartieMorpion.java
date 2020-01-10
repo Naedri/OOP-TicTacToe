@@ -6,7 +6,7 @@ package partie;
 import java.util.EnumSet;
 
 import direction.Direction;
-import interaction.MessagePlacement;
+//import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
@@ -49,7 +49,7 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 		while (!saisieCorrecte) {
 			saisieCellule = Messages_Saisie.saisirCellule(getGrille());
-			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
+//			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
 			if (estVideCellule(saisieCellule[0], saisieCellule[1])) {
 
 				if (estVideGrille()) {
@@ -58,14 +58,13 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 					if (Utils_Grille_Evaluation_Adjacent.existeAdjacent(saisieCellule[0], saisieCellule[1], this)) {
 						saisieCorrecte = true;
 					} else
-						System.out.println(
-								"La case selectionnee ne comporte pas de jeton adjacent. Veuillez recommencer.\n");
+						System.out.println("Coup Invalide.\n");
 				}
 			} else
-				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+				System.out.println("Coup Invalide.\n");
 		}
 		placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
-		System.out.println(MessagePlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
+//		System.out.println(MessagePlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
 	}
 
 	@Override
@@ -437,11 +436,11 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
 				if (jetonEvalue.estEgal(joueur1.getJeton())) {
 					joueur1.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+//					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 				}
 				if (jetonEvalue.estEgal(joueur2.getJeton())) {
 					joueur2.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+//					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 				}
 				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
 				afficherGrille();

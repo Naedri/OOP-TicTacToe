@@ -3,7 +3,7 @@
 //****************************************************************
 package partie;
 
-import interaction.MessagePlacement;
+//import interaction.MessagePlacement;
 import interaction.Messages_Saisie;
 import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Alignement;
@@ -35,14 +35,14 @@ public class PartieTicTacToe extends CA_Grille_Partie {
 
 		while (!saisieCorrecte) {
 			saisieCellule = Messages_Saisie.saisirCellule(getGrille());
-			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
+//			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
 			if (estVideCellule(saisieCellule[0], saisieCellule[1]))
 				saisieCorrecte = true;
 			else
-				System.out.println("La case selectionnee est pleine. Veuillez recommencer.\n");
+				System.out.println("Coup Invalide.\n");
 		}
 		placerJeton(joueurActuel.getJeton(), saisieCellule[0], saisieCellule[1]);
-		System.out.println(MessagePlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
+//		System.out.println(MessagePlacement.afficherMessageCoupJoue(joueurActuel, saisieCellule));
 
 	}
 

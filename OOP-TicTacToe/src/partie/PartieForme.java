@@ -3,7 +3,7 @@
 //****************************************************************
 package partie;
 
-import interaction.Messages_Saisie;
+//import interaction.Messages_Saisie;
 import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Forme;
 
@@ -39,15 +39,15 @@ public class PartieForme extends PartieTicTacToe {
 			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
 			if (jetonEvalue.estEgal(joueur1.getJeton())) {
 				joueur1.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+//				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
 			if (jetonEvalue.estEgal(joueur2.getJeton())) {
 				joueur2.marquerPoint();
-				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur2));
+//				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur2));
 			}
 //			int[][] coordAFermer = Utils_Grille_Evaluation_Forme.getCoordFormeComplete(saisieCellule[0], saisieCellule[1], this, forme);
 //			ouvertsToFermesJetons(coordAFermer);
-			afficherGrille();
+//			afficherGrille();
 		}
 	}
 

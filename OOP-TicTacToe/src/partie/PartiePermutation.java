@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
-import interaction.MessagePermutation;
+//import interaction.MessagePermutation;
 import interaction.Messages_Saisie;
 import jeton.*;
 import utilitaires.Utils_Grille_Evaluation_Adjacent;
@@ -105,9 +105,9 @@ public class PartiePermutation extends PartieMorpion {
 		while (!saisieCorrectejouerCoup) {
 			System.out.println("Vous allez choisir les deux cases pour permutation.\n");
 			saisieCellule = Messages_Saisie.saisirCellule(getGrille());
-			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
+//			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule));
 			saisieCellule2 = Messages_Saisie.saisirCellule(getGrille());
-			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule2));
+//			System.out.println(Messages_Saisie.afficherMessageCellule(joueurActuel, saisieCellule2));
 
 			// les jetons doivent etre de cases differentes
 			if (sontDifferentes(saisieCellule[0], saisieCellule[1], saisieCellule2[0], saisieCellule2[1])) {
@@ -117,14 +117,14 @@ public class PartiePermutation extends PartieMorpion {
 					saisieCorrectejouerCoup = true;
 				} else
 					System.out.println(
-							"La case selectionnee n est pas adjacente a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
+							"Coup Invalide.\n");
 			} else
 				System.out.println(
-						"La case selectionnee est identique a la premiere case selectionnee. Veuillez recommencer la saisie des deux cellules.\n");
+						"Coup Invalide.\n");
 
 		}
 		permutationJeton(saisieCellule[0], saisieCellule[1], saisieCellule2[0], saisieCellule2[1]);
-		System.out.println(MessagePermutation.afficherMessageCoupJoue(joueurActuel, saisieCellule, saisieCellule2));
+//		System.out.println(MessagePermutation.afficherMessageCoupJoue(joueurActuel, saisieCellule, saisieCellule2));
 	}
 
 	/**

@@ -30,10 +30,10 @@ public class Messages_Saisie {
 		while (!saisieCorrecte) {
 
 			Scanner sc = new Scanner(System.in);
-			System.out.println(
-					"Veuillez choisir une case,\nex: pour la case de la ligne 1 a la colonne 2, tapez :\n1-2\npuis appuyez sur \'Entree\'.\n");
+//			System.out.println(
+//					"Veuillez choisir une case,\nex: pour la case de la ligne 1 a la colonne 2, tapez :\n1-2\npuis appuyez sur \'Entree\'.\n");
 			String saisie = sc.nextLine();
-			System.out.println("Vous avez tape : " + saisie + ".\n");
+//			System.out.println("Vous avez tape : " + saisie + ".\n");
 
 			try {
 				if (estValideSaisie(saisie)) {
@@ -48,14 +48,14 @@ public class Messages_Saisie {
 							// sortie de la boucle
 							saisieCorrecte = true;
 						} else
-							System.out.println("Il faut choisir une ligne et une colonne de la grille, recommencez.\n");
+							System.out.println("Coup Invalide.\n");
 					}
 				} else
-					System.out.println("La saisie est incorrecte, recommencez.\n");
+					System.out.println("Coup Invalide.\n");
 			}
 
 			catch (java.lang.NumberFormatException e1) {
-				System.out.println("Le format est invalide, recommencez.\n");
+				System.out.println("Coup Invalide.\n");
 			}
 		}
 		return cellule;
@@ -139,21 +139,21 @@ public class Messages_Saisie {
 		String messageResultat = "";
 
 		if (joueurActuel.getScore() == joueurAutre.getScore()) {
-			messageResultat = "C est un match nul.\n";
+			messageResultat = "Partie nulle.\n";
 		} else {
 			if (joueurActuel.getScore() > joueurAutre.getScore()) {
-				messageResultat = "C est un match victorieux pour le joueur " + joueurActuel.getJeton().getSymbole()
+				messageResultat = "Le joueur " + joueurActuel.getJeton().getSymbole() + " remporte la partie"
 						+ ".\n";
 			}
 			if (joueurActuel.getScore() < joueurAutre.getScore()) {
-				messageResultat = "C est un match victorieux pour le joueur " + joueurAutre.getJeton().getSymbole()
+				messageResultat = "Le joueur " + joueurAutre.getJeton().getSymbole() + " remporte la partie"
 						+ ".\n";
 			}
 		}
-		messageResultat += "Le joueur " + joueurActuel.getJeton().getSymbole() + " a marque " + joueurActuel.getScore()
-				+ " points.\n";
-		messageResultat += "Le joueur " + joueurAutre.getJeton().getSymbole() + " a marque " + joueurAutre.getScore()
-				+ " points.\n";
+//		messageResultat += "Le joueur " + joueurActuel.getJeton().getSymbole() + " a marque " + joueurActuel.getScore()
+//				+ " points.\n";
+//		messageResultat += "Le joueur " + joueurAutre.getJeton().getSymbole() + " a marque " + joueurAutre.getScore()
+//				+ " points.\n";
 
 		return messageResultat;
 	}
@@ -166,7 +166,7 @@ public class Messages_Saisie {
 	 */
 	public static String afficherMessageDebutTour(Joueur j) {
 		assert (j != null);
-		return "C'est au joueur " + j.getJeton().getSymbole() + " de jouer.\n";
+		return "Au joueur " + j.getJeton().getSymbole() + " de jouer.\n";
 	}
 
 	public static String afficherMessageCoupMarquant(Joueur joueur) {

@@ -54,7 +54,7 @@ public class Menu {
 		System.out.println("Bienvenue dans le jeu TicTacToe et ses variantes.\n\n");
 		System.out.println("<<< MENU PRINCIPAL >>>\n");
 		System.out.println("Veuillez tapez :");
-		System.out.println("< 1 > Pour afficher les règles.");
+		System.out.println("< 1 > Pour afficher les regles.");
 		System.out.println("< 2 > Pour afficher des informations sur ce projet.");
 		System.out.println("< 3 > Pour jouer.");
 		System.out.println("< 4 > Pour quitter.");

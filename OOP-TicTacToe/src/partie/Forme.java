@@ -22,7 +22,7 @@ public class Forme {
 	 * @param choixForme 1 pour Carre - 2 pour losange - 3 pour croix
 	 */
 	public Forme(int choixForme) {
-		assert (choixForme != 0 && choixForme <= 3);
+		assert (choixForme > 0 && choixForme <= 3);
 		switch (choixForme) {
 		// niveau de complexite croissant
 		case 1:
@@ -120,7 +120,7 @@ public class Forme {
 	public String toStringConsigne() {
 		String sConsigne = "";
 		sConsigne += "Pour realiser la forme suivante : '" + formeStr
-				+ "',\n il faut placer les jetons de la manière suivante :\n";
+				+ "',\n il faut placer les jetons de la maniere suivante :\n";
 		sConsigne += toStringGrilleModele();
 		return sConsigne;
 	}

@@ -93,7 +93,7 @@ class Test_Forme {
 		tour.afficherGrille();
 
 		// estCompleteForme
-		tour = new PartieForme(3, 3);
+		tour = new PartieForme(6, 6);
 		tour.placerJeton(jo, 0, 0);
 		tour.placerJeton(jx, 2, 0);
 		tour.placerJeton(jx, 0, 2);
@@ -103,6 +103,7 @@ class Test_Forme {
 		tour.placerJeton(jo, 1, 1);
 		tour.placerJeton(jx, 1, 2);
 		tour.placerJeton(jo, 2, 2);
+		System.out.println(Utils_Grille_Evaluation_Forme.getJetonFormeAll(0, 0, tour, carre));
 		tour.afficherGrille();
 
 		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 0, tour, carre));
@@ -110,6 +111,7 @@ class Test_Forme {
 		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 1, tour, carre));
 		assertTrue(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 0, tour, carre));
 
+		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2, tour, carre));
 		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(0, 2, tour, carre));
 		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(1, 2, tour, carre));
 		assertFalse(Utils_Grille_Evaluation_Forme.estCompleteForme(2, 2, tour, carre));
