@@ -4,7 +4,7 @@
   router="FAN">  
   <package id="1" language="java" name="appli" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/appli" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="180" width="181" x="536" y="-81"/>    
+    <position height="113" width="261" x="551" y="-53"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="partie" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/partie" binary="false" 
@@ -26,84 +26,75 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </enumeration>  
-  <class id="5" language="java" name="appli.Appli" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/appli/Appli.java" 
+  <class id="5" language="java" name="appli.Menu" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/appli/Menu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="626" y="-13"/>    
+    <position height="-1" width="-1" x="626" y="15"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="appli.Menu" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/appli/Menu.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="626" y="55"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-      sort-features="false" accessors="true" visibility="false">      
-      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="partie.CA_Grille_Partie_FermetureJeton" project="OOP-TicTacToe" 
+  <class id="6" language="java" name="partie.CA_Grille_Partie_FermetureJeton" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/CA_Grille_Partie_FermetureJeton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="821" y="433"/>    
+    <position height="-1" width="-1" x="823" y="451"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="partie.PartieForme" project="OOP-TicTacToe" 
+  <class id="7" language="java" name="partie.PartieForme" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/PartieForme.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="464" y="596"/>    
+    <position height="-1" width="-1" x="466" y="614"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="partie.PartiePermutation" project="OOP-TicTacToe" 
+  <class id="8" language="java" name="partie.PartiePermutation" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/PartiePermutation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="820" y="596"/>    
+    <position height="-1" width="-1" x="822" y="614"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="partie.PartieMorpion" project="OOP-TicTacToe" 
+  <class id="9" language="java" name="partie.PartieMorpion" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/PartieMorpion.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="820" y="510"/>    
+    <position height="-1" width="-1" x="822" y="528"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="partie.PartieTicTacToe" project="OOP-TicTacToe" 
+  <class id="10" language="java" name="partie.PartieTicTacToe" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/PartieTicTacToe.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="464" y="510"/>    
+    <position height="-1" width="-1" x="466" y="528"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="partie.In_Partie" project="OOP-TicTacToe" 
+  <interface id="11" language="java" name="partie.In_Partie" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/In_Partie.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="744" y="193"/>    
+    <position height="-1" width="-1" x="746" y="211"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <package id="13" language="java" name="jeton" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/jeton" binary="false" 
+  <package id="12" language="java" name="jeton" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/jeton" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="97" width="137" x="-184" y="140"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
-  <enumeration id="14" language="java" name="jeton.Jeton" project="OOP-TicTacToe" 
+  <enumeration id="13" language="java" name="jeton.Jeton" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/jeton/Jeton.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-115" y="205"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -112,12 +103,12 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </enumeration>  
-  <package id="15" language="java" name="interaction" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/interaction" 
+  <package id="14" language="java" name="interaction" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/interaction" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="167" width="235" x="1145" y="320"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="16" language="java" name="interaction.Messages_Saisie" project="OOP-TicTacToe" 
+  <class id="15" language="java" name="interaction.Messages_Saisie" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/interaction/Messages_Saisie.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1264" y="462"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -126,7 +117,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="interaction.MessagePlacement" project="OOP-TicTacToe" 
+  <class id="16" language="java" name="interaction.MessagePlacement" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/interaction/MessagePlacement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1264" y="425"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -135,7 +126,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="interaction.MessagePermutation" project="OOP-TicTacToe" 
+  <class id="17" language="java" name="interaction.MessagePermutation" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/interaction/MessagePermutation.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1264" y="388"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -144,57 +135,57 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="19" language="java" name="partie.In_Grille" project="OOP-TicTacToe" 
+  <interface id="18" language="java" name="partie.In_Grille" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/In_Grille.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="436" y="192"/>    
+    <position height="-1" width="-1" x="438" y="210"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="20" language="java" name="partie.Joueur" project="OOP-TicTacToe" 
+  <class id="19" language="java" name="partie.Joueur" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/Joueur.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="881" y="352"/>    
+    <position height="-1" width="-1" x="883" y="370"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="partie.CA_Grille_Partie" project="OOP-TicTacToe" 
+  <class id="20" language="java" name="partie.CA_Grille_Partie" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/CA_Grille_Partie.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="628" y="352"/>    
+    <position height="-1" width="-1" x="630" y="370"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="partie.CA_Grille" project="OOP-TicTacToe" 
+  <class id="21" language="java" name="partie.CA_Grille" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/partie/CA_Grille.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="536" y="265"/>    
+    <position height="-1" width="-1" x="538" y="283"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="partie.Forme" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/partie/Forme.java" 
+  <class id="22" language="java" name="partie.Forme" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/partie/Forme.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="278" y="510"/>    
+    <position height="-1" width="-1" x="280" y="528"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
       sort-features="false" accessors="true" visibility="false">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <package id="24" language="java" name="utilitaires" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/utilitaires" 
+  <package id="23" language="java" name="utilitaires" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/utilitaires" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="186" width="374" x="-300" y="311"/>    
     <display autosize="false" stereotype="false" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="25" language="java" name="utilitaires.Utils_Grille_Evaluation_Alignement" project="OOP-TicTacToe" 
+  <class id="24" language="java" name="utilitaires.Utils_Grille_Evaluation_Alignement" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/utilitaires/Utils_Grille_Evaluation_Alignement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-114" y="424"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -203,7 +194,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="utilitaires.Utils_Grille_Evaluation_Adjacent" project="OOP-TicTacToe" 
+  <class id="25" language="java" name="utilitaires.Utils_Grille_Evaluation_Adjacent" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/utilitaires/Utils_Grille_Evaluation_Adjacent.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-114" y="379"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -212,7 +203,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="utilitaires.Utils_Grille_Evaluation_Forme" project="OOP-TicTacToe" 
+  <class id="26" language="java" name="utilitaires.Utils_Grille_Evaluation_Forme" project="OOP-TicTacToe" 
     file="/OOP-TicTacToe/src/utilitaires/Utils_Grille_Evaluation_Forme.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-115" y="469"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
@@ -221,115 +212,140 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <generalization id="28">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <dependency id="29">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="30">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <dependency id="31">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="21"/>  
-  </dependency>  
-  <dependency id="32">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
-  </dependency>  
-  <dependency id="33">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <association id="34">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="35" name="forme"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="37">    
-    <bendpoint x="774" y="330"/>    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="38" name="joueur1"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <generalization id="40">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <generalization id="41">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <dependency id="42">    
-    <end type="SOURCE" refId="26"/>    
+  <class id="27" language="java" name="appli.Appli" project="OOP-TicTacToe" file="/OOP-TicTacToe/src/appli/Appli.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="746" y="15"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="14"/>  
   </dependency>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="32">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="33" name="forme">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <dependency id="39">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="40">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="42">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
   <dependency id="43">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <generalization id="44">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <dependency id="45">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <realization id="44">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
-  <association id="45">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="46" name="joueur2"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="48">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="49">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="13"/>  
-  </dependency>  
-  <dependency id="50">    
+  <dependency id="46">    
     <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="11"/>  
+    <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="15"/>  
-  </dependency>  
-  <generalization id="52">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <realization id="53">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="19"/>  
-  </realization>  
-  <dependency id="54">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="22"/>  
-  </dependency>  
-  <generalization id="55">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <dependency id="56">    
-    <end type="SOURCE" refId="15"/>    
+  <dependency id="47">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <generalization id="57">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="21"/>  
+  <dependency id="48">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="20"/>  
   </generalization>  
+  <realization id="51">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <association id="52">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="53" name="joueur2">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <dependency id="55">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <association id="56">    
+    <bendpoint x="776" y="348"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="57" name="joueur1">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2" y="18"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
     sort-features="false" accessors="true" visibility="false">    
     <attributes public="false" package="false" protected="false" private="false" static="false"/>    
