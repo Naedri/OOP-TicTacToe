@@ -28,7 +28,7 @@ public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
 			System.out.println(Messages_Saisie.afficherMessageDebutTour(joueurActuel));
 			jouerCoup(joueurActuel);
 			afficherGrille();
-			evaluerCoup(joueur1, joueur2);
+			evaluerCoup();
 
 			System.out.println(Messages_Saisie.afficherMessageFinTour(joueurActuel));
 		}
@@ -41,19 +41,17 @@ public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
 
 	public abstract void jouerCoup(Joueur joueurActuel);
 
-	public abstract void evaluerCoup(Joueur joueur1, Joueur joueur2);
+	public abstract void evaluerCoup();
 
 	// ************ getteurs **********
 	public int getTour() {
 		return tour;
 	}
-
-	public int getScoreJ1() {
-		return joueur1.getScore();
+	public Joueur getJ1() {
+		return joueur1;
 	}
-
-	public int getScoreJ2() {
-		return joueur2.getScore();
+	public Joueur getJ2() {
+		return joueur2;
 	}
 
 }

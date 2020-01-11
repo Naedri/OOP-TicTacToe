@@ -213,7 +213,7 @@ public class Menu {
 				partie = new PartieForme(choixForme);
 				break;
 			case 4:
-				System.out.println("La partie de TicTacToe Permutation va commencer, preparez-vous !\n");
+				System.out.println("La partie de Morpion Permutation va commencer, preparez-vous !\n");
 				partie = new PartiePermutation(choixGrilleLigne, choixGrilleColonne, choixNbrAlignements);
 				break;
 			}

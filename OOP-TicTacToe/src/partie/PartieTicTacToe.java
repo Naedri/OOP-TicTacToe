@@ -47,17 +47,17 @@ public class PartieTicTacToe extends CA_Grille_Partie {
 	}
 
 	@Override
-	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+	public void evaluerCoup() {
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
 		if (Utils_Grille_Evaluation_Alignement.isAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
 
 			Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
-			if (jetonEvalue.estEgal(joueur1.getJeton())) {
-				joueur1.marquerPoint();
+			if (jetonEvalue.estEgal(getJ1().getJeton())) {
+				getJ1().marquerPoint();;
 //				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
-			if (jetonEvalue.estEgal(joueur2.getJeton())) {
-				joueur2.marquerPoint();
+			if (jetonEvalue.estEgal(getJ2().getJeton())) {
+				getJ2().marquerPoint();;
 //				System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
 			}
 		}
@@ -65,7 +65,7 @@ public class PartieTicTacToe extends CA_Grille_Partie {
 
 	@Override
 	public boolean estFinie() {
-		return (getScoreJ1() >= 1 || getScoreJ2() >= 1 || estPleineGrille());
+		return (getJ1().getScore() >= 1 || getJ2().getScore() >= 1 || estPleineGrille());
 	}
 
 }

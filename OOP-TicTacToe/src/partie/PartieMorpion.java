@@ -69,8 +69,8 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 	}
 
 	@Override
-	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
-		evaluerCoupAlignOuvert(joueur1, joueur2, this.saisieCellule);
+	public void evaluerCoup() {
+		evaluerCoupAlignOuvert(this.saisieCellule);
 	}
 
 	@Override
@@ -429,19 +429,19 @@ public class PartieMorpion extends CA_Grille_Partie_FermetureJeton {
 
 	// ************ EVALUATION ALIGNEMENT OUVERT ******************
 
-	public void evaluerCoupAlignOuvert(Joueur joueur1, Joueur joueur2, int[] saisieCellule) {
-		assert (joueur1 != null && joueur2 != null && saisieCellule != null && joueur1 != joueur2);
+	public void evaluerCoupAlignOuvert(int[] saisieCellule) {
+		assert (saisieCellule != null);
 		if (Utils_Grille_Evaluation_Alignement.isAlign(saisieCellule[0], saisieCellule[1], nbrAlign, this)) {
 			if (isDirectAvecAlignOouF(saisieCellule[0], saisieCellule[1], nbrAlign)) {
 
 				Jeton jetonEvalue = getCellule(saisieCellule[0], saisieCellule[1]);
-				if (jetonEvalue.estEgal(joueur1.getJeton())) {
-					joueur1.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				if (jetonEvalue.estEgal(getJ1().getJeton())) {
+					getJ1().marquerPoint();;
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(getJ1()));
 				}
-				if (jetonEvalue.estEgal(joueur2.getJeton())) {
-					joueur2.marquerPoint();
-					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(joueur1));
+				if (jetonEvalue.estEgal(getJ2().getJeton())) {
+					getJ2().marquerPoint();
+					System.out.println(Messages_Saisie.afficherMessageCoupMarquant(getJ2()));
 				}
 				fermeAlignementXD(saisieCellule[0], saisieCellule[1], nbrAlign);
 				afficherGrille();

@@ -15,6 +15,6 @@ public interface In_Partie {
 
 	public void jouerCoup(Joueur joueurActuel);
 
-	public void evaluerCoup(Joueur joueur1, Joueur joueur2);
+	public void evaluerCoup();
 
 }

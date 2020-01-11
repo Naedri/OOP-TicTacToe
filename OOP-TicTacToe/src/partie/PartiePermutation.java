@@ -133,21 +133,21 @@ public class PartiePermutation extends PartieMorpion {
 	 * au jeton ouverts
 	 */
 	@Override
-	public void evaluerCoup(Joueur joueur1, Joueur joueur2) {
+	public void evaluerCoup() {
 
 		assert (saisieCellule != null);// on oblige le joueur a avoir jouer un coup
 		assert (saisieCellule2 != null);// on oblige le joueur a avoir jouer un coup
 
-		evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule);
+		evaluerCoupAlignOuvert(saisieCellule);
 		if (estOuvert(saisieCellule2[0], saisieCellule2[1])) {
-			evaluerCoupAlignOuvert(joueur1, joueur2, saisieCellule2);
+			evaluerCoupAlignOuvert(saisieCellule2);
 		}
 	}
 
 	@Override
 	public boolean estFinie() {
-		return (getScoreJ1() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign)
-				|| getScoreJ2() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign));
+		return (getJ1().getScore() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign)
+				|| getJ2().getScore() >= pointMaxPermut(getLignes(), getColonnes(), nbrAlign));
 	}
 
 	public static int pointMaxPermut(int ligne, int colonne, int align) {
