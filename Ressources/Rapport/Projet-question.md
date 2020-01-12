@@ -1,6 +1,6 @@
 question
 1. Dois je definir une interface jouerCoup ?
-+ non car le prototype ne serait pas constant entre les classes (permuter prend deux jetons alors que TTT prend un jeton) 
++ non car le prototype ne serait pas constant entre les classes (permuter prend deux jetons alors que TTT prend un jeton)
 2. SI je veux etendre le jeux quelles classes abstraites ou interfaces dois je modifier ?
 
 3. on a une classe grille qui possede placer jeton mais cette méthode doit varier en fonction du jeu donc on place la grille dans l appli directement.

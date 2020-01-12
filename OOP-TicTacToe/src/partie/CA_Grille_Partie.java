@@ -23,7 +23,7 @@ public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
 		// on fait des tours
 		while (!(estFinie())) {
 			++tour;
-			Joueur joueurActuel = (tour % 2 == 0) ? joueur2 : joueur1;
+			Joueur joueurActuel = aQuiLeTour();
 
 			System.out.println(Messages_Saisie.afficherMessageDebutTour(joueurActuel));
 			jouerCoup(joueurActuel);
@@ -42,6 +42,10 @@ public abstract class CA_Grille_Partie extends CA_Grille implements In_Partie {
 	public abstract void jouerCoup(Joueur joueurActuel);
 
 	public abstract void evaluerCoup();
+	
+	public Joueur aQuiLeTour() {
+		return ((tour % 2 == 0) ? joueur2 : joueur1);
+	}
 
 	// ************ getteurs **********
 	public int getTour() {
